@@ -1,0 +1,21 @@
+{
+  "riveradmin.actions": "Actions",
+  "riveradmin.search": "Search",
+  "riveradmin.copied": "Copied",
+  "riveradmin.copy": "Copy",
+  "riveradmin.open-edit": "Open / Edit",
+  "riveradmin.view": "View",
+  "riveradmin.remove": "Remove",
+  "riveradmin.removed": "Item has been removed",
+  "riveradmin.create": "Create",
+  "riveradmin.delete.ask": "Delete item?",
+  "riveradmin.delete.confirm": "Are you sure you want to delete this item?",
+  "riveradmin.delete.cancel": "Cancel",
+  "riveradmin.delete.confirm-label": "Remove",
+  "riveradmin.filters.add": "Add filters",
+  "riveradmin.filters": "Filters",
+  "riveradmin.filters.reset": "Reset filters",
+  "riveradmin.filters.apply": "Apply",
+  "riveradmin.filters.date-range-not-selected": "Not selected",
+  "riveradmin.filters.labels.createdAt": "Created at"
+}

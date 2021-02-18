@@ -1,0 +1,17 @@
+.uuidColumn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .copy {
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+  }
+
+  &:hover {
+    .copy {
+      opacity: 1;
+    }
+  }
+}

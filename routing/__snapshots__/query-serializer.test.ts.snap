@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuerySerializer should parse empty query param list 1`] = `Object {}`;
+
+exports[`QuerySerializer should parse query prefix only 1`] = `Object {}`;
+
+exports[`QuerySerializer should parse url from window object 1`] = `
+Object {
+  "date": Object {
+    "from": "2015",
+    "to": "2019",
+  },
+  "id": "1",
+  "status": Array [
+    "a",
+    "b",
+  ],
+}
+`;
+
+exports[`QuerySerializer should stringify complex filter 1`] = `"test=1&range%5Bmin%5D=10&range%5Bmax%5D=20"`;
+
+exports[`QuerySerializer should stringify complex filter 2`] = `
+Object {
+  "range": Object {
+    "max": "20",
+    "min": "10",
+  },
+  "test": "1",
+}
+`;
+
+exports[`QuerySerializer should support url encoded values 1`] = `
+Object {
+  "date": Object {
+    "from": "2015",
+    "to": "2019",
+  },
+  "id": "1",
+  "status": Array [
+    "a",
+    "b",
+  ],
+}
+`;

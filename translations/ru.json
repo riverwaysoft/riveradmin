@@ -1,0 +1,21 @@
+{
+  "riveradmin.actions": "Действия",
+  "riveradmin.search": "Поиск",
+  "riveradmin.copied": "Скопировано",
+  "riveradmin.copy": "Скопировать",
+  "riveradmin.open-edit": "Открыть / Редактировать",
+  "riveradmin.view": "Посмотреть",
+  "riveradmin.remove": "Удалить",
+  "riveradmin.removed": "Запись была удалена",
+  "riveradmin.create": "Создать",
+  "riveradmin.delete.ask": "Удалить запись?",
+  "riveradmin.delete.confirm": "Вы уверены, что хотите удалить эту запись?",
+  "riveradmin.delete.cancel": "Отмена",
+  "riveradmin.delete.confirm-label": "Удалить",
+  "riveradmin.filters.add": "Добавить фильтры",
+  "riveradmin.filters": "Фильтры",
+  "riveradmin.filters.reset": "Сбросить фильтры",
+  "riveradmin.filters.apply": "Применить",
+  "riveradmin.filters.date-range-not-selected": "Не выбрано",
+  "riveradmin.filters.labels.createdAt": "Дата создания"
+}

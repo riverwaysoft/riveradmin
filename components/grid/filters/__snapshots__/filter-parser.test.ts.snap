@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filter-parser parses createdAt & fullText 1`] = `
+Array [
+  Object {
+    "type": "fullText",
+  },
+  Object {
+    "property": "createdAt",
+    "type": "date",
+  },
+]
+`;
+
+exports[`filter-parser parses fullText only 1`] = `
+Array [
+  Object {
+    "type": "fullText",
+  },
+]
+`;
