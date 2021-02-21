@@ -11,7 +11,7 @@ export type AdminLoginForm = {
 };
 
 export class AdminLoginStore {
-  form?: AdminLoginForm;
+  form: AdminLoginForm | null = null;
 
   constructor(
     public apiClient: AdminApiClient,

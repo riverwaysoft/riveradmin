@@ -23,11 +23,11 @@ type Filters = {
 
 export class CrudStore<Entity extends HydraMember> {
   isListLoading = false;
-  listData?: CollectionResponse<Entity>;
-  filters?: Filters;
+  listData: CollectionResponse<Entity> | null = null;
+  filters: Filters | null = null;
   availableGridFilters: GridFilter[] = [];
 
-  modelToDelete?: Entity;
+  modelToDelete: Entity | null = null;
   isRemoving = false;
 
   constructor(
@@ -114,7 +114,7 @@ export class CrudStore<Entity extends HydraMember> {
   }
 
   closeRemoveModel() {
-    this.modelToDelete = undefined;
+    this.modelToDelete = null;
   }
 
   get isRemoveModalOpen() {

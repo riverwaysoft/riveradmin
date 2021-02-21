@@ -19,7 +19,7 @@ export const AdminLogin = observer(() => {
         </div>
         <FinalForm<AdminLoginForm>
           onSubmit={adminLoginStore.submitLoginForm}
-          initialValues={adminLoginStore.form}
+          initialValues={adminLoginStore.form || undefined}
         >
           {({ handleSubmit, submitting, submitError }) => (
             <Form onSubmit={handleSubmit} className={'mt-3'}>

@@ -10,7 +10,7 @@ type JwtUser = {
 };
 
 export class AdminAuthStore {
-  user?: AdminUser;
+  user: AdminUser | null = null;
   isAppLoaded = false;
 
   constructor(public tokenStorage: TokenStorage, public routerStore: RouterStore) {
@@ -45,7 +45,7 @@ export class AdminAuthStore {
   }
 
   logout() {
-    this.user = undefined;
+    this.user = null;
     this.tokenStorage.removeToken();
     this.routerStore.push('/');
   }
