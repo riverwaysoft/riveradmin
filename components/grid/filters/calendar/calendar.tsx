@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactCalendar from 'react-calendar';
 import { assert } from 'ts-essentials';
+import { ReactComponent as NextIcon } from './next.svg';
+import { ReactComponent as PrevIcon } from './prev.svg';
 import './calendar.scss';
-import { PrevIcon } from './prev-icon';
-import { NextIcon } from './next-icon';
 
 type Props = {
   value?: [Date, Date];

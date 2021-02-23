@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { RadioSwitcher } from './radio-switcher';
+import { useToggle } from 'react-use';
 
 export default {
   title: 'RadioSwitcher',
@@ -7,13 +8,13 @@ export default {
 };
 
 export const Default = () => {
-  const [isOn, setIsOn] = useState(true);
-  const [isYes, setYes] = useState(false);
+  const [isOn, toggleOn] = useToggle(true);
+  const [isYes, toggleYes] = useToggle(false);
 
   return (
     <div className={'d-flex'} style={{ gap: '2rem' }}>
-      <RadioSwitcher isOn={isOn} onToggle={() => setIsOn(!isOn)} />
-      <RadioSwitcher isOn={isYes} onToggle={() => setYes(!isYes)} />
+      <RadioSwitcher isOn={isOn} onToggle={toggleOn} />
+      <RadioSwitcher isOn={isYes} onToggle={toggleYes} />
     </div>
   );
 };
