@@ -1,7 +1,6 @@
 $borderRadiusCircle: 20px;
 $colorPrimary: rgba(#007bff, 0.64);
 
-
 .react-calendar {
   font-family: Open Sans, sans-serif;
   padding: 20px;
@@ -163,6 +162,10 @@ $colorPrimary: rgba(#007bff, 0.64);
 
   &--hasActive {
     background: $colorPrimary;
+  }
+
+  &--now {
+    background-color: $colorPrimary;
   }
 }
 
