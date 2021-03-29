@@ -1,4 +1,4 @@
-import {DateTime, DateTimeFormatOptions} from 'luxon';
+import { DateTime, DateTimeFormatOptions } from 'luxon';
 import React from 'react';
 
 type Props = {
@@ -11,6 +11,6 @@ export const DateTimeColumn = (props: Props) => {
   if (!date) {
     return null;
   }
-  return <p className={'text-center'}>{DateTime.fromISO(date).setLocale('ru').toLocaleString(format)}</p>;
+  return <>{DateTime.fromISO(date).setLocale('ru').toLocaleString(format)}</>;
 };
 
