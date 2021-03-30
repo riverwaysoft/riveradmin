@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { assert } from 'ts-essentials';
-import { useRiverAdminStore } from '../../store/use-riveradmin-store';
+import { ImpersonateService } from '../../jwt/impersonate-service';
 
-export const Impersonate = () => {
-  const { impersonateService } = useRiverAdminStore();
-  assert(impersonateService, 'Impersonate configuration is required in order to use impersonation');
+type Props = {
+  impersonateService: ImpersonateService;
+};
+
+export const Impersonate = (props: Props) => {
+  const { impersonateService } = props;
 
   useEffect(() => {
     impersonateService.impersonate();
