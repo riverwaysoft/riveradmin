@@ -16,7 +16,7 @@ export const ImpersonateAction = (props: Props) => {
       <i
         className={'mdi mdi-account-key text-success cursor-pointer'}
         onClick={async () => {
-          await impersonateService.impersonate(model);
+          await impersonateService.openImpersonatePage(model);
         }}
       />
     </AdminTooltip>
