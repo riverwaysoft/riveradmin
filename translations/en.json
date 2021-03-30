@@ -17,5 +17,6 @@
   "riveradmin.filters.reset": "Reset filters",
   "riveradmin.filters.apply": "Apply",
   "riveradmin.filters.date-range-not-selected": "Not selected",
-  "riveradmin.filters.labels.createdAt": "Created"
+  "riveradmin.filters.labels.createdAt": "Created",
+  "riveradmin.impersonate-user": "Impersonate user"
 }

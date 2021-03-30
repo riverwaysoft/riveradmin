@@ -1,6 +1,5 @@
 import { RouterStore, syncHistoryWithStore } from '@superwf/mobx-react-router';
 import { createBrowserHistory } from 'history';
-import { assert } from 'ts-essentials';
 import { AdminApiClient } from '../api/admin-api-client';
 import { ImpersonateService } from '../jwt/impersonate-service';
 import { QuerySerializer } from '../routing/query-serializer';
@@ -22,6 +21,7 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   reactIntl = this.reactIntlFactory.create(this.config.locale);
   translator = new ReactIntlTranslator(this.reactIntl);
   querySerializer = new QuerySerializer();
+  impersonateService?: ImpersonateService;
   crudStoreFactory = new CrudStoreFactory(
     this.routerStore,
     this.notificator,
@@ -42,21 +42,20 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   ) {
     const history = createBrowserHistory();
     syncHistoryWithStore(history, this.routerStore);
+
+    if (config.impersonate) {
+      this.impersonateService = new ImpersonateService(
+        this.querySerializer,
+        this.tokenStorage,
+        config.impersonate.impersonateApiCall,
+        config.impersonate.host
+      );
+    }
   }
 
   abstract createApiClient(): T;
 
   createAdminLoginStore = () => {
     return new AdminLoginStore(this.apiClient, this.authStore, this.routerStore);
-  };
-
-  createImpersonateService = () => {
-    assert(this.config.impersonate, 'Impersonate configuration is required in order to use impersonation');
-    return new ImpersonateService(
-      this.querySerializer,
-      this.tokenStorage,
-      this.config.impersonate.impersonateApiCall,
-      this.config.impersonate.host
-    );
   };
 }
