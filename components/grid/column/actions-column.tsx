@@ -1,58 +1,13 @@
-import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { CrudStore } from '../../../store/crud-store';
+import React from 'react';
 import { HydraMember } from '../../../model/hydra';
-import { FormattedMessage } from 'react-intl';
-import { AdminTooltip } from '../../ui/tooltip';
+import { CrudStore } from '../../../store/crud-store';
+import { DeleteAction } from '../actions/delete-action';
+import { EditAction } from '../actions/edit-action';
 
 export type ActionProps<Model extends HydraMember> = {
   model: Model;
   crudStore: CrudStore<Model>;
-};
-
-export const DeleteAction = <Model extends HydraMember>(props: ActionProps<Model>) => {
-  const { crudStore, model } = props;
-
-  return (
-    <AdminTooltip title={<FormattedMessage id={'riveradmin.remove'} />}>
-      <i
-        className={'mdi mdi-delete text-danger cursor-pointer'}
-        onClick={() => {
-          crudStore.askRemove(model);
-        }}
-      />
-    </AdminTooltip>
-  );
-};
-
-export const EditAction = <Model extends HydraMember>(props: ActionProps<Model>) => {
-  const { crudStore, model } = props;
-
-  return (
-    <AdminTooltip title={<FormattedMessage id={'riveradmin.open-edit'} />}>
-      <i
-        className={'mdi mdi-pencil cursor-pointer'}
-        onClick={() => {
-          crudStore.goToModelPage(model);
-        }}
-      />
-    </AdminTooltip>
-  );
-};
-
-export const ViewAction = <Model extends HydraMember>(props: ActionProps<Model>) => {
-  const { crudStore, model } = props;
-
-  return (
-    <AdminTooltip title={<FormattedMessage id={'riveradmin.view'} />}>
-      <i
-        className={'mdi mdi-eye cursor-pointer'}
-        onClick={() => {
-          crudStore.goToModelPage(model);
-        }}
-      />
-    </AdminTooltip>
-  );
 };
 
 type Props<Model extends HydraMember> = {

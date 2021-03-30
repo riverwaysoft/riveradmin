@@ -13,4 +13,3 @@ export const DateTimeColumn = (props: Props) => {
   }
   return <>{DateTime.fromISO(date).setLocale('ru').toLocaleString(format)}</>;
 };
-
