@@ -8,6 +8,10 @@ export type GridFilter = {
 };
 
 export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter[] => {
+  if (!response['hydra:search']) {
+    return [];
+  }
+
   const mapping = response['hydra:search']['hydra:mapping'];
   const gridFilters: GridFilter[] = [];
 
