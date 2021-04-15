@@ -23,10 +23,10 @@ export type Props<Entity extends HydraMember> = {
 export const AdminGrid = observer(<Entity extends HydraMember>(props: Props<Entity>) => {
   const { columns, crudStore } = props;
   const value = crudStore.listData;
-
   const renderPagination = () => {
     if (value && value['hydra:view']) {
       const viewMeta = value['hydra:view'];
+      const totalItems =value['hydra:totalItems'];
       const reg = new RegExp(/page=([0-9]+)/);
 
       const currentMatch = viewMeta['@id'].match(reg);
@@ -38,6 +38,7 @@ export const AdminGrid = observer(<Entity extends HydraMember>(props: Props<Enti
         return (
           <AdminGridPagination
             currentPage={parseInt(currentPage)}
+            totalItems={totalItems}
             totalPages={parseInt(pagesMatcher[1])}
             onChange={(page) => crudStore.onPageChange(page)}
           />
