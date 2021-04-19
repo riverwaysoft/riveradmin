@@ -18,5 +18,6 @@
   "riveradmin.filters.apply": "Применить",
   "riveradmin.filters.date-range-not-selected": "Не выбрано",
   "riveradmin.filters.labels.createdAt": "Дата создания",
+  "riveradmin.filters.labels.payment": "Оплата",
   "riveradmin.impersonate-user": "Войти как пользователь"
 }

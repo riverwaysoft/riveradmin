@@ -4,6 +4,7 @@ import { Button, Dropdown } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { HydraMember } from '../../../model/hydra';
 import { CrudStore } from '../../../store/crud-store';
+import { BoolFilter } from './filters/bool-filter';
 import { DateRangeFilter } from './filters/date-range-filter';
 
 const CustomToggle = React.forwardRef(({ children, onClick }: any, ref) => (
@@ -49,15 +50,28 @@ export const FilterModal = observer(<Entity extends HydraMember>(props: Props<En
               </Button>
             </div>
           </div>
-          <div>
-            {crudStore.availablePropertyFilters.map((gridFilter, i) => (
-              <label key={i}>
-                <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
-                {gridFilter.type === 'date' ? (
-                  <DateRangeFilter fieldName={gridFilter.property} />
-                ) : null}
-              </label>
-            ))}
+          <div className={'d-flex flex-column align-items-start'} style={{ gap: '1rem' }}>
+            {crudStore.availablePropertyFilters.map((gridFilter, i) => {
+              if (gridFilter.type === 'date') {
+                return (
+                  <label key={i} className={'d-flex flex-column'} style={{ gap: '0.5rem' }}>
+                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    <DateRangeFilter fieldName={gridFilter.property} />
+                  </label>
+                );
+              }
+
+              if (gridFilter.type === 'bool') {
+                return (
+                  <label key={i} className={'d-flex align-items-center'} style={{ gap: '0.5rem' }}>
+                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    <BoolFilter fieldName={gridFilter.property} />
+                  </label>
+                );
+              }
+
+              return null;
+            })}
           </div>
         </div>
       </Dropdown.Menu>
