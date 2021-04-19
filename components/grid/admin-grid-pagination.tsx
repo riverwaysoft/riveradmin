@@ -15,7 +15,13 @@ const Page = ({ value, isActive, onClick }: PageProps) => (
   </li>
 );
 
-const WrapperComponent = ({ children,  totalItems }: { children: React.ReactNode, totalItems:number }) => (
+const WrapperComponent = ({
+  children,
+  totalItems,
+}: {
+  children: React.ReactNode;
+  totalItems: number;
+}) => (
   <ul className="pagination">
     {children}
     <div className={'align-self-center ml-2'}>Total {totalItems}</div>
@@ -70,7 +76,7 @@ const LastPageLink = ({ onClick }: { onClick: Function }) => (
 type DataGridPaginationProps = {
   currentPage: number;
   totalPages: number;
-  totalItems:number;
+  totalItems: number;
   onChange: (page: number) => void;
 };
 

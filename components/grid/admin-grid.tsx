@@ -26,7 +26,7 @@ export const AdminGrid = observer(<Entity extends HydraMember>(props: Props<Enti
   const renderPagination = () => {
     if (value && value['hydra:view']) {
       const viewMeta = value['hydra:view'];
-      const totalItems =value['hydra:totalItems'];
+      const totalItems = value['hydra:totalItems'];
       const reg = new RegExp(/page=([0-9]+)/);
 
       const currentMatch = viewMeta['@id'].match(reg);
