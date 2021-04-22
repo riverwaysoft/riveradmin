@@ -49,7 +49,7 @@ export const CrudEntity = observer(<Entity extends HydraMember>(props: Props<Ent
                             );
                             if (!filterTypeByKey) {
                               console.error(`Filter with key ${key} not found`);
-                              return;
+                              return null;
                             }
 
                             if (filterTypeByKey.type === 'date') {
