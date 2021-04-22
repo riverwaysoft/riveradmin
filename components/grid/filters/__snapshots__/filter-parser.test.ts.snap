@@ -9,6 +9,10 @@ Array [
     "property": "createdAt",
     "type": "date",
   },
+  Object {
+    "property": "isApproved",
+    "type": "bool",
+  },
 ]
 `;
 

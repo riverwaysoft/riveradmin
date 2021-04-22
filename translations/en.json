@@ -18,6 +18,7 @@
   "riveradmin.filters.apply": "Apply",
   "riveradmin.filters.date-range-not-selected": "Not selected",
   "riveradmin.filters.labels.createdAt": "Created",
+  "riveradmin.filters.labels.isApproved": "Is approved",
   "riveradmin.filters.labels.payment": "Payment",
   "riveradmin.impersonate-user": "Impersonate user"
 }

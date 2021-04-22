@@ -44,7 +44,15 @@ export const CrudEntity = observer(<Entity extends HydraMember>(props: Props<Ent
                       ? Object.entries(crudStore.filters)
                           .filter(([key]) => key !== 'fullText' && key !== 'page')
                           .map(([key, value]) => {
-                            if (key === 'createdAt') {
+                            const filterTypeByKey = crudStore.availablePropertyFilters.find(
+                              (filter) => filter.property === key
+                            );
+                            if (!filterTypeByKey) {
+                              console.error(`Filter with key ${key} not found`);
+                              return;
+                            }
+
+                            if (filterTypeByKey.type === 'date') {
                               const range: [Date, Date] = [
                                 // @ts-ignore
                                 DateTime.fromSQL(value.after).toJSDate(),
@@ -64,6 +72,21 @@ export const CrudEntity = observer(<Entity extends HydraMember>(props: Props<Ent
                                 </Button>
                               );
                             }
+
+                            if (filterTypeByKey.type === 'bool' && value !== '0') {
+                              return (
+                                <Button key={key}>
+                                  <FormattedMessage id={`riveradmin.filters.labels.${key}`} />
+                                  <i
+                                    className={'mdi mdi-close'}
+                                    onClick={() => {
+                                      crudStore.removeFilter(key);
+                                    }}
+                                  />
+                                </Button>
+                              );
+                            }
+
                             return null;
                           })
                       : null}

@@ -30,6 +30,9 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
         console.error('Riveradmin: riveradmin_bool filter is incorrect');
       }
     }
+    if (item.property && !item.property.includes('[') && item.property === item.variable) {
+      gridFilters.push({ type: 'bool', property: item.property });
+    }
   });
 
   return gridFilters;

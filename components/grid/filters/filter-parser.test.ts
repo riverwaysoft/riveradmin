@@ -5,9 +5,6 @@ describe('filter-parser', () => {
     const response = {
       'hydra:search': {
         '@type': 'hydra:IriTemplate',
-        'hydra:template':
-          '/api/business_accounts{?fullText,createdAt[before],createdAt[strictly_before],createdAt[after],createdAt[strictly_after]}',
-        'hydra:variableRepresentation': 'BasicRepresentation',
         'hydra:mapping': [
           {
             '@type': 'IriTemplateMapping',
@@ -39,6 +36,12 @@ describe('filter-parser', () => {
             property: 'createdAt',
             required: false,
           },
+          {
+            '@type': 'IriTemplateMapping',
+            property: 'isApproved',
+            required: false,
+            variable: 'isApproved',
+          },
         ],
       },
     } as any;
@@ -51,9 +54,6 @@ describe('filter-parser', () => {
     const response = {
       'hydra:search': {
         '@type': 'hydra:IriTemplate',
-        'hydra:template':
-          '/api/business_accounts{?fullText,createdAt[before],createdAt[strictly_before],createdAt[after],createdAt[strictly_after]}',
-        'hydra:variableRepresentation': 'BasicRepresentation',
         'hydra:mapping': [
           {
             '@type': 'IriTemplateMapping',
