@@ -31,7 +31,9 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
       }
     }
     if (item.property && !item.property.includes('[') && item.property === item.variable) {
-      const isSearchFilter = !!mapping.find(nestedItem => (nestedItem.variable || '').startsWith(`${item.property}[`));
+      const isSearchFilter = !!mapping.find((nestedItem) =>
+        (nestedItem.variable || '').startsWith(`${item.property}[`)
+      );
       if (!isSearchFilter) {
         gridFilters.push({ type: 'bool', property: item.property });
       }
