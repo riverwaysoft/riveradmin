@@ -1,22 +1,23 @@
-import { action, makeAutoObservable } from 'mobx';
+import {action, makeAutoObservable} from 'mobx';
+import {AxiosResponse} from "axios";
 
 export class CsvDownloaderStore {
   isLoading = false;
 
-  constructor(public csvFetcher: { fetch: () => Promise<string> }) {
+  constructor(public response: { fetch: () => Promise<AxiosResponse>}) {
     makeAutoObservable(this, {
-      csvFetcher: false,
+      response: false,
       download: false,
     });
   }
 
   download() {
     this.isLoading = true;
-    this.csvFetcher
+    this.response
       .fetch()
       .then(
-        action((file) => {
-          this.downloadBlob(new Blob([file], { type: 'text/plain' }));
+        action((response) => {
+          this.downloadBlob(response);
         })
       )
       .finally(
@@ -26,13 +27,15 @@ export class CsvDownloaderStore {
       );
   }
 
-  private downloadBlob = (blob: Blob, filename = 'report.csv') => {
-    let anchor = window.document.createElement('a');
-    anchor.href = window.URL.createObjectURL(blob);
-    anchor.download = filename;
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
-    window.URL.revokeObjectURL(anchor.href);
+  private downloadBlob = (response: AxiosResponse) => {
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(response.data);
+    if (response.headers['content-type'] === 'text/csv') {
+      link.download = `report_${new Date().getTime()}.csv`;
+    } else {
+      link.download = `report_${new Date().getTime()}.xlsx`;
+    }
+    link.click();
   };
+
 }
