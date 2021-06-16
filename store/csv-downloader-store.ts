@@ -2,8 +2,8 @@ import { action, makeAutoObservable } from 'mobx';
 import { AxiosResponse } from 'axios';
 
 type CsvApi = {
-  fetch: () => Promise<AxiosResponse>
-}
+  fetch: () => Promise<AxiosResponse>;
+};
 
 export class CsvDownloaderStore {
   isLoading = false;

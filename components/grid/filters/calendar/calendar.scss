@@ -62,7 +62,7 @@ $colorPrimary: rgba(#007bff, 0.64);
       outline: none;
     }
     &:active {
-      transform: scale(0.8)
+      transform: scale(0.8);
     }
   }
 
@@ -73,7 +73,7 @@ $colorPrimary: rgba(#007bff, 0.64);
       outline: none;
     }
     &:active {
-      transform: scale(0.8)
+      transform: scale(0.8);
     }
   }
 }
@@ -168,7 +168,6 @@ $colorPrimary: rgba(#007bff, 0.64);
     background-color: $colorPrimary;
   }
 }
-
 
 .react-calendar__tile--active {
   background: rgba(#007bff, 0.16);

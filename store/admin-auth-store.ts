@@ -30,10 +30,6 @@ export class AdminAuthStore {
     }
     this.tokenStorage.setToken(parsedJwt);
     const jwtUser = parseJwt<JwtUser>(parsedJwt);
-
-    if (!jwtUser.roles.includes('ROLE_SUPER_ADMIN')) {
-      throw new Error('Only admins allowed to authenticate');
-    }
     runInAction(() => {
       this.user = { id: jwtUser.id, '@type': 'AdminUser' };
       this.isAppLoaded = true;
