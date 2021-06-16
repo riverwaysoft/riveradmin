@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { RawIntlProvider } from 'react-intl';
-import { NavLink, Redirect, Route, Router, Switch } from 'react-router-dom';
+import { Link, NavLink, Redirect, Route, Router, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { assert } from 'ts-essentials';
 import { useRiverAdminStore } from '../store/use-riveradmin-store';
@@ -39,6 +39,14 @@ export const Layout = observer((props: Props) => {
               <div className={'d-flex flex-column'}>
                 <nav className="navbar navbar-light bg-light mb-4">
                   <span className="navbar-brand">{config.appTitle}</span>
+                  <Link
+                    to={'/logout'}
+                    className={'d-flex align-items-center'}
+                    style={{ gap: '8px' }}
+                  >
+                    <span>Logout</span>
+                    <i className={'mdi mdi-logout mdi-24px'} />
+                  </Link>
                 </nav>
                 <div className={'d-flex p-2'} style={{ gap: '1rem' }}>
                   <div style={{ width: '15%' }}>
