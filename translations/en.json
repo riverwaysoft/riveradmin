@@ -20,5 +20,6 @@
   "riveradmin.filters.labels.createdAt": "Created",
   "riveradmin.filters.labels.isApproved": "Is approved",
   "riveradmin.filters.labels.payment": "Payment",
-  "riveradmin.impersonate-user": "Impersonate user"
+  "riveradmin.impersonate-user": "Impersonate user",
+  "riveradmin.logout": "Logout"
 }
