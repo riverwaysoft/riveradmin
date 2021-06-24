@@ -21,5 +21,6 @@
   "riveradmin.filters.labels.isApproved": "Is approved",
   "riveradmin.filters.labels.payment": "Payment",
   "riveradmin.impersonate-user": "Impersonate user",
+  "riveradmin.data-saved": "Data has been saved",
   "riveradmin.logout": "Logout"
 }

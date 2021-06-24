@@ -20,5 +20,6 @@
   "riveradmin.filters.labels.createdAt": "Дата создания",
   "riveradmin.filters.labels.payment": "Оплата",
   "riveradmin.impersonate-user": "Войти как пользователь",
+  "riveradmin.data-saved": "Данные сохранены",
   "riveradmin.logout": "Выйти"
 }
