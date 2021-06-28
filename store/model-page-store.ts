@@ -67,10 +67,10 @@ export class ModelPageStore<Model extends HasId, Form extends object> {
       if (result.errors) {
         return result.errors;
       }
-      const regexResult = /\/([^\/]+)\//.exec(this.routerStore.location.pathname);
+      const regexResult = /\/([^/]+)\//.exec(this.routerStore.location.pathname);
       assert(regexResult);
       const pathWithoutModelId = regexResult[1];
-      this.routerStore.push(`${pathWithoutModelId}/${modelCreateInput.id}`);
+      this.routerStore.push(`/${pathWithoutModelId}/${modelCreateInput.id}`);
       this.notificator.success(this.translator.translate('riveradmin.data-saved'));
     }
   };
