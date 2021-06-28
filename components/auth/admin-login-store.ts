@@ -14,15 +14,11 @@ export class AdminLoginStore {
   form?: AdminLoginForm;
 
   constructor(
-    public apiClient: AdminApiClient,
-    public authStore: AdminAuthStore,
-    public routerStore: RouterStore
+    private apiClient: AdminApiClient,
+    private authStore: AdminAuthStore,
+    private routerStore: RouterStore
   ) {
-    makeAutoObservable(this, {
-      apiClient: false,
-      authStore: false,
-      routerStore: false,
-    });
+    makeAutoObservable(this);
   }
 
   submitLoginForm = async (form: AdminLoginForm) => {

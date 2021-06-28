@@ -8,10 +8,8 @@ type CsvApi = {
 export class CsvDownloaderStore {
   isLoading = false;
 
-  constructor(public csvApi: CsvApi) {
-    makeAutoObservable(this, {
-      csvApi: false,
-    });
+  constructor(private csvApi: CsvApi) {
+    makeAutoObservable(this);
   }
 
   download() {

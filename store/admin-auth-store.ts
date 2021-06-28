@@ -13,11 +13,8 @@ export class AdminAuthStore {
   user?: AdminUser;
   isAppLoaded = false;
 
-  constructor(public tokenStorage: TokenStorage, public routerStore: RouterStore) {
-    makeAutoObservable(this, {
-      tokenStorage: false,
-      routerStore: false,
-    });
+  constructor(private tokenStorage: TokenStorage, private routerStore: RouterStore) {
+    makeAutoObservable(this);
   }
 
   async authenticate(token?: string) {

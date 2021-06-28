@@ -31,19 +31,13 @@ export class CrudStore<Entity extends HydraMember> {
   isRemoving = false;
 
   constructor(
-    public dataProvider: DataProvider<Entity>,
-    public routerStore: RouterStore,
-    public notificator: Notificator,
-    public translator: Translator,
-    public querySerializer: QuerySerializer
+    private dataProvider: DataProvider<Entity>,
+    private routerStore: RouterStore,
+    private notificator: Notificator,
+    private translator: Translator,
+    private querySerializer: QuerySerializer
   ) {
     makeAutoObservable(this, {
-      dataProvider: false,
-      routerStore: false,
-      notificator: false,
-      translator: false,
-      querySerializer: false,
-
       onPageChange: false,
       submitSearchForm: false,
       listenHistory: false,

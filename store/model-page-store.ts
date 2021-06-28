@@ -23,19 +23,13 @@ export class ModelPageStore<Model extends HasId, Form extends object> {
   isModelLoading = false;
 
   constructor(
-    public crudApi: CrudApi<Model>,
-    public formMapper: FormMapper<Model, Form>,
-    public notificator: Notificator,
-    public routerStore: RouterStore,
-    public translator: Translator
+    private crudApi: CrudApi<Model>,
+    private formMapper: FormMapper<Model, Form>,
+    private notificator: Notificator,
+    private routerStore: RouterStore,
+    private translator: Translator
   ) {
-    makeAutoObservable(this, {
-      crudApi: false,
-      formMapper: false,
-      notificator: false,
-      routerStore: false,
-      translator: false,
-    });
+    makeAutoObservable(this);
   }
 
   loadModel(id: string) {

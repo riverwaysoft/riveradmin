@@ -12,10 +12,10 @@ import { ReactIntlTranslator } from '../intl/react-intl-translator';
 import { LocalTokenStorage } from '../jwt/local-token-storage';
 
 export abstract class RiverAdminRootStore<T extends AdminApiClient> {
+  apiClient = this.createApiClient();
   protected notificator = new Notificator();
   protected tokenStorage = new LocalTokenStorage(this.config.localStorageKey);
   routerStore = new RouterStore();
-  apiClient = this.createApiClient();
   authStore = new AdminAuthStore(this.tokenStorage, this.routerStore);
   reactIntlFactory = new ReactIntlFactory();
   reactIntl = this.reactIntlFactory.create(this.config.locale);

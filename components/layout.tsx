@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import {FormattedMessage, RawIntlProvider} from 'react-intl';
+import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import { Link, NavLink, Redirect, Route, Router, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { assert } from 'ts-essentials';
@@ -44,7 +44,9 @@ export const Layout = observer((props: Props) => {
                     className={'d-flex align-items-center'}
                     style={{ gap: '8px' }}
                   >
-                    <span><FormattedMessage id={'riveradmin.logout'} /></span>
+                    <span>
+                      <FormattedMessage id={'riveradmin.logout'} />
+                    </span>
                     <i className={'mdi mdi-logout mdi-24px'} />
                   </Link>
                 </nav>
