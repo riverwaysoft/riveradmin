@@ -1,4 +1,4 @@
-import { HydraMember } from '../model/hydra';
+import { HasId } from '../model/hydra';
 import { RouterStore } from '@superwf/mobx-react-router';
 import { Translator } from '../intl/translator';
 import { QuerySerializer } from '../routing/query-serializer';
@@ -15,7 +15,7 @@ export class CrudStoreFactory {
     public querySerializer: QuerySerializer
   ) {}
 
-  create<Entity extends HydraMember>(listEndpoint: string, deleteEndpoint?: string) {
+  create<Entity extends HasId>(listEndpoint: string, deleteEndpoint?: string) {
     return new CrudStore(
       new HydraDataProvider<Entity>(axios, this.querySerializer, listEndpoint, deleteEndpoint),
       this.routerStore,

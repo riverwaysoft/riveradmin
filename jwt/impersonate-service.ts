@@ -1,5 +1,5 @@
 import { assert } from 'ts-essentials';
-import { HydraMember } from '../model/hydra';
+import { HasId } from '../model/hydra';
 import { QuerySerializer } from '../routing/query-serializer';
 import { TokenStorage } from './token-storage';
 
@@ -13,7 +13,7 @@ export class ImpersonateService {
     private host: string
   ) {}
 
-  async openImpersonatePage(entity: HydraMember) {
+  async openImpersonatePage(entity: HasId) {
     const { token } = await this.apiCall(entity.id);
     assert(token, 'JWT token not found');
     const newWindow = window.open(`${this.host}/_impersonate?jwt=${token}`, '_blank');

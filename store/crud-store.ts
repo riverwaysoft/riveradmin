@@ -1,6 +1,6 @@
 import { action, makeAutoObservable } from 'mobx';
 import { RouterStore } from '@superwf/mobx-react-router';
-import { CollectionResponse, HydraMember } from '../model/hydra';
+import { CollectionResponse, HasId } from '../model/hydra';
 import { DataProvider } from '../data-provider/data-provider';
 import { assert } from 'ts-essentials';
 import { Notificator } from '../notificator/notificator';
@@ -21,7 +21,7 @@ type Filters = {
   };
 };
 
-export class CrudStore<Entity extends HydraMember> {
+export class CrudStore<Entity extends HasId> {
   isListLoading = false;
   listData?: CollectionResponse<Entity>;
   filters?: Filters;

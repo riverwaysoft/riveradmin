@@ -1,10 +1,10 @@
 import { QuerySerializer } from '../routing/query-serializer';
 import { DataProvider } from './data-provider';
-import { CollectionResponse, HydraMember } from '../model/hydra';
+import { CollectionResponse, HasId } from '../model/hydra';
 import { AxiosInstance } from 'axios';
 import { assert } from 'ts-essentials';
 
-export class HydraDataProvider<T extends HydraMember> implements DataProvider<T> {
+export class HydraDataProvider<T extends HasId> implements DataProvider<T> {
   constructor(
     private axios: AxiosInstance,
     private querySerializer: QuerySerializer,

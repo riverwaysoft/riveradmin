@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 import { Form as FinalForm } from 'react-final-form';
 import useDocumentTitle from 'use-document-title';
-import { HydraMember } from '../model/hydra';
 import { AdminGrid, Props as AdminGridProps } from './grid/admin-grid';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
@@ -11,15 +10,16 @@ import { formatDateRange } from './grid/filters/format-date-range';
 import { GridSearch } from './grid/search';
 import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
+import { HasId } from '../model/hydra';
 
-type Props<Entity extends HydraMember> = {
+type Props<Entity extends HasId> = {
   crudStore: CrudStore<Entity>;
   grid: Pick<AdminGridProps<Entity>, 'columns'>;
   title: string;
   create?: boolean;
 };
 
-export const CrudEntity = observer(<Entity extends HydraMember>(props: Props<Entity>) => {
+export const CrudEntity = observer(<Entity extends HasId>(props: Props<Entity>) => {
   const { crudStore, grid, title, create } = props;
 
   useDocumentTitle(title);

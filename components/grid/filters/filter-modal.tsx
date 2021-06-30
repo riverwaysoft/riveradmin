@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
-import { HydraMember } from '../../../model/hydra';
+import { HasId } from '../../../model/hydra';
 import { CrudStore } from '../../../store/crud-store';
 import { BoolFilter } from './filters/bool-filter';
 import { DateRangeFilter } from './filters/date-range-filter';
@@ -19,11 +19,11 @@ const CustomToggle = React.forwardRef(({ children, onClick }: any, ref) => (
   </Button>
 ));
 
-type Props<Entity extends HydraMember> = {
+type Props<Entity extends HasId> = {
   crudStore: CrudStore<Entity>;
 };
 
-export const FilterModal = observer(<Entity extends HydraMember>(props: Props<Entity>) => {
+export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>) => {
   const { crudStore } = props;
 
   return (

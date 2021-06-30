@@ -1,11 +1,11 @@
 import React from 'react';
-import { HydraMember } from '../../../model/hydra';
+import { HasId } from '../../../model/hydra';
 import { ImpersonateService } from '../../../jwt/impersonate-service';
 import { AdminTooltip } from '../../ui/tooltip';
 import { FormattedMessage } from 'react-intl';
 
 type Props = {
-  model: HydraMember;
+  model: HasId;
   impersonateService: ImpersonateService;
 };
 

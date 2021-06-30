@@ -1,6 +1,6 @@
-import { CollectionResponse, HydraMember } from '../model/hydra';
+import { CollectionResponse, HasId } from '../model/hydra';
 
-export type DataProvider<Entity extends HydraMember> = {
+export type DataProvider<Entity extends HasId> = {
   fetchList(filters?: object): Promise<CollectionResponse<Entity>>;
   removeOne(id: string): Promise<unknown>;
 };

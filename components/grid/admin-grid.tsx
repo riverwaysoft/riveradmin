@@ -1,7 +1,7 @@
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { observer } from 'mobx-react-lite';
-import { HydraMember } from '../../model/hydra';
+import { HasId } from '../../model/hydra';
 import { AdminGridNoResults } from './admin-grid-not-result';
 import { AdminGridPagination } from './admin-grid-pagination';
 import { Table } from 'react-bootstrap';
@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { ConfirmModal } from '../ui/confirm-modal';
 import classNames from 'classnames';
 
-export type Props<Entity extends HydraMember> = {
+export type Props<Entity extends HasId> = {
   columns: {
     label: string | React.ReactNode;
     onClick?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -20,7 +20,7 @@ export type Props<Entity extends HydraMember> = {
   crudStore: CrudStore<Entity>;
 };
 
-export const AdminGrid = observer(<Entity extends HydraMember>(props: Props<Entity>) => {
+export const AdminGrid = observer(<Entity extends HasId>(props: Props<Entity>) => {
   const { columns, crudStore } = props;
   const value = crudStore.listData;
   const renderPagination = () => {
