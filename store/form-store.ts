@@ -8,23 +8,18 @@ import { Translator } from '../intl/translator';
 
 type HasId = { id: string };
 
-type CrudApi<Model> = {
+export type CrudApi<Model> = {
   fetchOne: (modelId: string) => Promise<Model>;
-  create: (body: object) => Promise<Model>;
+  create?: (body: object) => Promise<Model>;
   update: (modelId: string, body: object) => Promise<Model>;
 };
 
-type FormMapper<Model, Form> = {
-  mapModelToForm: (model: Model) => Form;
-};
-
-export class ModelPageStore<Model extends HasId, Form extends object> {
+export class FormStore<Model extends HasId, Form extends object = {}> {
   model?: Model;
   isModelLoading = false;
 
   constructor(
     private crudApi: CrudApi<Model>,
-    private formMapper: FormMapper<Model, Form>,
     private notificator: Notificator,
     private routerStore: RouterStore,
     private translator: Translator
@@ -47,14 +42,7 @@ export class ModelPageStore<Model extends HasId, Form extends object> {
     }
   }
 
-  get formInitialValues(): Partial<Form> {
-    if (!this.model) {
-      return {};
-    }
-    return this.formMapper.mapModelToForm(this.model);
-  }
-
-  submitForm = async (form: Form) => {
+  submitForm = async (form: Partial<Form>) => {
     if (this.model) {
       const result = await handleFormSubmit(this.crudApi.update(this.model.id, form));
       if (result.errors) {
@@ -62,6 +50,9 @@ export class ModelPageStore<Model extends HasId, Form extends object> {
       }
       this.notificator.success(this.translator.translate('riveradmin.data-saved'));
     } else {
+      if (!this.crudApi.create) {
+        throw new Error('Operation create not implemented in API');
+      }
       const modelCreateInput = { id: v4(), ...form };
       const result = await handleFormSubmit(this.crudApi.create(modelCreateInput));
       if (result.errors) {

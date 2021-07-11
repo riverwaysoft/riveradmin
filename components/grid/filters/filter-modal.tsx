@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { HasId } from '../../../model/hydra';
-import { CrudStore } from '../../../store/crud-store';
+import { ListStore } from '../../../store/list-store';
 import { BoolFilter } from './filters/bool-filter';
 import { DateRangeFilter } from './filters/date-range-filter';
 
@@ -20,11 +20,11 @@ const CustomToggle = React.forwardRef(({ children, onClick }: any, ref) => (
 ));
 
 type Props<Entity extends HasId> = {
-  crudStore: CrudStore<Entity>;
+  listStore: ListStore<Entity>;
 };
 
 export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>) => {
-  const { crudStore } = props;
+  const { listStore } = props;
 
   return (
     <Dropdown>
@@ -42,7 +42,7 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
               <FormattedMessage id={'riveradmin.filters'} />
             </span>
             <div className={'d-flex'} style={{ gap: '1rem' }}>
-              <Button variant={'outline-primary'} onClick={() => crudStore.resetFilters()}>
+              <Button variant={'outline-primary'} onClick={() => listStore.resetFilters()}>
                 <FormattedMessage id={'riveradmin.filters.reset'} />
               </Button>
               <Button variant={'primary'} type={'submit'}>
@@ -51,7 +51,7 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
             </div>
           </div>
           <div className={'d-flex flex-column align-items-start'} style={{ gap: '1rem' }}>
-            {crudStore.availablePropertyFilters.map((gridFilter, i) => {
+            {listStore.availablePropertyFilters.map((gridFilter, i) => {
               if (gridFilter.type === 'date') {
                 return (
                   <label key={i} className={'d-flex flex-column'} style={{ gap: '0.5rem' }}>

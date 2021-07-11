@@ -1,7 +1,55 @@
+# Features
+
+- Mobx stores for displaying lists and editing forms
+- List filters, HTTP query parameters serialize / deserialize
+- List actions such as create / update / delete
+- React components for login / logout
+- Parse backend errors and map to form inputs
+- Menu generation
+- JWT
+- Translations
+- Network status display
+- Impersonation
+
 # Apply changes from submodule
 
-- Go to submodule, create a patch from uncommited changes. Move this patch to your local riveradmin repo: `git diff > ../../../riveradmin/file.patch`
-- Go to your riveradmin repository, apply the patch using `git apply file.patch`
-- Remove patch and push
-- Return to the folder with submodule and run `git fetch origin && git reset --hard origin/master`
+- Go to submodule, create a patch from uncommited changes. Move this patch to your local riveradmin repo:
+  - `cd src/riveradmin && git diff > ../../../riveradmin/file.patch`
+- Go to your riveradmin repository and apply the patch
+  - `cd ../../../riveradmin && git apply file.patch`
+- Remove patch, commit and push
+  - `rm file.patch && git add . && git commit -m "Patch name" && git push`
+- Return to the folder with submodule and refresh it
+  - `cd - && git fetch origin && git reset --hard origin/master`
 - Go to your project root and commit changes in submodule
+
+  - `cd ../.. && git add . && git commit -m "Up-to-date admin" && git push`
+
+# Folder structure & component naming conventions
+
+Here is an example of folder structure & naming conventions for a project that uses Riveradmin:
+
+```bash
+- src
+  - admin
+    - pages
+      - user
+        - admin-user-list.tsx
+        - admin-user-form.tsx
+    - stores
+      - admin-user-list-store.ts
+      - admin-user-form-store.ts
+    - admin-routes.tsx # List of routes
+  - index # Separate folder to support Webpack dynamic chunk loading
+    - index-admin.tsx
+    - index-app.tsx
+  - app # phonedo / youshka / etc
+    - pages
+      - user
+        - user-list.tsx
+        - user-form.tsx
+  - shared # Used in both admin & app
+    - model
+      - user.tsx
+
+```

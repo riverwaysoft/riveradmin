@@ -2,40 +2,38 @@ import { QuerySerializer } from '../routing/query-serializer';
 import { DataProvider } from './data-provider';
 import { CollectionResponse, HasId } from '../model/hydra';
 import { AxiosInstance } from 'axios';
-import { assert } from 'ts-essentials';
+
+export type DataProviderUrl =
+  | string
+  | {
+      fetchList: string;
+      delete: (id: string) => string;
+    };
 
 export class HydraDataProvider<T extends HasId> implements DataProvider<T> {
   constructor(
     private axios: AxiosInstance,
     private querySerializer: QuerySerializer,
-    private listEndpoint: string,
-    private deleteEndpoint?: string
-  ) {
-    assert(
-      listEndpoint.startsWith('/'),
-      "Hydra endpoint shouldn't start with /. Please remove it from the beginning"
-    );
-    assert(
-      !listEndpoint.endsWith('/'),
-      "Hydra endpoint shouldn't end with /. Please remove it from the end"
-    );
-  }
+    private url: DataProviderUrl
+  ) {}
 
   fetchList(filters?: object): Promise<CollectionResponse<T>> {
     const isFilterEmpty = !filters || Object.keys(filters).length === 0;
 
+    const listEndpoint = typeof this.url === 'string' ? this.url : this.url.fetchList;
+
     return this.axios
       .get(
         isFilterEmpty
-          ? this.listEndpoint
-          : `${this.listEndpoint}?${this.querySerializer.stringifyParams(filters!)}`
+          ? listEndpoint
+          : `${listEndpoint}?${this.querySerializer.stringifyParams(filters!)}`
       )
       .then((response) => response.data);
   }
 
   removeOne(id: string): Promise<unknown> {
-    return this.axios
-      .delete(`${this.deleteEndpoint || this.listEndpoint}/${id}`)
-      .then((response) => response.data);
+    const deleteEndpoint = typeof this.url === 'string' ? this.url : this.url.delete(id);
+
+    return this.axios.delete(deleteEndpoint).then((response) => response.data);
   }
 }

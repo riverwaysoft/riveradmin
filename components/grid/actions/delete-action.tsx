@@ -5,14 +5,12 @@ import { AdminTooltip } from '../../ui/tooltip';
 import { ActionProps } from '../column/actions-column';
 
 export const DeleteAction = <Model extends HasId>(props: ActionProps<Model>) => {
-  const { crudStore, model } = props;
-
   return (
     <AdminTooltip title={<FormattedMessage id={'riveradmin.remove'} />}>
       <i
         className={'mdi mdi-delete text-danger cursor-pointer'}
         onClick={() => {
-          crudStore.askRemove(model);
+          props.store.askRemove(props.model);
         }}
       />
     </AdminTooltip>

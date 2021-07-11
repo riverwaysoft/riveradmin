@@ -6,10 +6,11 @@ import { QuerySerializer } from '../routing/query-serializer';
 import { AdminAuthStore } from './admin-auth-store';
 import { Notificator } from '../notificator/notificator';
 import { AdminLoginStore } from '../components/auth/admin-login-store';
-import { CrudStoreFactory } from '../factory/crud-store-factory';
+import { ListStoreFactory } from '../factory/list-store-factory';
 import { ReactIntlFactory, SupportedLanguage } from '../factory/react-intl-factory';
 import { ReactIntlTranslator } from '../intl/react-intl-translator';
 import { LocalTokenStorage } from '../jwt/local-token-storage';
+import { FormStoreFactory } from '../factory/form-store-factory';
 
 export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   protected notificator = new Notificator();
@@ -22,12 +23,13 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   translator = new ReactIntlTranslator(this.reactIntl);
   querySerializer = new QuerySerializer();
   impersonateService?: ImpersonateService;
-  crudStoreFactory = new CrudStoreFactory(
+  listStoreFactory = new ListStoreFactory(
     this.routerStore,
     this.notificator,
     this.translator,
     this.querySerializer
   );
+  formStoreFactory = new FormStoreFactory(this.notificator, this.routerStore, this.translator);
 
   constructor(
     public config: {

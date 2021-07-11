@@ -5,14 +5,12 @@ import { AdminTooltip } from '../../ui/tooltip';
 import { ActionProps } from '../column/actions-column';
 
 export const ViewAction = <Model extends HydraMember>(props: ActionProps<Model>) => {
-  const { crudStore, model } = props;
-
   return (
     <AdminTooltip title={<FormattedMessage id={'riveradmin.view'} />}>
       <i
         className={'mdi mdi-eye cursor-pointer'}
         onClick={() => {
-          crudStore.goToModelPage(model);
+          props.store.goToModelPage(props.model);
         }}
       />
     </AdminTooltip>

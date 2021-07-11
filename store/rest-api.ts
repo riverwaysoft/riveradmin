@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 
 type HasId = { id: string };
 
-export class ModelApi<Model extends HasId> {
+export class RestApi<Model extends HasId> {
   constructor(private client: AxiosInstance, private url: string) {}
 
   create(body: object) {

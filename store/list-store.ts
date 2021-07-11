@@ -21,7 +21,7 @@ type Filters = {
   };
 };
 
-export class CrudStore<Entity extends HasId> {
+export class ListStore<Entity extends HasId> {
   isListLoading = false;
   listData?: CollectionResponse<Entity>;
   filters?: Filters;

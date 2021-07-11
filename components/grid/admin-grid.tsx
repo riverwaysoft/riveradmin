@@ -5,24 +5,24 @@ import { HasId } from '../../model/hydra';
 import { AdminGridNoResults } from './admin-grid-not-result';
 import { AdminGridPagination } from './admin-grid-pagination';
 import { Table } from 'react-bootstrap';
-import { CrudStore } from '../../store/crud-store';
+import { ListStore } from '../../store/list-store';
 import { FormattedMessage } from 'react-intl';
 import { ConfirmModal } from '../ui/confirm-modal';
 import classNames from 'classnames';
 
-export type Props<Entity extends HasId> = {
+export type Props<Model extends HasId> = {
   columns: {
     label: string | React.ReactNode;
     onClick?: (e: React.MouseEvent<HTMLElement>) => void;
-    render: (item: Entity) => React.ReactNode | string | null;
+    render: (item: Model) => React.ReactNode | string | null;
     sortableKey?: string;
   }[];
-  crudStore: CrudStore<Entity>;
+  listStore: ListStore<Model>;
 };
 
-export const AdminGrid = observer(<Entity extends HasId>(props: Props<Entity>) => {
-  const { columns, crudStore } = props;
-  const value = crudStore.listData;
+export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => {
+  const { columns, listStore } = props;
+  const value = listStore.listData;
   const renderPagination = () => {
     if (value && value['hydra:view']) {
       const viewMeta = value['hydra:view'];
@@ -40,7 +40,7 @@ export const AdminGrid = observer(<Entity extends HasId>(props: Props<Entity>) =
             currentPage={parseInt(currentPage)}
             totalItems={totalItems}
             totalPages={parseInt(pagesMatcher[1])}
-            onChange={(page) => crudStore.onPageChange(page)}
+            onChange={(page) => listStore.onPageChange(page)}
           />
         );
       }
@@ -57,21 +57,21 @@ export const AdminGrid = observer(<Entity extends HasId>(props: Props<Entity>) =
                 <div
                   onClick={() => {
                     if (column.sortableKey) {
-                      crudStore.setOrderBy(column.sortableKey);
+                      listStore.setOrderBy(column.sortableKey);
                     }
                   }}
                   className={classNames('d-flex align-items-center', {
                     'cursor-pointer': column.sortableKey,
                     'text-nowrap': column.sortableKey,
                     'text-primary':
-                      column.sortableKey && crudStore.orderByKey === column.sortableKey,
+                      column.sortableKey && listStore.orderByKey === column.sortableKey,
                   })}
                   style={{ gap: '0.25rem' }}
                 >
                   <span>
                     {column.sortableKey ? (
-                      crudStore.orderByKey === column.sortableKey ? (
-                        crudStore.orderByDirection === 'asc' ? (
+                      listStore.orderByKey === column.sortableKey ? (
+                        listStore.orderByDirection === 'asc' ? (
                           <i className={'mdi mdi-sort-ascending'} />
                         ) : (
                           <i className={'mdi mdi-sort-descending'} />
@@ -88,7 +88,7 @@ export const AdminGrid = observer(<Entity extends HasId>(props: Props<Entity>) =
           </tr>
         </thead>
         <tbody>
-          {crudStore.isListLoading &&
+          {listStore.isListLoading &&
             Array(20)
               .fill(null)
               .map((_, i) => (
@@ -108,7 +108,7 @@ export const AdminGrid = observer(<Entity extends HasId>(props: Props<Entity>) =
             </tr>
           )}
           {value &&
-            (value['hydra:member'] || []).map((model: Entity) => {
+            (value['hydra:member'] || []).map((model: Model) => {
               return (
                 <tr key={model.id}>
                   {columns.map((column, i) => (
@@ -123,14 +123,14 @@ export const AdminGrid = observer(<Entity extends HasId>(props: Props<Entity>) =
       </Table>
       {renderPagination()}
       <ConfirmModal
-        isOpen={crudStore.isRemoveModalOpen}
+        isOpen={listStore.isRemoveModalOpen}
         title={<FormattedMessage id={'riveradmin.delete.ask'} />}
         body={<FormattedMessage id={'riveradmin.delete.confirm'} />}
         cancelLabel={<FormattedMessage id={'riveradmin.delete.cancel'} />}
         confirmLabel={<FormattedMessage id={'riveradmin.delete.confirm-label'} />}
-        onCancel={() => crudStore.closeRemoveModel()}
-        onConfirm={() => crudStore.removeModel()}
-        isLoading={crudStore.isRemoving}
+        onCancel={() => listStore.closeRemoveModel()}
+        onConfirm={() => listStore.removeModel()}
+        isLoading={listStore.isRemoving}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import useDocumentTitle from 'use-document-title';
 import { AdminGrid, Props as AdminGridProps } from './grid/admin-grid';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import { CrudStore } from '../store/crud-store';
+import { ListStore } from '../store/list-store';
 import { FilterModal } from './grid/filters/filter-modal';
 import { formatDateRange } from './grid/filters/format-date-range';
 import { GridSearch } from './grid/search';
@@ -13,38 +13,38 @@ import { FormattedMessage } from 'react-intl';
 import { HasId } from '../model/hydra';
 
 type Props<Entity extends HasId> = {
-  crudStore: CrudStore<Entity>;
-  grid: Pick<AdminGridProps<Entity>, 'columns'>;
+  listStore: ListStore<Entity>;
   title: string;
   create?: boolean;
+  columns: AdminGridProps<Entity>['columns'];
 };
 
-export const CrudEntity = observer(<Entity extends HasId>(props: Props<Entity>) => {
-  const { crudStore, grid, title, create } = props;
+export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) => {
+  const { listStore, columns, title, create } = props;
 
   useDocumentTitle(title);
 
   useEffect(() => {
-    crudStore.loadList();
-    return crudStore.listenHistory();
-  }, [crudStore]);
+    listStore.loadList();
+    return listStore.listenHistory();
+  }, [listStore]);
 
   return (
     <div className={'d-flex flex-column'}>
       <h4>{title}</h4>
       <div className={'d-flex w-100 mb-3'}>
         <div className={'d-flex justify-content-between w-100 mr-2'}>
-          {crudStore.hasAvailableFilters && (
-            <FinalForm initialValues={crudStore.filters} onSubmit={crudStore.submitSearchForm}>
+          {listStore.hasAvailableFilters && (
+            <FinalForm initialValues={listStore.filters} onSubmit={listStore.submitSearchForm}>
               {({ handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
                   <div className={'d-flex align-items-center'} style={{ gap: '1rem' }}>
-                    {crudStore.hasFullTextFilter && <GridSearch />}
-                    {crudStore.filters
-                      ? Object.entries(crudStore.filters)
+                    {listStore.hasFullTextFilter && <GridSearch />}
+                    {listStore.filters
+                      ? Object.entries(listStore.filters)
                           .filter(([key]) => key !== 'fullText' && key !== 'page')
                           .map(([key, value]) => {
-                            const filterTypeByKey = crudStore.availablePropertyFilters.find(
+                            const filterTypeByKey = listStore.availablePropertyFilters.find(
                               (filter) => filter.property === key
                             );
                             if (!filterTypeByKey) {
@@ -66,7 +66,7 @@ export const CrudEntity = observer(<Entity extends HasId>(props: Props<Entity>) 
                                   <i
                                     className={'mdi mdi-close'}
                                     onClick={() => {
-                                      crudStore.removeFilter(key);
+                                      listStore.removeFilter(key);
                                     }}
                                   />
                                 </Button>
@@ -80,7 +80,7 @@ export const CrudEntity = observer(<Entity extends HasId>(props: Props<Entity>) 
                                   <i
                                     className={'mdi mdi-close'}
                                     onClick={() => {
-                                      crudStore.removeFilter(key);
+                                      listStore.removeFilter(key);
                                     }}
                                   />
                                 </Button>
@@ -90,8 +90,8 @@ export const CrudEntity = observer(<Entity extends HasId>(props: Props<Entity>) 
                             return null;
                           })
                       : null}
-                    {crudStore.availablePropertyFilters.length > 0 && (
-                      <FilterModal crudStore={crudStore} />
+                    {listStore.availablePropertyFilters.length > 0 && (
+                      <FilterModal listStore={listStore} />
                     )}
                   </div>
                 </form>
@@ -101,7 +101,7 @@ export const CrudEntity = observer(<Entity extends HasId>(props: Props<Entity>) 
           {create && (
             <Button
               onClick={() => {
-                crudStore.goToNewModelPage();
+                listStore.goToNewModelPage();
               }}
             >
               <FormattedMessage id={'riveradmin.create'} />
@@ -109,7 +109,7 @@ export const CrudEntity = observer(<Entity extends HasId>(props: Props<Entity>) 
           )}
         </div>
       </div>
-      <AdminGrid columns={grid.columns} crudStore={crudStore} />
+      <AdminGrid columns={columns} listStore={listStore} />
     </div>
   );
 });
