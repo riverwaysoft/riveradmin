@@ -8,11 +8,11 @@ export type ActionProps<Model extends HasId> = {
   store: ListStore<Model>;
 };
 
-type Props<Model extends HasId> = {
+type Props = {
   actions: React.ReactElement[];
 };
 
-export const ActionsColumn = observer(<Model extends HasId>(props: Props<Model>) => {
+export const ActionsColumn = observer((props: Props) => {
   return (
     <div className={'d-flex'} style={{ gap: '1rem' }}>
       {props.actions}

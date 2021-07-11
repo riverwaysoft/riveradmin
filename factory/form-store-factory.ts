@@ -12,6 +12,6 @@ export class FormStoreFactory {
   ) {}
 
   create<Model extends HasId, Form extends object = {}>(crudApi: CrudApi<Model>) {
-    return new FormStore(crudApi, this.notificator, this.routerStore, this.translator);
+    return new FormStore<Model, Form>(crudApi, this.notificator, this.routerStore, this.translator);
   }
 }
