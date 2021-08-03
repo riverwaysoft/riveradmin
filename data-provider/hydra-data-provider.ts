@@ -32,7 +32,7 @@ export class HydraDataProvider<T extends HasId> implements DataProvider<T> {
   }
 
   removeOne(id: string): Promise<unknown> {
-    const deleteEndpoint = typeof this.url === 'string' ? this.url : this.url.delete(id);
+    const deleteEndpoint = typeof this.url === 'string' ? `${this.url}/${id}` : this.url.delete(id);
 
     return this.axios.delete(deleteEndpoint).then((response) => response.data);
   }
