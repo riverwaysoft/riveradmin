@@ -1,10 +1,11 @@
 import { CollectionResponse } from '../../../model/hydra';
 
-export type GridFilterType = 'fullText' | 'date' | 'bool';
+export type GridFilterType = 'fullText' | 'date' | 'bool' | 'input' | 'enum';
 
 export type GridFilter = {
   type: GridFilterType;
   property?: string;
+  enum?: { [key in string]: number };
 };
 
 export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter[] => {
@@ -22,6 +23,17 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
     if (item.variable.endsWith('[before]')) {
       gridFilters.push({ type: 'date', property: item.property });
     }
+
+    if (item.property?.startsWith('riveradmin_input')) {
+      gridFilters.push({ type: 'input', property: item.variable })
+    }
+
+    if (item.property?.startsWith('riveradmin_enum')) {
+      const enumJson = item.property.replace('riveradmin_enum:', '');
+      const enumParsed = JSON.parse(enumJson);
+      gridFilters.push({ type: 'enum', enum: enumParsed, property: item.variable })
+    }
+
     if (item.property?.startsWith('riveradmin_bool')) {
       const property = item.property.match(/\[(.+)]/)[1];
       if (property) {

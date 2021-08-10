@@ -6,6 +6,8 @@ import { HasId } from '../../../model/hydra';
 import { ListStore } from '../../../store/list-store';
 import { BoolFilter } from './filters/bool-filter';
 import { DateRangeFilter } from './filters/date-range-filter';
+import { InputFilter } from './filters/input-filter';
+import { EnumFilter } from './filters/enum-filter';
 
 const CustomToggle = React.forwardRef(({ children, onClick }: any, ref) => (
   <Button
@@ -66,6 +68,24 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
                   <label key={i} className={'d-flex align-items-center'} style={{ gap: '0.5rem' }}>
                     <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
                     <BoolFilter fieldName={gridFilter.property} />
+                  </label>
+                );
+              }
+
+              if (gridFilter.type === 'input') {
+                return (
+                  <label key={i} className={'d-flex align-items-center'} style={{ gap: '0.5rem' }}>
+                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    <InputFilter fieldName={gridFilter.property} />
+                  </label>
+                );
+              }
+
+              if (gridFilter.type === 'enum') {
+                return (
+                  <label key={i} className={'d-flex align-items-center'} style={{ gap: '0.5rem' }}>
+                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    <EnumFilter fieldName={gridFilter.property} dropdown={gridFilter.enum} />
                   </label>
                 );
               }

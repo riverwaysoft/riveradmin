@@ -16,6 +16,29 @@ Array [
 ]
 `;
 
+exports[`filter-parser parses custom filters 1`] = `
+Array [
+  Object {
+    "property": "text",
+    "type": "input",
+  },
+  Object {
+    "property": "createdAt",
+    "type": "date",
+  },
+  Object {
+    "enum": Object {
+      "ERROR": 4,
+      "INFO": 1,
+      "NOTICE": 2,
+      "WARNING": 3,
+    },
+    "property": "severity",
+    "type": "enum",
+  },
+]
+`;
+
 exports[`filter-parser parses fullText only 1`] = `
 Array [
   Object {
