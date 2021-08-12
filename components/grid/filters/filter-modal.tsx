@@ -8,6 +8,7 @@ import { BoolFilter } from './filters/bool-filter';
 import { DateRangeFilter } from './filters/date-range-filter';
 import { InputFilter } from './filters/input-filter';
 import { EnumFilter } from './filters/enum-filter';
+import { css } from '@emotion/css/macro';
 
 const CustomToggle = React.forwardRef(({ children, onClick }: any, ref) => (
   <Button
@@ -56,7 +57,14 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
             {listStore.availablePropertyFilters.map((gridFilter, i) => {
               if (gridFilter.type === 'date') {
                 return (
-                  <label key={i} className={'d-flex flex-column'} style={{ gap: '0.5rem' }}>
+                  <label
+                    key={i}
+                    className={css`
+                      display: flex;
+                      flex-direction: column;
+                      gap: 0.5rem;
+                    `}
+                  >
                     <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
                     <DateRangeFilter fieldName={gridFilter.property} />
                   </label>
@@ -65,7 +73,14 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
 
               if (gridFilter.type === 'bool') {
                 return (
-                  <label key={i} className={'d-flex align-items-center'} style={{ gap: '0.5rem' }}>
+                  <label
+                    key={i}
+                    className={css`
+                      display: flex;
+                      align-items: center;
+                      gap: 0.5rem;
+                    `}
+                  >
                     <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
                     <BoolFilter fieldName={gridFilter.property} />
                   </label>
@@ -74,7 +89,14 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
 
               if (gridFilter.type === 'input') {
                 return (
-                  <label key={i} className={'d-flex align-items-center'} style={{ gap: '0.5rem' }}>
+                  <label
+                    key={i}
+                    className={css`
+                      display: flex;
+                      flex-direction: column;
+                      gap: 0.5rem;
+                    `}
+                  >
                     <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
                     <InputFilter fieldName={gridFilter.property} />
                   </label>
@@ -83,7 +105,14 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
 
               if (gridFilter.type === 'enum') {
                 return (
-                  <label key={i} className={'d-flex align-items-center'} style={{ gap: '0.5rem' }}>
+                  <label
+                    key={i}
+                    className={css`
+                      display: flex;
+                      flex-direction: column;
+                      gap: 0.5rem;
+                    `}
+                  >
                     <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
                     <EnumFilter fieldName={gridFilter.property} dropdown={gridFilter.enum} />
                   </label>

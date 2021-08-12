@@ -22,6 +22,7 @@
   "riveradmin.filters.labels.payment": "Payment",
   "riveradmin.filters.labels.text": "Text",
   "riveradmin.filters.labels.severity": "Severity",
+  "riveradmin.filters.labels.type": "Type",
   "riveradmin.impersonate-user": "Impersonate user",
   "riveradmin.data-saved": "Data has been saved",
   "riveradmin.logout": "Logout"
