@@ -13,17 +13,8 @@
 
 # Apply changes from submodule
 
-- Go to submodule, create a patch from uncommited changes. Move this patch to your local riveradmin repo:
-  - `cd src/riveradmin && git diff > ../../../riveradmin/file.patch`
-- Go to your riveradmin repository and apply the patch
-  - `cd ../../../riveradmin && git apply file.patch`
-- Remove patch, commit and push
-  - `rm file.patch && git add . && git commit -m "Patch name" && git push`
-- Return to the folder with submodule and refresh it
-  - `cd - && git fetch origin && git reset --hard origin/master`
-- Go to your project root and commit changes in submodule
-
-  - `cd ../.. && git add . && git commit -m "Up-to-date admin" && git push`
+1) Make sure you've committed your changes: `git add . && git commit -m "..."`
+2) Apply the change submodule & push `./push-last-commit.sh`
 
 # Folder structure & component naming conventions
 
