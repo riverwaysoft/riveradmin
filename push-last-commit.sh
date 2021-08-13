@@ -25,4 +25,4 @@ git push && echo "Push"
 
 cd - && git fetch origin && git reset --hard origin/master
 
-cd ../.. && git add . && git commit -m "Up-to-date admin" && echo -e "\nThe current project is up-to-date with admin and ready to push! Go to your project folder and run git push"
+cd ../.. && git add . && git commit -m "Up-to-date admin" && echo -e "\nThe current project is up-to-date with admin and ready to push! Go to your project folder (cd ../../) and run git push\n"
