@@ -40,6 +40,7 @@ describe('QuerySerializer', () => {
         min: 10,
         max: 20,
       },
+      'partner.companyName': 'someName',
     };
 
     const serialized = querySerializer.stringifyParams(filter);

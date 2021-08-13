@@ -8,6 +8,16 @@ export type GridFilter = {
   enum?: { [key in string]: number };
 };
 
+const nestedNotationReplace = '__';
+// https://stackoverflow.com/a/56539950
+// Fix Final form issue - prevent replace dot to object
+export const wrapNestedNotation = (filterProperty: string): string => {
+  return filterProperty.replace(/\./g, nestedNotationReplace);
+};
+export const unwrapNestedNotation = (filterProperty: string): string => {
+  return filterProperty.replace(new RegExp(nestedNotationReplace, 'g'), '.');
+};
+
 export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter[] => {
   if (!response['hydra:search']) {
     return [];
@@ -25,19 +35,23 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
     }
 
     if (item.property?.startsWith('riveradmin_input')) {
-      gridFilters.push({ type: 'input', property: item.variable })
+      gridFilters.push({ type: 'input', property: wrapNestedNotation(item.variable) });
     }
 
     if (item.property?.startsWith('riveradmin_enum')) {
       const enumJson = item.property.replace('riveradmin_enum:', '');
       const enumParsed = JSON.parse(enumJson);
-      gridFilters.push({ type: 'enum', enum: enumParsed, property: item.variable })
+      gridFilters.push({
+        type: 'enum',
+        enum: enumParsed,
+        property: wrapNestedNotation(item.variable),
+      });
     }
 
     if (item.property?.startsWith('riveradmin_bool')) {
       const property = item.property.match(/\[(.+)]/)[1];
       if (property) {
-        gridFilters.push({ type: 'bool', property: property });
+        gridFilters.push({ type: 'bool', property: wrapNestedNotation(property) });
       } else {
         console.error('Riveradmin: riveradmin_bool filter is incorrect');
       }

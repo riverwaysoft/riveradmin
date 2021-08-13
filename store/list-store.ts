@@ -1,11 +1,16 @@
-import { action, makeAutoObservable } from 'mobx';
+import { action, makeAutoObservable, toJS } from 'mobx';
 import { RouterStore } from '@superwf/mobx-react-router';
 import { CollectionResponse, HasId } from '../model/hydra';
 import { DataProvider } from '../data-provider/data-provider';
 import { assert } from 'ts-essentials';
 import { Notificator } from '../notificator/notificator';
 import { Translator } from '../intl/translator';
-import { GridFilter, parseHydraFilters } from '../components/grid/filters/filter-parser';
+import {
+  GridFilter,
+  parseHydraFilters,
+  unwrapNestedNotation,
+  wrapNestedNotation,
+} from '../components/grid/filters/filter-parser';
 import { QuerySerializer } from '../routing/query-serializer';
 import { omit } from 'lodash';
 
@@ -46,9 +51,18 @@ export class ListStore<Entity extends HasId> {
 
   loadList() {
     this.isListLoading = true;
-    this.filters = this.querySerializer.parseQueryParams();
+    const filters = this.querySerializer.parseQueryParams();
+
+    this.filters = Object.entries(filters).reduce((acc, [key, value]) => {
+      return { ...acc, [wrapNestedNotation(key)]: value };
+    }, {});
+
+    const send = Object.entries(this.filters).reduce((acc, [key, value]) => {
+      return { ...acc, [unwrapNestedNotation(key)]: value };
+    }, {});
+
     this.dataProvider
-      .fetchList(this.filters)
+      .fetchList(send)
       .then(
         action((data) => {
           this.listData = data;
@@ -95,11 +109,17 @@ export class ListStore<Entity extends HasId> {
       this.filters.page = 1;
     }
 
+    const paramsRaw = {
+      ...this.filters,
+      ...values,
+    };
+
+    const paramsWithDotNotation = Object.entries(paramsRaw).reduce((acc, [key, value]) => {
+      return { ...acc, [unwrapNestedNotation(key)]: value };
+    }, {});
+
     this.routerStore.push({
-      search: this.querySerializer.stringifyParams({
-        ...this.filters,
-        ...values,
-      }),
+      search: this.querySerializer.stringifyParams(paramsWithDotNotation),
     });
   };
 

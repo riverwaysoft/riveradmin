@@ -87,6 +87,40 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
                               );
                             }
 
+                            if (filterTypeByKey.type === 'input') {
+                              return (
+                                <Button key={key}>
+                                  <FormattedMessage id={`riveradmin.filters.labels.${key}`} />:{' '}
+                                  {value}
+                                  <i
+                                    className={'mdi mdi-close'}
+                                    onClick={() => {
+                                      listStore.removeFilter(key);
+                                    }}
+                                  />
+                                </Button>
+                              );
+                            }
+
+                            if (filterTypeByKey.type === 'enum') {
+                              const enumValue = Object.entries(filterTypeByKey.enum).find(
+                                ([_, v]) => Number(v) === Number(value)
+                              )?.[0];
+
+                              return (
+                                <Button key={key}>
+                                  <FormattedMessage id={`riveradmin.filters.labels.${key}`} />:{' '}
+                                  {enumValue}
+                                  <i
+                                    className={'mdi mdi-close'}
+                                    onClick={() => {
+                                      listStore.removeFilter(key);
+                                    }}
+                                  />
+                                </Button>
+                              );
+                            }
+
                             return null;
                           })
                       : null}

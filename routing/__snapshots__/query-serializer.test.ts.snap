@@ -18,10 +18,11 @@ Object {
 }
 `;
 
-exports[`QuerySerializer should stringify complex filter 1`] = `"test=1&range%5Bmin%5D=10&range%5Bmax%5D=20"`;
+exports[`QuerySerializer should stringify complex filter 1`] = `"test=1&range%5Bmin%5D=10&range%5Bmax%5D=20&partner.companyName=someName"`;
 
 exports[`QuerySerializer should stringify complex filter 2`] = `
 Object {
+  "partner.companyName": "someName",
   "range": Object {
     "max": "20",
     "min": "10",

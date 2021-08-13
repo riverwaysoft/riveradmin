@@ -147,6 +147,12 @@ describe('filter-parser', () => {
           },
           {
             '@type': 'IriTemplateMapping',
+            variable: 'partner.companyName',
+            property: 'riveradmin_input',
+            required: false,
+          },
+          {
+            '@type': 'IriTemplateMapping',
             variable: 'severity',
             property:
               'riveradmin_enum:{\u0022INFO\u0022:1,\u0022NOTICE\u0022:2,\u0022WARNING\u0022:3,\u0022ERROR\u0022:4}',
