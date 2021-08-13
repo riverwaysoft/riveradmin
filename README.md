@@ -14,7 +14,7 @@
 # Apply changes from submodule
 
 1) Make sure you've committed your changes: `git add . && git commit -m "..."`
-2) Apply the change submodule & push `./push-last-commit.sh`
+2) Apply the change to submodule & push `./push-last-commit.sh`
 
 # Folder structure & component naming conventions
 
