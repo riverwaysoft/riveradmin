@@ -1,5 +1,6 @@
+import { css } from '@emotion/css/macro';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { HasId } from '../../../model/hydra';
 import { ListStore } from '../../../store/list-store';
 
@@ -8,14 +9,15 @@ export type ActionProps<Model extends HasId> = {
   store: ListStore<Model>;
 };
 
-type Props = {
-  actions: React.ReactElement[];
-};
-
-export const ActionsColumn = observer((props: Props) => {
+export const ActionsColumn = observer((props: { children: ReactNode }) => {
   return (
-    <div className={'d-flex'} style={{ gap: '1rem' }}>
-      {props.actions}
+    <div
+      className={css`
+        display: flex;
+        gap: 1rem;
+      `}
+    >
+      {props.children}
     </div>
   );
 });
