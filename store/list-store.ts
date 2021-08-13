@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, toJS } from 'mobx';
+import { action, makeAutoObservable } from 'mobx';
 import { RouterStore } from '@superwf/mobx-react-router';
 import { CollectionResponse, HasId } from '../model/hydra';
 import { DataProvider } from '../data-provider/data-provider';
