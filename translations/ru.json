@@ -22,6 +22,7 @@
   "riveradmin.filters.labels.isEnabled": "Активирован",
   "riveradmin.filters.labels.isSuperTrainer": "Супертренер",
   "riveradmin.filters.labels.isTrainerTechnicalSupport": "Поддержка тренеров",
+  "riveradmin.filters.labels.isSpecialVisibleForStudent": "Отображается студенту под своим именем",
   "riveradmin.filters.labels.isStudentSupport": "Поддержка студентов",
   "riveradmin.filters.labels.isTechnicalSupport": "Техническая поддержка",
   "riveradmin.filters.labels.type": "Тип",
