@@ -27,6 +27,13 @@
   "riveradmin.filters.labels.isTechnicalSupport": "Техническая поддержка",
   "riveradmin.filters.labels.type": "Тип",
   "riveradmin.impersonate-user": "Войти как пользователь",
+  "riveradmin.filters.labels.isVegetarian": "Вегетарианство",
+  "riveradmin.filters.labels.isVegan": "Веганство",
+  "riveradmin.filters.labels.isMeatEater":  "Мясоедство",
+  "riveradmin.filters.labels.isPescetarian": "Пескетарианство",
+  "riveradmin.filters.labels.isForBreakfast":  "Завтрак",
+  "riveradmin.filters.labels.isForLunch": "Обед",
+  "riveradmin.filters.labels.isForDinner":  "Ужин",
   "riveradmin.data-saved": "Данные сохранены",
   "riveradmin.logout": "Выйти"
 }
