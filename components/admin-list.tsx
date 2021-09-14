@@ -52,6 +52,35 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
                               return null;
                             }
 
+                            if (filterTypeByKey.type === 'range') {
+                              // @ts-ignore
+                              const { gte, lte } = value;
+                              const joinWith = Boolean(lte && gte);
+
+                              return (
+                                <Button key={key}>
+                                  <FormattedMessage id={`riveradmin.filters.labels.${key}`} />{' '}
+                                  {gte ? (
+                                    <>
+                                      <FormattedMessage id={`riveradmin.filters.gte`} /> {gte}
+                                    </>
+                                  ) : null}
+                                  {joinWith ? ' AND ' : ''}
+                                  {lte ? (
+                                    <>
+                                      <FormattedMessage id={`riveradmin.filters.lte`} /> {lte}
+                                    </>
+                                  ) : null}
+                                  <i
+                                    className={'mdi mdi-close'}
+                                    onClick={() => {
+                                      listStore.removeFilter(key);
+                                    }}
+                                  />
+                                </Button>
+                              );
+                            }
+
                             if (filterTypeByKey.type === 'date') {
                               const range: [Date, Date] = [
                                 // @ts-ignore
