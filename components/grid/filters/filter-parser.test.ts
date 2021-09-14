@@ -164,6 +164,18 @@ describe('filter-parser', () => {
             property: 'severity',
             required: false,
           },
+          {
+            '@type': 'IriTemplateMapping',
+            property: 'rating.rating',
+            required: false,
+            variable: 'rating.rating[lte]',
+          },
+          {
+            '@type': 'IriTemplateMapping',
+            property: 'rating.rating',
+            required: false,
+            variable: 'rating.rating[gte]',
+          },
         ],
       },
     } as any;

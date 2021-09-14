@@ -119,6 +119,36 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
                 );
               }
 
+              if (gridFilter.type === 'range') {
+                return (
+                  <div key={i}>
+                    <label
+                      className={css`
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+                      `}
+                    >
+                      <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />{' '}
+                      <FormattedMessage id={`riveradmin.filters.gte`} />
+                      <InputFilter fieldName={`${gridFilter.property}[gte]`} />
+                    </label>
+
+                    <label
+                      className={css`
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+                      `}
+                    >
+                      <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />{' '}
+                      <FormattedMessage id={`riveradmin.filters.lte`} />
+                      <InputFilter fieldName={`${gridFilter.property}[lte]`} />
+                    </label>
+                  </div>
+                );
+              }
+
               return null;
             })}
           </div>

@@ -15,6 +15,8 @@
   "riveradmin.filters.add": "Добавить фильтры",
   "riveradmin.filters": "Фильтры",
   "riveradmin.filters.reset": "Сбросить фильтры",
+  "riveradmin.filters.lte": "меньше или равно",
+  "riveradmin.filters.gte": "больше или равно",
   "riveradmin.filters.apply": "Применить",
   "riveradmin.filters.date-range-not-selected": "Не выбрано",
   "riveradmin.filters.labels.createdAt": "Дата создания",
@@ -29,11 +31,11 @@
   "riveradmin.impersonate-user": "Войти как пользователь",
   "riveradmin.filters.labels.isVegetarian": "Вегетарианство",
   "riveradmin.filters.labels.isVegan": "Веганство",
-  "riveradmin.filters.labels.isMeatEater":  "Мясоедство",
+  "riveradmin.filters.labels.isMeatEater": "Мясоедство",
   "riveradmin.filters.labels.isPescetarian": "Пескетарианство",
-  "riveradmin.filters.labels.isForBreakfast":  "Завтрак",
+  "riveradmin.filters.labels.isForBreakfast": "Завтрак",
   "riveradmin.filters.labels.isForLunch": "Обед",
-  "riveradmin.filters.labels.isForDinner":  "Ужин",
+  "riveradmin.filters.labels.isForDinner": "Ужин",
   "riveradmin.data-saved": "Данные сохранены",
   "riveradmin.logout": "Выйти"
 }

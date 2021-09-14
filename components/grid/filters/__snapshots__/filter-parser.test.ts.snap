@@ -40,6 +40,10 @@ Array [
     "property": "severity",
     "type": "enum",
   },
+  Object {
+    "property": "rating__rating",
+    "type": "range",
+  },
 ]
 `;
 

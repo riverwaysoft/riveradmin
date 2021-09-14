@@ -1,12 +1,12 @@
 import { CollectionResponse } from '../../../model/hydra';
 
-export type GridFilterType = 'fullText' | 'date' | 'bool' | 'input' | 'enum';
-
-export type GridFilter = {
-  type: GridFilterType;
-  property?: string;
-  enum?: { [key in string]: number };
-};
+export type GridFilter =
+  | { type: 'fullText'; property?: string }
+  | { type: 'date'; property?: string }
+  | { type: 'bool'; property?: string }
+  | { type: 'input'; property?: string }
+  | { type: 'enum'; property?: string; enum?: { [key in string]: number } }
+  | { type: 'range'; property?: string };
 
 const nestedNotationReplace = '__';
 // https://stackoverflow.com/a/56539950
@@ -32,6 +32,9 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
     }
     if (item.variable.endsWith('[before]')) {
       gridFilters.push({ type: 'date', property: item.property });
+    }
+    if (item.variable.endsWith('[gte]')) {
+      gridFilters.push({ type: 'range', property: wrapNestedNotation(item.property) });
     }
 
     if (item.property?.startsWith('riveradmin_input')) {
