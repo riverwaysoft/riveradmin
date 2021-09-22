@@ -7,7 +7,11 @@ import { AdminAuthStore } from './admin-auth-store';
 import { Notificator } from '../notificator/notificator';
 import { AdminLoginStore } from '../components/auth/admin-login-store';
 import { ListStoreFactory } from '../factory/list-store-factory';
-import { ReactIntlFactory, SupportedLanguage } from '../factory/react-intl-factory';
+import {
+  ReactIntlFactory,
+  SupportedLanguage,
+  Translations
+} from '../factory/react-intl-factory';
 import { ReactIntlTranslator } from '../intl/react-intl-translator';
 import { LocalTokenStorage } from '../jwt/local-token-storage';
 import { FormStoreFactory } from '../factory/form-store-factory';
@@ -19,7 +23,7 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   routerStore = new RouterStore();
   authStore = new AdminAuthStore(this.tokenStorage, this.routerStore);
   reactIntlFactory = new ReactIntlFactory();
-  reactIntl = this.reactIntlFactory.create(this.config.locale);
+  reactIntl = this.reactIntlFactory.create(this.config.locale, this.config.translations);
   translator = new ReactIntlTranslator(this.reactIntl);
   querySerializer = new QuerySerializer();
   impersonateService?: ImpersonateService;
@@ -34,6 +38,7 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   constructor(
     public config: {
       locale: SupportedLanguage;
+      translations?: Translations;
       localStorageKey: string;
       appTitle: string;
       impersonate?: {
