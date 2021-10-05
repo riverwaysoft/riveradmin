@@ -24,12 +24,13 @@ type Filters = {
   order?: {
     [key in string]: 'asc' | 'desc';
   };
+  [key: string]: any;
 };
 
 export class ListStore<Entity extends HasId> {
   isListLoading = false;
   listData?: CollectionResponse<Entity>;
-  filters?: Filters;
+  filters: Filters = {};
   availableGridFilters: GridFilter[] = [];
 
   modelToDelete?: Entity;

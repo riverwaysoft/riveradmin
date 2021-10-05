@@ -5,7 +5,7 @@ import translationsRu from '../translations/ru.json';
 export type Translations = {
   en: Record<string, string>;
   ru: Record<string, string>;
-}
+};
 
 export type SupportedLanguage = keyof Translations;
 

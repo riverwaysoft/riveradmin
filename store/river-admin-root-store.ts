@@ -7,11 +7,7 @@ import { AdminAuthStore } from './admin-auth-store';
 import { Notificator } from '../notificator/notificator';
 import { AdminLoginStore } from '../components/auth/admin-login-store';
 import { ListStoreFactory } from '../factory/list-store-factory';
-import {
-  ReactIntlFactory,
-  SupportedLanguage,
-  Translations
-} from '../factory/react-intl-factory';
+import { ReactIntlFactory, SupportedLanguage, Translations } from '../factory/react-intl-factory';
 import { ReactIntlTranslator } from '../intl/react-intl-translator';
 import { LocalTokenStorage } from '../jwt/local-token-storage';
 import { FormStoreFactory } from '../factory/form-store-factory';
