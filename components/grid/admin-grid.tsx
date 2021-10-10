@@ -3,12 +3,13 @@ import Skeleton from 'react-loading-skeleton';
 import { observer } from 'mobx-react-lite';
 import { HasId } from '../../model/hydra';
 import { AdminGridNoResults } from './admin-grid-not-result';
-import { AdminGridPagination } from './admin-grid-pagination';
+import { AdminGridPagination } from './pagination/admin-grid-pagination';
 import { Table } from 'react-bootstrap';
 import { ListStore } from '../../store/list-store';
 import { FormattedMessage } from 'react-intl';
 import { ConfirmModal } from '../ui/confirm-modal';
 import classNames from 'classnames';
+import { parsePagination } from './pagination/parse-pagination';
 
 export type Props<Model extends HasId> = {
   columns: {
@@ -23,27 +24,18 @@ export type Props<Model extends HasId> = {
 export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => {
   const { columns, listStore } = props;
   const value = listStore.listData;
+
   const renderPagination = () => {
-    if (value && value['hydra:view']) {
-      const viewMeta = value['hydra:view'];
-      const totalItems = value['hydra:totalItems'];
-      const reg = new RegExp(/page=([0-9]+)/);
-
-      const currentMatch = viewMeta['@id'].match(reg);
-      if (!currentMatch) return;
-      const currentPage = currentMatch[1];
-
-      const pagesMatcher = viewMeta['hydra:last'].match(reg);
-      if (pagesMatcher && pagesMatcher[1] && parseInt(pagesMatcher[1]) > 1) {
-        return (
-          <AdminGridPagination
-            currentPage={parseInt(currentPage)}
-            totalItems={totalItems}
-            totalPages={parseInt(pagesMatcher[1])}
-            onChange={(page) => listStore.onPageChange(page)}
-          />
-        );
-      }
+    const paginationResult = parsePagination(value);
+    if (paginationResult) {
+      return (
+        <AdminGridPagination
+          currentPage={paginationResult.currentPage}
+          totalItems={paginationResult.totalItems}
+          totalPages={paginationResult.totalPages}
+          onChange={(page) => listStore.onPageChange(page)}
+        />
+      );
     }
   };
 
