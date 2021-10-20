@@ -39,6 +39,10 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
     }
   };
 
+  if (value && value['hydra:member'] === undefined) {
+    console.error('RiverAdmin error: invalid response from API. Key hydra:member is required');
+  }
+
   return (
     <div>
       <Table responsive>
