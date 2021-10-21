@@ -15,7 +15,7 @@ type Props = {
 };
 
 export const Layout = observer((props: Props) => {
-  const { routerStore, authStore, reactIntl, config } = useRiverAdminStore();
+  const { routerStore, authStore, reactIntl, config, querySerializer } = useRiverAdminStore();
   const { routes } = props;
   assert(Object.keys(routes).length > 0, 'No routes specified');
 
@@ -56,11 +56,14 @@ export const Layout = observer((props: Props) => {
                       <li className="nav-item">
                         {Object.entries(routes)
                           .filter(([_, route]) => !!route.menu)
-                          .map(([path, { title }]) => (
+                          .map(([path, { title, query }]) => (
                             <NavLink
                               key={path}
                               className={'nav-link'}
-                              to={path}
+                              to={{
+                                pathname: path,
+                                search: query ? querySerializer.stringifyParams(query) : undefined,
+                              }}
                               activeClassName="active"
                             >
                               {title}

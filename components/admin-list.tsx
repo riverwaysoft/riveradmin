@@ -3,7 +3,7 @@ import { Form as FinalForm } from 'react-final-form';
 import useDocumentTitle from 'use-document-title';
 import { AdminGrid, Props as AdminGridProps } from './grid/admin-grid';
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { ListStore } from '../store/list-store';
 import { FilterModal } from './grid/filters/filter-modal';
 import { formatDateRange } from './grid/filters/format-date-range';
@@ -17,6 +17,7 @@ type Props<Entity extends HasId> = {
   title: string;
   create?: boolean;
   columns: AdminGridProps<Entity>['columns'];
+  slotTop?: ReactNode;
 };
 
 export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) => {
@@ -32,6 +33,7 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
   return (
     <div className={'d-flex flex-column'}>
       <h4>{title}</h4>
+      {props.slotTop}
       <div className={'d-flex w-100 mb-3'}>
         <div className={'d-flex justify-content-between w-100 mr-2'}>
           {listStore.hasAvailableFilters && (

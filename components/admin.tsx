@@ -6,7 +6,11 @@ import { StoreContext as RiverAdminRootStoreContext } from '../store/use-riverad
 import { Layout } from './layout';
 
 export type MenuRoutes = {
-  [key in string]: { title: string; menu?: boolean } & Pick<RouteProps, 'component' | 'exact'>;
+  [key in string]: {
+    title: string;
+    menu?: boolean;
+    query?: object;
+  } & Pick<RouteProps, 'component' | 'exact'>;
 };
 
 type Props = {
