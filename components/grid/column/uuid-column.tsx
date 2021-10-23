@@ -1,10 +1,10 @@
-import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { ClipboardStore } from './clipboard-store';
 import styles from './uuid-column.module.scss';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
+import { cx } from '@emotion/css/macro';
 
 type Props = {
   uuid: string;
@@ -38,7 +38,7 @@ export const UuidColumn = observer((props: Props) => {
           }
         >
           <i
-            className={classNames('mdi mdi-18px', {
+            className={cx('mdi mdi-18px', {
               'mdi-clipboard-check-multiple-outline': clipboardStore.isCopied,
               'mdi-clipboard-multiple-outline': !clipboardStore.isCopied,
             })}

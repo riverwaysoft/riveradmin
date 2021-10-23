@@ -17,11 +17,12 @@ type Props<Entity extends HasId> = {
   title: string;
   create?: boolean;
   columns: AdminGridProps<Entity>['columns'];
+  isRowInactive?: AdminGridProps<Entity>['isRowInactive'];
   slotTop?: ReactNode;
 };
 
 export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) => {
-  const { listStore, columns, title, create } = props;
+  const { listStore, columns, title, create, isRowInactive } = props;
 
   useDocumentTitle(title);
 
@@ -174,7 +175,7 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
           )}
         </div>
       </div>
-      <AdminGrid columns={columns} listStore={listStore} />
+      <AdminGrid columns={columns} listStore={listStore} isRowInactive={isRowInactive} />
     </div>
   );
 });

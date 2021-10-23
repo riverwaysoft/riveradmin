@@ -8,8 +8,9 @@ import { Table } from 'react-bootstrap';
 import { ListStore } from '../../store/list-store';
 import { FormattedMessage } from 'react-intl';
 import { ConfirmModal } from '../ui/confirm-modal';
-import classNames from 'classnames';
 import { parsePagination } from './pagination/parse-pagination';
+import { css, cx } from '@emotion/css/macro';
+import { useRiverAdminStore } from '../../store/use-riveradmin-store';
 
 export type Props<Model extends HasId> = {
   columns: {
@@ -18,11 +19,14 @@ export type Props<Model extends HasId> = {
     render: (item: Model) => React.ReactNode | string | null;
     sortableKey?: string;
   }[];
+  isRowInactive?: boolean;
   listStore: ListStore<Model>;
 };
 
 export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => {
   const { columns, listStore } = props;
+  const { config } = useRiverAdminStore();
+  const isRowClickableEnabled = props.isRowInactive ? false : config.isRowClickableEnabled;
   const value = listStore.listData;
 
   const renderPagination = () => {
@@ -56,13 +60,11 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
                       listStore.setOrderBy(column.sortableKey);
                     }
                   }}
-                  className={classNames('d-flex align-items-center', {
-                    'cursor-pointer': column.sortableKey,
-                    'text-nowrap': column.sortableKey,
-                    'text-primary':
-                      column.sortableKey && listStore.orderByKey === column.sortableKey,
+                  className={styles.columnHeader({
+                    isSortableKey: !!column.sortableKey,
+                    isOrderByKey:
+                      !!column.sortableKey && listStore.orderByKey === column.sortableKey,
                   })}
-                  style={{ gap: '0.25rem' }}
                 >
                   <span>
                     {column.sortableKey ? (
@@ -104,9 +106,19 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
             </tr>
           )}
           {value &&
-            (value['hydra:member'] || []).map((model: Model) => {
+            (value['hydra:member'] || []).map((model) => {
               return (
-                <tr key={model.id}>
+                <tr
+                  key={model.id}
+                  className={styles.tableRow({ isRowEditableEnabled: isRowClickableEnabled })}
+                  onClick={
+                    isRowClickableEnabled
+                      ? () => {
+                          listStore.goToModelPage(model);
+                        }
+                      : undefined
+                  }
+                >
                   {columns.map((column, i) => (
                     <td key={i} onClick={column.onClick}>
                       {column.render(model)}
@@ -131,3 +143,33 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
     </div>
   );
 });
+
+const styles = {
+  columnHeader: (props: { isSortableKey: boolean; isOrderByKey: boolean }) =>
+    cx(
+      css`
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      `,
+      props.isSortableKey &&
+        css`
+          cursor: pointer;
+          white-space: nowrap;
+        `,
+      props.isOrderByKey &&
+        css`
+          color: var(--primary);
+        `
+    ),
+  tableRow: (props: { isRowEditableEnabled?: boolean }) =>
+    cx(
+      props.isRowEditableEnabled &&
+        css`
+          &:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.075);
+          }
+        `
+    ),
+};

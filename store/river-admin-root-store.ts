@@ -33,6 +33,7 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
 
   constructor(
     public config: {
+      isRowClickableEnabled?: boolean;
       locale: SupportedLanguage;
       translations?: Translations;
       localStorageKey: string;
