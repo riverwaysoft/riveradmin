@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { ClipboardStore } from './clipboard-store';
-import styles from './uuid-column.module.scss';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
-import { cx } from '@emotion/css/macro';
+import { css, cx } from '@emotion/css/macro';
 
 type Props = {
   uuid: string;
@@ -16,14 +15,15 @@ export const UuidColumn = observer((props: Props) => {
   const [clipboardStore] = useState(() => new ClipboardStore());
 
   return (
-    <div className={styles.uuidColumn}>
+    <div className={styles.wrapper}>
       <span>
         {title} {uuid.slice(0, 6) + '...'}
       </span>
       <span
         className={styles.copy}
         onMouseLeave={clipboardStore.forgetCopied}
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           clipboardStore.copyToClipboard(uuid);
         }}
       >
@@ -48,3 +48,22 @@ export const UuidColumn = observer((props: Props) => {
     </div>
   );
 });
+
+const styles = {
+  wrapper: css({
+    display: 'flex',
+    alignItems: 'center',
+    gap: 16,
+    '&:hover .copy': {
+      opacity: 1,
+    },
+  }),
+  copy: cx(
+    'copy',
+    css({
+      opacity: 0,
+      transition: 'opacity 0.3s',
+      cursor: 'pointer',
+    })
+  ),
+};

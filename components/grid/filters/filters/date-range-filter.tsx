@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import React from 'react';
 import { Field } from 'react-final-form';
 import { DateRangePicker } from '../date-range-picker/date-range-picker';
+import { css } from '@emotion/css/macro';
 
 type Props = {
   fieldName: string;
@@ -11,7 +12,7 @@ export const DateRangeFilter = (props: Props) => {
   const { fieldName } = props;
 
   return (
-    <Field name={fieldName} groupClassName={'mb-0'}>
+    <Field name={fieldName} groupClassName={css({ marginBottom: 0 })}>
       {({ input }) => (
         <DateRangePicker
           value={

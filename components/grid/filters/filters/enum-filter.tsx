@@ -10,7 +10,7 @@ type Props = {
 
 export const EnumFilter = (props: Props) => {
   return (
-    <Field name={props.fieldName} groupClassName={'mb-0'}>
+    <Field name={props.fieldName} groupClassName={css({ marginBottom: 0 })}>
       {({ input }) => {
         const options = Object.entries(props.dropdown).map(([key, value]) => ({
           value: value,
@@ -19,9 +19,7 @@ export const EnumFilter = (props: Props) => {
 
         return (
           <Select
-            className={css`
-              min-width: 250px;
-            `}
+            className={css({ minWidth: 250 })}
             // @ts-ignore
             value={options.filter((option) => Number(option.value) === Number(input.value))}
             onChange={(e) => {

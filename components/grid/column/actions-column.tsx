@@ -10,14 +10,5 @@ export type ActionProps<Model extends HasId> = {
 };
 
 export const ActionsColumn = observer((props: { children: ReactNode }) => {
-  return (
-    <div
-      className={css`
-        display: flex;
-        gap: 1rem;
-      `}
-    >
-      {props.children}
-    </div>
-  );
+  return <div className={css({ display: 'flex', gap: 16 })}>{props.children}</div>;
 });

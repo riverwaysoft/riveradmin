@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 import { InputAdapter } from '../../../ui/input-adapter';
+import { css } from '@emotion/css/macro';
 
 type Props = {
   fieldName: string;
@@ -9,5 +10,7 @@ type Props = {
 export const InputFilter = (props: Props) => {
   const { fieldName } = props;
 
-  return <Field name={fieldName} groupClassName={'mb-0'} component={InputAdapter} />;
+  return (
+    <Field name={fieldName} groupClassName={css({ marginBottom: 0 })} component={InputAdapter} />
+  );
 };

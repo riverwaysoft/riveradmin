@@ -16,7 +16,8 @@ export const ImpersonateAction = (props: Props) => {
     <AdminTooltip title={<FormattedMessage id={'riveradmin.impersonate-user'} />}>
       <i
         className={'mdi mdi-account-key text-success cursor-pointer'}
-        onClick={async () => {
+        onClick={async (event) => {
+          event.stopPropagation();
           await impersonateService.openImpersonatePage(model);
         }}
       />

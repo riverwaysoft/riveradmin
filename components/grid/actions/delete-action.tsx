@@ -9,7 +9,8 @@ export const DeleteAction = <Model extends HasId>(props: ActionProps<Model>) => 
     <AdminTooltip title={<FormattedMessage id={'riveradmin.remove'} />}>
       <i
         className={'mdi mdi-delete text-danger cursor-pointer'}
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           props.store.askRemove(props.model);
         }}
       />

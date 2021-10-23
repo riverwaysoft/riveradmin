@@ -9,7 +9,8 @@ export const EditAction = <Model extends HasId>(props: ActionProps<Model>) => {
     <AdminTooltip title={<FormattedMessage id={'riveradmin.open-edit'} />}>
       <i
         className={'mdi mdi-pencil cursor-pointer'}
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           props.store.goToModelPage(props.model);
         }}
       />

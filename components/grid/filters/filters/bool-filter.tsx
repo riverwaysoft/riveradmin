@@ -1,3 +1,4 @@
+import { css } from '@emotion/css/macro';
 import React from 'react';
 import { Field } from 'react-final-form';
 import { RadioSwitcher } from '../../../ui/radio-switcher/radio-switcher';
@@ -10,7 +11,7 @@ export const BoolFilter = (props: Props) => {
   const { fieldName } = props;
 
   return (
-    <Field name={fieldName} groupClassName={'mb-0'}>
+    <Field name={fieldName} groupClassName={css({ marginBottom: 0 })}>
       {({ input }) => (
         <RadioSwitcher
           isOn={input.value === '1'}

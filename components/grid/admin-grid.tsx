@@ -147,29 +147,13 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
 const styles = {
   columnHeader: (props: { isSortableKey: boolean; isOrderByKey: boolean }) =>
     cx(
-      css`
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-      `,
-      props.isSortableKey &&
-        css`
-          cursor: pointer;
-          white-space: nowrap;
-        `,
-      props.isOrderByKey &&
-        css`
-          color: var(--primary);
-        `
+      css({ display: 'flex', alignItems: 'center', gap: '0.25rem' }),
+      props.isSortableKey && css({ cursor: 'pointer', whiteSpace: 'nowrap' }),
+      props.isOrderByKey && css({ color: 'var(--primary)' })
     ),
   tableRow: (props: { isRowEditableEnabled?: boolean }) =>
     cx(
       props.isRowEditableEnabled &&
-        css`
-          &:hover {
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.075);
-          }
-        `
+        css({ '&:hover': { cursor: 'pointer', backgroundColor: 'rgba(0, 0, 0, 0.075)' } })
     ),
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import { Field } from 'react-final-form';
 import { useRiverAdminStore } from '../../store/use-riveradmin-store';
 import { InputAdapter } from '../ui/input-adapter';
+import { css } from '@emotion/css/macro';
 
 export const GridSearch = observer(() => {
   const { translator } = useRiverAdminStore();
@@ -10,9 +11,13 @@ export const GridSearch = observer(() => {
   return (
     <Field
       name={'fullText'}
-      groupClassName={'mb-0'}
+      groupClassName={styles.input}
       component={InputAdapter}
       placeholder={translator.translate('riveradmin.search')}
     />
   );
 });
+
+const styles = {
+  input: css({ marginBottom: 0 }),
+};
