@@ -106,9 +106,7 @@ export class ListStore<Entity extends HasId> {
   }
 
   submitSearchForm = (values: Filters) => {
-    this.filters = { page: 1 };
-
-    const paramsRaw = { ...this.filters, ...values };
+    const paramsRaw = { ...values, page: 1 };
 
     const paramsWithDotNotation = Object.entries(paramsRaw).reduce((acc, [key, value]) => {
       return { ...acc, [unwrapNestedNotation(key)]: value };
