@@ -105,15 +105,10 @@ export class ListStore<Entity extends HasId> {
     this.routerStore.push(createUrl);
   }
 
-  submitSearchForm = async (values: Filters) => {
-    if (this.filters?.page) {
-      this.filters.page = 1;
-    }
+  submitSearchForm = (values: Filters) => {
+    this.filters = { page: 1 };
 
-    const paramsRaw = {
-      ...this.filters,
-      ...values,
-    };
+    const paramsRaw = { ...this.filters, ...values };
 
     const paramsWithDotNotation = Object.entries(paramsRaw).reduce((acc, [key, value]) => {
       return { ...acc, [unwrapNestedNotation(key)]: value };

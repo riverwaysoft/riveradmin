@@ -11,6 +11,10 @@ export const InputFilter = (props: Props) => {
   const { fieldName } = props;
 
   return (
-    <Field name={fieldName} groupClassName={css({ marginBottom: 0 })} component={InputAdapter} />
+    <Field
+      name={fieldName}
+      groupClassName={css({ marginBottom: '0 !important' })}
+      component={InputAdapter}
+    />
   );
 };

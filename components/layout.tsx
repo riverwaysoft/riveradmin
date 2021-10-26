@@ -9,6 +9,7 @@ import { MenuRoutes } from './admin';
 import { AdminAuthenticatedRoute } from './auth/admin-authenticated-route';
 import { AdminLogin } from './auth/admin-login';
 import { AdminLogout } from './auth/admin-logout';
+import { css, cx } from '@emotion/css/macro';
 
 type Props = {
   routes: MenuRoutes;
@@ -36,13 +37,17 @@ export const Layout = observer((props: Props) => {
           <Route
             path={'/'}
             render={() => (
-              <div className={'d-flex flex-column'}>
-                <nav className="navbar navbar-light bg-light mb-4">
+              <div className={css({ display: 'flex', flexDirection: 'column' })}>
+                <nav
+                  className={cx(
+                    'navbar navbar-light',
+                    css({ backgroundColor: 'var(--light)', marginBottom: 24 })
+                  )}
+                >
                   <span className="navbar-brand">{config.appTitle}</span>
                   <Link
                     to={'/logout'}
-                    className={'d-flex align-items-center'}
-                    style={{ gap: '8px' }}
+                    className={css({ display: 'flex', alignItems: 'center', gap: 8 })}
                   >
                     <span>
                       <FormattedMessage id={'riveradmin.logout'} />
@@ -50,8 +55,8 @@ export const Layout = observer((props: Props) => {
                     <i className={'mdi mdi-logout mdi-24px'} />
                   </Link>
                 </nav>
-                <div className={'d-flex p-2'} style={{ gap: '1rem' }}>
-                  <div style={{ width: '15%' }}>
+                <div className={css({ display: 'flex', padding: 8, gap: 16 })}>
+                  <div className={css({ width: '15%' })}>
                     <ul className="nav nav-pills flex-column">
                       <li className="nav-item">
                         {Object.entries(routes)
@@ -72,7 +77,7 @@ export const Layout = observer((props: Props) => {
                       </li>
                     </ul>
                   </div>
-                  <div className={'w-100'}>
+                  <div className={css({ width: '100%' })}>
                     <Switch>
                       {Object.entries(routes).map(([path, { component, exact }]) => (
                         <AdminAuthenticatedRoute

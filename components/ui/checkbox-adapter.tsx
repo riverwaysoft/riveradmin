@@ -8,12 +8,7 @@ type Props<T> = FieldRenderProps<T, HTMLInputElement>;
 export const CheckboxAdapter = <T extends string | number>(props: Props<T>) => {
   return (
     <Form.Group>
-      <label
-        className={css`
-          padding: 0;
-          display: flex;
-        `}
-      >
+      <label className={css({ display: 'flex', padding: 0 })}>
         <Form.Check {...props.input} type="checkbox" />
         {props.label}
       </label>

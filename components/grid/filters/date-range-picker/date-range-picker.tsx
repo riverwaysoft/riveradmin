@@ -3,11 +3,12 @@ import { Dropdown, Form, InputGroup } from 'react-bootstrap';
 import { useRiverAdminStore } from '../../../../store/use-riveradmin-store';
 import { Calendar } from '../calendar/calendar';
 import { formatDateRange } from '../format-date-range';
+import { css } from '@emotion/css/macro';
 
 const CustomToggle = React.forwardRef(({ children, onClick, value }: any, ref) => (
   <InputGroup>
     <Form.Control
-      className={'bg-white cursor-pointer'}
+      className={css({ background: 'var(--white) !important', cursor: 'pointer' })}
       type={'text'}
       ref={ref as any}
       value={value}
@@ -15,7 +16,7 @@ const CustomToggle = React.forwardRef(({ children, onClick, value }: any, ref) =
       readOnly
     />
     <InputGroup.Append>
-      <InputGroup.Text className={'cursor-pointer p-1 px-2'}>
+      <InputGroup.Text className={css({ padding: '4px 8px !important', cursor: 'pointer' })}>
         <i className={'mdi mdi-calendar mdi-18px'} />
       </InputGroup.Text>
     </InputGroup.Append>

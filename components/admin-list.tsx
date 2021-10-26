@@ -11,6 +11,7 @@ import { GridSearch } from './grid/search';
 import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { HasId } from '../model/hydra';
+import { css } from '@emotion/css/macro';
 
 type Props<Entity extends HasId> = {
   listStore: ListStore<Entity>;
@@ -32,16 +33,23 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
   }, [listStore]);
 
   return (
-    <div className={'d-flex flex-column'}>
+    <div className={css({ display: 'flex', flexDirection: 'column' })}>
       <h4>{title}</h4>
       {props.slotTop}
-      <div className={'d-flex w-100 mb-3'}>
-        <div className={'d-flex justify-content-between w-100 mr-2'}>
+      <div className={css({ display: 'flex', width: '100%', marginBottom: '1.5rem' })}>
+        <div
+          className={css({
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            marginRight: '1rem',
+          })}
+        >
           {listStore.hasAvailableFilters && (
             <FinalForm initialValues={listStore.filters} onSubmit={listStore.submitSearchForm}>
               {({ handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
-                  <div className={'d-flex align-items-center'} style={{ gap: '1rem' }}>
+                  <div className={css({ display: 'flex', alignItems: 'center', gap: 16 })}>
                     {listStore.hasFullTextFilter && <GridSearch />}
                     {listStore.filters
                       ? Object.entries(listStore.filters)

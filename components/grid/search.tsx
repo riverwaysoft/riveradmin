@@ -11,13 +11,9 @@ export const GridSearch = observer(() => {
   return (
     <Field
       name={'fullText'}
-      groupClassName={styles.input}
+      groupClassName={css({ marginBottom: '0 !important' })}
       component={InputAdapter}
       placeholder={translator.translate('riveradmin.search')}
     />
   );
 });
-
-const styles = {
-  input: css({ marginBottom: 0 }),
-};
