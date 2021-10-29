@@ -4,6 +4,7 @@ import { useRiverAdminStore } from '../../../../store/use-riveradmin-store';
 import { Calendar } from '../calendar/calendar';
 import { formatDateRange } from '../format-date-range';
 import { css } from '@emotion/css/macro';
+import { useTranslate } from '../../../../store/use-translate';
 
 const CustomToggle = React.forwardRef(({ children, onClick, value }: any, ref) => (
   <InputGroup>
@@ -30,18 +31,14 @@ type Props = {
 
 export const DateRangePicker = (props: Props) => {
   const { value, onChange } = props;
-  const { translator } = useRiverAdminStore();
+  const t = useTranslate();
 
   return (
     <Dropdown>
       <Dropdown.Toggle
         as={CustomToggle}
         id={'dateTimePicker'}
-        value={
-          value
-            ? formatDateRange(value)
-            : translator.translate('riveradmin.filters.date-range-not-selected')
-        }
+        value={value ? formatDateRange(value) : t('riveradmin.filters.date-range-not-selected')}
       />
       <Dropdown.Menu>
         <Calendar value={value} onChange={onChange} />

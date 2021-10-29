@@ -15,12 +15,21 @@ export const UuidColumn = observer((props: Props) => {
   const [clipboardStore] = useState(() => new ClipboardStore());
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={css({
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+        '&:hover .copy': {
+          opacity: 1,
+        },
+      })}
+    >
       <span>
         {title} {uuid.slice(0, 6) + '...'}
       </span>
       <span
-        className={styles.copy}
+        className={cx('copy', css({ opacity: 0, transition: 'opacity 0.3s', cursor: 'pointer' }))}
         onMouseLeave={clipboardStore.forgetCopied}
         onClick={(event) => {
           event.stopPropagation();
@@ -48,22 +57,3 @@ export const UuidColumn = observer((props: Props) => {
     </div>
   );
 });
-
-const styles = {
-  wrapper: css({
-    display: 'flex',
-    alignItems: 'center',
-    gap: 16,
-    '&:hover .copy': {
-      opacity: 1,
-    },
-  }),
-  copy: cx(
-    'copy',
-    css({
-      opacity: 0,
-      transition: 'opacity 0.3s',
-      cursor: 'pointer',
-    })
-  ),
-};

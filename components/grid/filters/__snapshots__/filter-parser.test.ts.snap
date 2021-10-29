@@ -41,6 +41,12 @@ Array [
     "type": "enum",
   },
   Object {
+    "endpoint": "/api/trainers",
+    "labelKey": "username",
+    "property": "progress__trainer",
+    "type": "entity_dropdown",
+  },
+  Object {
     "property": "rating__rating",
     "type": "range",
   },

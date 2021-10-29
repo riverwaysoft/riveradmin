@@ -1,3 +1,4 @@
+import { assert } from 'ts-essentials';
 import { CollectionResponse } from '../../../model/hydra';
 
 export type GridFilter =
@@ -6,16 +7,19 @@ export type GridFilter =
   | { type: 'bool'; property?: string }
   | { type: 'input'; property?: string }
   | { type: 'enum'; property?: string; enum?: { [key in string]: number } }
+  | { type: 'entity_dropdown'; property: string; labelKey: string; endpoint: string }
   | { type: 'range'; property?: string };
 
-const nestedNotationReplace = '__';
+const NESTED_NOTATION_REPLACE = '__';
+
 // https://stackoverflow.com/a/56539950
 // Fix Final form issue - prevent replace dot to object
 export const wrapNestedNotation = (filterProperty: string): string => {
-  return filterProperty.replace(/\./g, nestedNotationReplace);
+  return filterProperty.replace(/\./g, NESTED_NOTATION_REPLACE);
 };
+
 export const unwrapNestedNotation = (filterProperty: string): string => {
-  return filterProperty.replace(new RegExp(nestedNotationReplace, 'g'), '.');
+  return filterProperty.replace(new RegExp(NESTED_NOTATION_REPLACE, 'g'), '.');
 };
 
 export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter[] => {
@@ -47,6 +51,19 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
       gridFilters.push({
         type: 'enum',
         enum: enumParsed,
+        property: wrapNestedNotation(item.variable),
+      });
+    }
+
+    if (item.property?.startsWith('riveradmin_entity_dropdown')) {
+      const dropdownConfigJson = item.property.replace('riveradmin_entity_dropdown:', '');
+      const dropdownConfigParsed = JSON.parse(dropdownConfigJson);
+      assert(dropdownConfigParsed.labelKey);
+      assert(dropdownConfigParsed.endpoint);
+      gridFilters.push({
+        type: 'entity_dropdown',
+        labelKey: dropdownConfigParsed.labelKey,
+        endpoint: dropdownConfigParsed.endpoint,
         property: wrapNestedNotation(item.variable),
       });
     }
