@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dropdown, Form, InputGroup } from 'react-bootstrap';
-import { useRiverAdminStore } from '../../../../store/use-riveradmin-store';
-import { Calendar } from '../calendar/calendar';
+import { AdminCalendar } from '../admin-calendar/admin-calendar';
 import { formatDateRange } from '../format-date-range';
 import { css } from '@emotion/css/macro';
 import { useTranslate } from '../../../../store/use-translate';
@@ -41,7 +40,7 @@ export const DateRangePicker = (props: Props) => {
         value={value ? formatDateRange(value) : t('riveradmin.filters.date-range-not-selected')}
       />
       <Dropdown.Menu>
-        <Calendar value={value} onChange={onChange} />
+        <AdminCalendar value={value} onChange={onChange} />
       </Dropdown.Menu>
     </Dropdown>
   );

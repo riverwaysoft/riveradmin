@@ -1,20 +1,21 @@
 import React from 'react';
 import { RadioSwitcher } from './radio-switcher';
 import { useToggle } from 'react-use';
+import { mount } from '@cypress/react';
+import { css } from '@emotion/css/macro';
 
-export default {
-  title: 'RadioSwitcher',
-  component: RadioSwitcher,
-};
-
-export const Default = () => {
+const Default = () => {
   const [isOn, toggleOn] = useToggle(true);
   const [isYes, toggleYes] = useToggle(false);
 
   return (
-    <div className={'d-flex'} style={{ gap: '2rem' }}>
+    <div className={css({ display: 'flex', flexDirection: 'column', gap: 32 })}>
       <RadioSwitcher isOn={isOn} onToggle={toggleOn} />
       <RadioSwitcher isOn={isYes} onToggle={toggleYes} />
     </div>
   );
 };
+
+it('mounts', () => {
+  mount(<Default />);
+});

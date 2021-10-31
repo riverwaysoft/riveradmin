@@ -3,14 +3,14 @@ import ReactCalendar from 'react-calendar';
 import { assert } from 'ts-essentials';
 import { ReactComponent as NextIcon } from './next.svg';
 import { ReactComponent as PrevIcon } from './prev.svg';
-import './calendar.scss';
+import './admin-calendar.css';
 
 type Props = {
   value?: [Date, Date];
   onChange: (value: [Date, Date]) => void;
 };
 
-export const Calendar = (props: Props) => {
+export const AdminCalendar = (props: Props) => {
   const { value, onChange } = props;
 
   return (
