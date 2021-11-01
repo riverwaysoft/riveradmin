@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState } from 'react';
 import { AdminCalendar } from './admin-calendar';
 import { mount } from '@cypress/react';

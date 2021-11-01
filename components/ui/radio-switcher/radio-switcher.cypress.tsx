@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { RadioSwitcher } from './radio-switcher';
 import { useToggle } from 'react-use';
