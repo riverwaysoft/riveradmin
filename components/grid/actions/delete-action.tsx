@@ -1,3 +1,4 @@
+import { css, cx } from '@emotion/css/macro';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { HasId } from '../../../model/hydra';
@@ -8,7 +9,7 @@ export const DeleteAction = <Model extends HasId>(props: ActionProps<Model>) => 
   return (
     <AdminTooltip title={<FormattedMessage id={'riveradmin.remove'} />}>
       <i
-        className={'mdi mdi-delete text-danger cursor-pointer'}
+        className={cx('mdi mdi-delete text-danger', css({ cursor: 'pointer' }))}
         onClick={(event) => {
           event.stopPropagation();
           props.store.askRemove(props.model);
