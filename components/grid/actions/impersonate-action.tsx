@@ -2,8 +2,8 @@ import React from 'react';
 import { HasId } from '../../../model/hydra';
 import { ImpersonateService } from '../../../jwt/impersonate-service';
 import { AdminTooltip } from '../../ui/tooltip';
-import { FormattedMessage } from 'react-intl';
 import { css, cx } from '@emotion/css';
+import { useTranslate } from '../../../store/use-translate';
 
 type Props = {
   model: HasId;
@@ -12,9 +12,10 @@ type Props = {
 
 export const ImpersonateAction = (props: Props) => {
   const { model, impersonateService } = props;
+  const t = useTranslate();
 
   return (
-    <AdminTooltip title={<FormattedMessage id={'riveradmin.impersonate-user'} />}>
+    <AdminTooltip title={t('riveradmin.impersonate-user')}>
       <i
         className={cx('mdi mdi-account-key text-success', css({ cursor: 'pointer' }))}
         onClick={async (event) => {

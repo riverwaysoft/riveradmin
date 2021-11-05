@@ -9,9 +9,9 @@ import { FilterModal } from './grid/filters/filter-modal';
 import { formatDateRange } from './grid/filters/format-date-range';
 import { GridSearch } from './grid/search';
 import { Button } from 'react-bootstrap';
-import { FormattedMessage } from 'react-intl';
 import { HasId } from '../model/hydra';
 import { css } from '@emotion/css/macro';
+import { useTranslate } from '../store/use-translate';
 
 type Props<Entity extends HasId> = {
   listStore: ListStore<Entity>;
@@ -24,6 +24,7 @@ type Props<Entity extends HasId> = {
 
 export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) => {
   const { listStore, columns, title, create, isRowInactive } = props;
+  const t = useTranslate();
 
   useDocumentTitle(title);
 
@@ -70,16 +71,16 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
 
                               return (
                                 <Button key={key}>
-                                  <FormattedMessage id={`riveradmin.filters.labels.${key}`} />{' '}
+                                  {t(`riveradmin.filters.labels.${key}`)}{' '}
                                   {gte ? (
                                     <>
-                                      <FormattedMessage id={`riveradmin.filters.gte`} /> {gte}
+                                      {t(`riveradmin.filters.gte`)} {gte}
                                     </>
                                   ) : null}
                                   {joinWith ? ' AND ' : ''}
                                   {lte ? (
                                     <>
-                                      <FormattedMessage id={`riveradmin.filters.lte`} /> {lte}
+                                      {t(`riveradmin.filters.lte`)} {lte}
                                     </>
                                   ) : null}
                                   <i
@@ -116,7 +117,7 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
                             if (filterTypeByKey.type === 'bool' && value !== '0') {
                               return (
                                 <Button key={key}>
-                                  <FormattedMessage id={`riveradmin.filters.labels.${key}`} />
+                                  {t(`riveradmin.filters.labels.${key}`)}
                                   <i
                                     className={'mdi mdi-close'}
                                     onClick={() => {
@@ -130,8 +131,7 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
                             if (filterTypeByKey.type === 'input') {
                               return (
                                 <Button key={key}>
-                                  <FormattedMessage id={`riveradmin.filters.labels.${key}`} />:{' '}
-                                  {value}
+                                  {t(`riveradmin.filters.labels.${key}`)}: {value}
                                   <i
                                     className={'mdi mdi-close'}
                                     onClick={() => {
@@ -149,8 +149,7 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
 
                               return (
                                 <Button key={key}>
-                                  <FormattedMessage id={`riveradmin.filters.labels.${key}`} />:{' '}
-                                  {enumValue}
+                                  {t(`riveradmin.filters.labels.${key}`)}: {enumValue}
                                   <i
                                     className={'mdi mdi-close'}
                                     onClick={() => {
@@ -178,7 +177,7 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
                 listStore.goToNewModelPage();
               }}
             >
-              <FormattedMessage id={'riveradmin.create'} />
+              {t('riveradmin.create')}
             </Button>
           )}
         </div>

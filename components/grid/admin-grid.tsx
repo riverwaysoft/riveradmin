@@ -6,11 +6,11 @@ import { AdminGridNoResults } from './admin-grid-not-result';
 import { AdminGridPagination } from './pagination/admin-grid-pagination';
 import { Table } from 'react-bootstrap';
 import { ListStore } from '../../store/list-store';
-import { FormattedMessage } from 'react-intl';
 import { ConfirmModal } from '../ui/confirm-modal';
 import { parsePagination } from './pagination/parse-pagination';
 import { css, cx } from '@emotion/css/macro';
 import { useRiverAdminStore } from '../../store/use-riveradmin-store';
+import { useTranslate } from '../../store/use-translate';
 
 export type Props<Model extends HasId> = {
   columns: {
@@ -25,6 +25,7 @@ export type Props<Model extends HasId> = {
 
 export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => {
   const { columns, listStore } = props;
+  const t = useTranslate();
   const { config } = useRiverAdminStore();
   const isRowClickableEnabled = props.isRowInactive ? false : config.isRowClickableEnabled;
   const value = listStore.listData;
@@ -60,11 +61,13 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
                       listStore.setOrderBy(column.sortableKey);
                     }
                   }}
-                  className={styles.columnHeader({
-                    isSortableKey: !!column.sortableKey,
-                    isOrderByKey:
-                      !!column.sortableKey && listStore.orderByKey === column.sortableKey,
-                  })}
+                  className={cx(
+                    css({ display: 'flex', alignItems: 'center', gap: '0.25rem' }),
+                    !!column.sortableKey && css({ cursor: 'pointer', whiteSpace: 'nowrap' }),
+                    !!column.sortableKey &&
+                      listStore.orderByKey === column.sortableKey &&
+                      css({ color: 'var(--primary)' })
+                  )}
                 >
                   <span>
                     {column.sortableKey ? (
@@ -110,7 +113,12 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
               return (
                 <tr
                   key={model.id}
-                  className={styles.tableRow({ isRowEditableEnabled: isRowClickableEnabled })}
+                  className={cx(
+                    isRowClickableEnabled &&
+                      css({
+                        '&:hover': { cursor: 'pointer', backgroundColor: 'rgba(0, 0, 0, 0.075)' },
+                      })
+                  )}
                   onClick={
                     isRowClickableEnabled
                       ? () => {
@@ -132,10 +140,10 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
       {renderPagination()}
       <ConfirmModal
         isOpen={listStore.isRemoveModalOpen}
-        title={<FormattedMessage id={'riveradmin.delete.ask'} />}
-        body={<FormattedMessage id={'riveradmin.delete.confirm'} />}
-        cancelLabel={<FormattedMessage id={'riveradmin.delete.cancel'} />}
-        confirmLabel={<FormattedMessage id={'riveradmin.delete.confirm-label'} />}
+        title={t('riveradmin.delete.ask')}
+        body={t('riveradmin.delete.confirm')}
+        cancelLabel={t('riveradmin.delete.cancel')}
+        confirmLabel={t('riveradmin.delete.confirm-label')}
         onCancel={() => listStore.closeRemoveModel()}
         onConfirm={() => listStore.removeModel()}
         isLoading={listStore.isRemoving}
@@ -143,17 +151,3 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
     </div>
   );
 });
-
-const styles = {
-  columnHeader: (props: { isSortableKey: boolean; isOrderByKey: boolean }) =>
-    cx(
-      css({ display: 'flex', alignItems: 'center', gap: '0.25rem' }),
-      props.isSortableKey && css({ cursor: 'pointer', whiteSpace: 'nowrap' }),
-      props.isOrderByKey && css({ color: 'var(--primary)' })
-    ),
-  tableRow: (props: { isRowEditableEnabled?: boolean }) =>
-    cx(
-      props.isRowEditableEnabled &&
-        css({ '&:hover': { cursor: 'pointer', backgroundColor: 'rgba(0, 0, 0, 0.075)' } })
-    ),
-};

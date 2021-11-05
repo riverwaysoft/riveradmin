@@ -1,21 +1,18 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import { Link, NavLink, Redirect, Route, Router, Switch } from 'react-router-dom';
+import { RawIntlProvider } from 'react-intl';
+import { NavLink, Redirect, Route, Router, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { assert } from 'ts-essentials';
-import { useRiverAdminStore } from '../store/use-riveradmin-store';
-import { MenuRoutes } from './admin';
-import { AdminAuthenticatedRoute } from './auth/admin-authenticated-route';
-import { AdminLogin } from './auth/admin-login';
-import { AdminLogout } from './auth/admin-logout';
+import { useRiverAdminStore } from '../../store/use-riveradmin-store';
+import { MenuRoutes } from '../admin';
+import { AdminAuthenticatedRoute } from '../auth/admin-authenticated-route';
+import { AdminLogin } from '../auth/admin-login';
+import { AdminLogout } from '../auth/admin-logout';
 import { css, cx } from '@emotion/css/macro';
+import { NavLogout } from './nav-logout';
 
-type Props = {
-  routes: MenuRoutes;
-};
-
-export const Layout = observer((props: Props) => {
+export const Layout = observer((props: { routes: MenuRoutes }) => {
   const { routerStore, authStore, reactIntl, config, querySerializer } = useRiverAdminStore();
   const { routes } = props;
   assert(Object.keys(routes).length > 0, 'No routes specified');
@@ -45,15 +42,7 @@ export const Layout = observer((props: Props) => {
                   )}
                 >
                   <span className="navbar-brand">{config.appTitle}</span>
-                  <Link
-                    to={'/logout'}
-                    className={css({ display: 'flex', alignItems: 'center', gap: 8 })}
-                  >
-                    <span>
-                      <FormattedMessage id={'riveradmin.logout'} />
-                    </span>
-                    <i className={'mdi mdi-logout mdi-24px'} />
-                  </Link>
+                  <NavLogout />
                 </nav>
                 <div className={css({ display: 'flex', padding: 8, gap: 16 })}>
                   <div className={css({ width: '15%' })}>

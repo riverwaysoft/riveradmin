@@ -1,13 +1,15 @@
 import { css, cx } from '@emotion/css/macro';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { HasId } from '../../../model/hydra';
+import { useTranslate } from '../../../store/use-translate';
 import { AdminTooltip } from '../../ui/tooltip';
 import { ActionProps } from '../column/actions-column';
 
 export const EditAction = <Model extends HasId>(props: ActionProps<Model>) => {
+  const t = useTranslate();
+
   return (
-    <AdminTooltip title={<FormattedMessage id={'riveradmin.open-edit'} />}>
+    <AdminTooltip title={t('riveradmin.open-edit')}>
       <i
         className={cx('mdi mdi-pencil', css({ cursor: 'pointer' }))}
         onClick={(event) => {

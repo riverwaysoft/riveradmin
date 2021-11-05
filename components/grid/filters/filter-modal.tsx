@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
-import { FormattedMessage } from 'react-intl';
 import { HasId } from '../../../model/hydra';
 import { ListStore } from '../../../store/list-store';
 import { BoolFilter } from './filters/bool-filter';
@@ -10,6 +9,7 @@ import { InputFilter } from './filters/input-filter';
 import { EnumFilter } from './filters/enum-filter';
 import { css } from '@emotion/css/macro';
 import { EntityDropdownFilter } from './filters/entity-dropdown-filter';
+import { useTranslate } from '../../../store/use-translate';
 
 const CustomToggle = React.forwardRef(({ children, onClick }: any, ref) => (
   <Button
@@ -35,11 +35,12 @@ type Props<Entity extends HasId> = {
 
 export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>) => {
   const { listStore } = props;
+  const t = useTranslate();
 
   return (
     <Dropdown>
       <Dropdown.Toggle as={CustomToggle} id={'parent'}>
-        + <FormattedMessage id={'riveradmin.filters.add'} />
+        + {t('riveradmin.filters.add')}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
@@ -53,15 +54,13 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
           })}
         >
           <div className={css({ display: 'flex', justifyContent: 'space-between' })}>
-            <span className={'h5'}>
-              <FormattedMessage id={'riveradmin.filters'} />
-            </span>
+            <span className={'h5'}>{t('riveradmin.filters')}</span>
             <div className={css({ display: 'flex', gap: '1rem' })}>
               <Button variant={'outline-primary'} onClick={() => listStore.resetFilters()}>
-                <FormattedMessage id={'riveradmin.filters.reset'} />
+                {t('riveradmin.filters.reset')}
               </Button>
               <Button variant={'primary'} type={'submit'}>
-                <FormattedMessage id={'riveradmin.filters.apply'} />
+                {t('riveradmin.filters.apply')}
               </Button>
             </div>
           </div>
@@ -77,7 +76,7 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
               if (gridFilter.type === 'date') {
                 return (
                   <label key={i} className={filterLabelStyles}>
-                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    {t(`riveradmin.filters.labels.${gridFilter.property}`)}
                     <DateRangeFilter fieldName={gridFilter.property} />
                   </label>
                 );
@@ -89,7 +88,7 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
                     key={i}
                     className={css({ display: 'flex', gap: '0.5rem', alignItems: 'center' })}
                   >
-                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    {t(`riveradmin.filters.labels.${gridFilter.property}`)}
                     <BoolFilter fieldName={gridFilter.property} />
                   </label>
                 );
@@ -98,7 +97,7 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
               if (gridFilter.type === 'input') {
                 return (
                   <label key={i} className={filterLabelStyles}>
-                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    {t(`riveradmin.filters.labels.${gridFilter.property}`)}
                     <InputFilter fieldName={gridFilter.property} />
                   </label>
                 );
@@ -107,7 +106,7 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
               if (gridFilter.type === 'enum') {
                 return (
                   <label key={i} className={filterLabelStyles}>
-                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    {t(`riveradmin.filters.labels.${gridFilter.property}`)}
                     <EnumFilter fieldName={gridFilter.property} dropdown={gridFilter.enum} />
                   </label>
                 );
@@ -116,7 +115,7 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
               if (gridFilter.type === 'entity_dropdown') {
                 return (
                   <label key={i} className={filterLabelStyles}>
-                    <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />
+                    {t(`riveradmin.filters.labels.${gridFilter.property}`)}
                     <EntityDropdownFilter
                       fieldName={gridFilter.property}
                       labelKey={gridFilter.labelKey}
@@ -130,14 +129,14 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
                 return (
                   <div key={i}>
                     <label className={filterLabelStyles}>
-                      <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />{' '}
-                      <FormattedMessage id={`riveradmin.filters.gte`} />
+                      {t(`riveradmin.filters.labels.${gridFilter.property}`)}{' '}
+                      {t(`riveradmin.filters.gte`)}
                       <InputFilter fieldName={`${gridFilter.property}[gte]`} />
                     </label>
 
                     <label className={filterLabelStyles}>
-                      <FormattedMessage id={`riveradmin.filters.labels.${gridFilter.property}`} />{' '}
-                      <FormattedMessage id={`riveradmin.filters.lte`} />
+                      {t(`riveradmin.filters.labels.${gridFilter.property}`)}{' '}
+                      {t(`riveradmin.filters.lte`)}
                       <InputFilter fieldName={`${gridFilter.property}[lte]`} />
                     </label>
                   </div>

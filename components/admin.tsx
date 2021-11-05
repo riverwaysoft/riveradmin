@@ -3,7 +3,7 @@ import React from 'react';
 import { RouteProps } from 'react-router-dom';
 import { RiverAdminRootStore } from '../store/river-admin-root-store';
 import { StoreContext as RiverAdminRootStoreContext } from '../store/use-riveradmin-store';
-import { Layout } from './layout';
+import { Layout } from './layout/layout';
 
 export type MenuRoutes = {
   [key in string]: {
