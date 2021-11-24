@@ -28,7 +28,7 @@ export class AdminAuthStore {
     this.tokenStorage.setToken(parsedJwt);
     const jwtUser = parseJwt<JwtUser>(parsedJwt);
     runInAction(() => {
-      this.user = { id: jwtUser.id, '@type': 'AdminUser' };
+      this.user = { id: jwtUser.id, '@type': 'AdminUser', roles: jwtUser.roles };
       this.isAppLoaded = true;
     });
   }
