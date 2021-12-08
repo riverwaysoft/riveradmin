@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const DateTimeColumn = (props: Props) => {
-  const { date, format = DateTime.DATE_SHORT } = props;
+  const { date, format = DateTime.DATETIME_SHORT } = props;
   if (!date) {
     return null;
   }
