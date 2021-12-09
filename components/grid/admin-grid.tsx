@@ -11,6 +11,8 @@ import { parsePagination } from './pagination/parse-pagination';
 import { css, cx } from '@emotion/css/macro';
 import { useRiverAdminStore } from '../../store/use-riveradmin-store';
 import { useTranslate } from '../../store/use-translate';
+import { Link } from 'react-router-dom';
+import { reset } from '../../css/reset';
 
 export type Props<Model extends HasId> = {
   columns: {
@@ -27,7 +29,11 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
   const { columns, listStore } = props;
   const t = useTranslate();
   const { config } = useRiverAdminStore();
-  const isRowClickableEnabled = props.isRowInactive ? false : config.isRowClickableEnabled;
+  // To determine the value of isRowClickableEnabled we look in config.isRowClickableEnabled
+  // If this option is enabled every table row become clickable
+  // But for some cases it's not desired behaviour. For example when entity doesn't have a separate form page
+  // So we can override global config option with props.isRowInactive for specific grid
+  const isRowClickableEnabled = config.isRowClickableEnabled && !props.isRowInactive;
   const value = listStore.listData;
 
   const renderPagination = () => {
@@ -110,29 +116,36 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
           )}
           {value &&
             (value['hydra:member'] || []).map((model) => {
+              if (!isRowClickableEnabled) {
+                return (
+                  <tr key={model.id}>
+                    {columns.map((column, i) => (
+                      <td key={i} onClick={column.onClick}>
+                        {column.render(model)}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              }
+
               return (
-                <tr
+                <Link
                   key={model.id}
+                  to={listStore.getModelPageUrl(model)}
                   className={cx(
-                    isRowClickableEnabled &&
-                      css({
-                        '&:hover': { cursor: 'pointer', backgroundColor: 'rgba(0, 0, 0, 0.075)' },
-                      })
+                    reset.a,
+                    css({
+                      display: 'table-row',
+                      '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.075)' },
+                    })
                   )}
-                  onClick={
-                    isRowClickableEnabled
-                      ? () => {
-                          listStore.goToModelPage(model);
-                        }
-                      : undefined
-                  }
                 >
                   {columns.map((column, i) => (
                     <td key={i} onClick={column.onClick}>
                       {column.render(model)}
                     </td>
                   ))}
-                </tr>
+                </Link>
               );
             })}
         </tbody>

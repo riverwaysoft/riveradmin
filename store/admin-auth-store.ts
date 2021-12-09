@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { RouterStore } from '@superwf/mobx-react-router';
 import { parseJwt } from '../jwt/jwt';
 import { TokenStorage } from '../jwt/token-storage';
@@ -17,20 +17,16 @@ export class AdminAuthStore {
     makeAutoObservable(this);
   }
 
-  async authenticate(token?: string) {
+  authenticate(token?: string) {
     const parsedJwt = token || this.tokenStorage.getToken();
     if (!parsedJwt) {
-      runInAction(() => {
-        this.isAppLoaded = true;
-      });
+      this.isAppLoaded = true;
       return;
     }
     this.tokenStorage.setToken(parsedJwt);
     const jwtUser = parseJwt<JwtUser>(parsedJwt);
-    runInAction(() => {
-      this.user = { id: jwtUser.id, '@type': 'AdminUser', roles: jwtUser.roles };
-      this.isAppLoaded = true;
-    });
+    this.user = { id: jwtUser.id, '@type': 'AdminUser', roles: jwtUser.roles };
+    this.isAppLoaded = true;
   }
 
   get isAuthenticated() {

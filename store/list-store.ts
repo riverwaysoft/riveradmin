@@ -96,8 +96,12 @@ export class ListStore<Entity extends HasId> {
   }
 
   goToModelPage(model: Entity) {
-    const editUrl = `${this.routerStore.location.pathname}/${model.id}`;
+    const editUrl = this.getModelPageUrl(model);
     this.routerStore.push(editUrl);
+  }
+
+  getModelPageUrl(model: Entity) {
+    return `${this.routerStore.location.pathname}/${model.id}`;
   }
 
   goToNewModelPage() {

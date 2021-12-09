@@ -51,14 +51,17 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
       this.notificator.success(this.translator.translate('riveradmin.data-saved'));
     } else {
       if (!this.crudApi.create) {
-        throw new Error('Operation create not implemented in API');
+        throw new Error(
+          "Operation create not implemented in API. You've forgotten to add specify endpoint"
+        );
       }
       const modelCreateInput = { id: v4(), ...form };
       const result = await handleFormSubmit(this.crudApi.create(modelCreateInput));
       if (result.errors) {
         return result.errors;
       }
-      const regexResult = /\/([^/]+)\//.exec(this.routerStore.location.pathname);
+      const pathWithoutModelIdRegex = /\/([^/]+)\//;
+      const regexResult = pathWithoutModelIdRegex.exec(this.routerStore.location.pathname);
       assert(regexResult);
       const pathWithoutModelId = regexResult[1];
       this.routerStore.push(`/${pathWithoutModelId}/${modelCreateInput.id}`);
