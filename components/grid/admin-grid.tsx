@@ -129,23 +129,36 @@ export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => 
               }
 
               return (
-                <Link
+                <tr
                   key={model.id}
-                  to={listStore.getModelPageUrl(model)}
-                  className={cx(
-                    reset.a,
-                    css({
-                      display: 'table-row',
-                      '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.075)' },
-                    })
-                  )}
+                  className={css({ '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.075)' } })}
                 >
                   {columns.map((column, i) => (
-                    <td key={i} onClick={column.onClick}>
-                      {column.render(model)}
+                    <td
+                      className={css({ padding: '0 !important' })}
+                      key={i}
+                      onClick={column.onClick}
+                    >
+                      <Link
+                        key={model.id}
+                        to={listStore.getModelPageUrl(model)}
+                        className={cx(
+                          reset.a,
+                          css({
+                            // Make the whole <td> clickable by expanding <a> to take all the available space within parent tag
+                            display: 'block',
+                            height: '100%',
+                            // When cell is empty we need to provide min height somehow
+                            minHeight: 48,
+                            padding: '.75rem',
+                          })
+                        )}
+                      >
+                        {column.render(model)}
+                      </Link>
                     </td>
                   ))}
-                </Link>
+                </tr>
               );
             })}
         </tbody>
