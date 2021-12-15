@@ -12,6 +12,7 @@ import { Button } from 'react-bootstrap';
 import { HasId } from '../model/hydra';
 import { css } from '@emotion/css/macro';
 import { useTranslate } from '../store/use-translate';
+import { useLocation } from 'react-router';
 
 type Props<Entity extends HasId> = {
   listStore: ListStore<Entity>;
@@ -24,14 +25,13 @@ type Props<Entity extends HasId> = {
 
 export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) => {
   const { listStore, columns, title, create, isRowInactive } = props;
-  const t = useTranslate();
-
   useDocumentTitle(title);
+  const t = useTranslate();
+  const location = useLocation();
 
   useEffect(() => {
     listStore.loadList();
-    return listStore.listenHistory();
-  }, [listStore]);
+  }, [listStore, location]);
 
   return (
     <div className={css({ display: 'flex', flexDirection: 'column' })}>

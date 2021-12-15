@@ -6,7 +6,7 @@ import { AdminUser } from '../model/admin-user';
 
 type JwtUser = {
   id: string;
-  roles: Array<'ROLE_SUPER_ADMIN'>;
+  roles: string[];
 };
 
 export class AdminAuthStore {
@@ -25,7 +25,7 @@ export class AdminAuthStore {
     }
     this.tokenStorage.setToken(parsedJwt);
     const jwtUser = parseJwt<JwtUser>(parsedJwt);
-    this.user = { id: jwtUser.id, '@type': 'AdminUser', roles: jwtUser.roles };
+    this.user = { id: jwtUser.id, roles: jwtUser.roles };
     this.isAppLoaded = true;
   }
 
