@@ -21,7 +21,7 @@ export const EnumFilter = (props: Props) => {
           <Select
             className={css({ minWidth: 250 })}
             // @ts-ignore
-            value={options.filter((option) => Number(option.value) === Number(input.value))}
+            value={options.filter((option) => option.value.toString() === input.value.toString())}
             onChange={(e) => {
               // @ts-ignore
               input.onChange(e.value);

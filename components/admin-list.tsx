@@ -144,7 +144,7 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
 
                             if (filterTypeByKey.type === 'enum') {
                               const enumValue = Object.entries(filterTypeByKey.enum).find(
-                                ([_, v]) => Number(v) === Number(value)
+                                ([_, v]) => v.toString() === value.toString()
                               )?.[0];
 
                               return (
