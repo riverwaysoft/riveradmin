@@ -8,8 +8,9 @@ import { DateRangeFilter } from './filters/date-range-filter';
 import { InputFilter } from './filters/input-filter';
 import { EnumFilter } from './filters/enum-filter';
 import { css } from '@emotion/css/macro';
-import { EntityDropdownFilter } from './filters/entity-dropdown-filter';
+import { EntityDropdownStaticFilter } from './filters/entity-dropdown-static-filter';
 import { useTranslate } from '../../../store/use-translate';
+import { EntityDropdownAsyncFilter } from './filters/entity-dropdown-async-filter';
 
 const CustomToggle = React.forwardRef(({ children, onClick }: any, ref) => (
   <Button
@@ -113,10 +114,23 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
               }
 
               if (gridFilter.type === 'entity_dropdown') {
+                if (gridFilter.async) {
+                  return (
+                    <label key={i} className={filterLabelStyles}>
+                      {t(`riveradmin.filters.labels.${gridFilter.property}`)}
+                      <EntityDropdownAsyncFilter
+                        fieldName={gridFilter.property}
+                        labelKey={gridFilter.labelKey}
+                        endpoint={gridFilter.endpoint}
+                      />
+                    </label>
+                  );
+                }
+
                 return (
                   <label key={i} className={filterLabelStyles}>
                     {t(`riveradmin.filters.labels.${gridFilter.property}`)}
-                    <EntityDropdownFilter
+                    <EntityDropdownStaticFilter
                       fieldName={gridFilter.property}
                       labelKey={gridFilter.labelKey}
                       endpoint={gridFilter.endpoint}

@@ -7,7 +7,13 @@ export type GridFilter =
   | { type: 'bool'; property?: string }
   | { type: 'input'; property?: string }
   | { type: 'enum'; property?: string; enum?: { [key in string]: number } }
-  | { type: 'entity_dropdown'; property: string; labelKey: string; endpoint: string }
+  | {
+      type: 'entity_dropdown';
+      property: string;
+      labelKey: string;
+      endpoint: string;
+      async: boolean;
+    }
   | { type: 'range'; property?: string };
 
 const NESTED_NOTATION_REPLACE = '__';
@@ -64,6 +70,7 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
         type: 'entity_dropdown',
         labelKey: dropdownConfigParsed.labelKey,
         endpoint: dropdownConfigParsed.endpoint,
+        async: !!dropdownConfigParsed.async,
         property: wrapNestedNotation(item.variable),
       });
     }

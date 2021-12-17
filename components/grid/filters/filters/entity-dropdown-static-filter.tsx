@@ -13,7 +13,7 @@ type Props = {
   endpoint: string;
 };
 
-export const EntityDropdownFilter = observer((props: Props) => {
+export const EntityDropdownStaticFilter = observer((props: Props) => {
   const state = useLocalObservable(() => ({
     response: fromPromise<CollectionResponse<any>>(
       axios.get(props.endpoint).then((response) => response.data['hydra:member'])
