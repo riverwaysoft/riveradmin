@@ -8,10 +8,11 @@ import { useTranslate } from '../../../store/use-translate';
 type Props = {
   uuid: string;
   title?: string;
+  truncate?: boolean;
 };
 
 export const UuidColumn = observer((props: Props) => {
-  const { uuid, title } = props;
+  const { uuid, title, truncate } = props;
   const t = useTranslate();
   const [clipboardStore] = useState(() => new ClipboardStore());
 
@@ -26,9 +27,13 @@ export const UuidColumn = observer((props: Props) => {
         },
       })}
     >
-      <span>
-        {title} {uuid.slice(0, 6) + '...'}
-      </span>
+      {truncate ? (
+        <span>
+          {title} {uuid.slice(0, 6) + '...'}
+        </span>
+      ) : (
+        <span>{uuid}</span>
+      )}
       <span
         className={cx('copy', css({ opacity: 0, transition: 'opacity 0.3s', cursor: 'pointer' }))}
         onMouseLeave={clipboardStore.forgetCopied}
