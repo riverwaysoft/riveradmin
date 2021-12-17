@@ -41,6 +41,7 @@ Array [
     "type": "enum",
   },
   Object {
+    "async": false,
     "endpoint": "/api/trainers",
     "labelKey": "username",
     "property": "progress__trainer",
