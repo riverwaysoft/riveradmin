@@ -47,6 +47,7 @@ export class ListStore<Entity extends HasId> {
       onPageChange: false,
       submitSearchForm: false,
       listenHistory: false,
+      getModelPageUrl: false,
     });
   }
 

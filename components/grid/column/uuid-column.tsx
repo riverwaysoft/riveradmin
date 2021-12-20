@@ -40,6 +40,7 @@ export const UuidColumn = observer((props: Props) => {
         onMouseLeave={clipboardStore.forgetCopied}
         onClick={(event) => {
           event.stopPropagation();
+          event.preventDefault();
           clipboardStore.copyToClipboard(uuid);
         }}
       >
