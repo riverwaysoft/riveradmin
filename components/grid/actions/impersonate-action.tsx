@@ -20,6 +20,7 @@ export const ImpersonateAction = (props: Props) => {
         className={cx('mdi mdi-account-key text-success', css({ cursor: 'pointer' }))}
         onClick={async (event) => {
           event.stopPropagation();
+          event.preventDefault();
           await impersonateService.openImpersonatePage(model);
         }}
       />

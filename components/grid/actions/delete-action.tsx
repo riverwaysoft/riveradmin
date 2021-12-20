@@ -14,6 +14,7 @@ export const DeleteAction = <Model extends HasId>(props: ActionProps<Model>) => 
         className={cx('mdi mdi-delete text-danger', css({ cursor: 'pointer' }))}
         onClick={(event) => {
           event.stopPropagation();
+          event.preventDefault();
           props.store.askRemove(props.model);
         }}
       />

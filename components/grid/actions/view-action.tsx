@@ -15,6 +15,7 @@ export const ViewAction = <Model extends HasId>(props: ActionProps<Model>) => {
         className={cx('mdi mdi-eye', css({ cursor: 'pointer' }))}
         onClick={(event) => {
           event.stopPropagation();
+          event.preventDefault();
           props.store.goToModelPage(props.model);
         }}
       />

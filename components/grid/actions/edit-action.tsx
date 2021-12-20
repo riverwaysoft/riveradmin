@@ -14,6 +14,7 @@ export const EditAction = <Model extends HasId>(props: ActionProps<Model>) => {
         className={cx('mdi mdi-pencil', css({ cursor: 'pointer' }))}
         onClick={(event) => {
           event.stopPropagation();
+          event.preventDefault();
           props.store.goToModelPage(props.model);
         }}
       />
