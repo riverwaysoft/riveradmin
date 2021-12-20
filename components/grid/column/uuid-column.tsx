@@ -12,7 +12,8 @@ type Props = {
 };
 
 export const UuidColumn = observer((props: Props) => {
-  const { uuid, title, truncate } = props;
+  const { uuid, title } = props;
+  const truncate = props.truncate !== false;
   const t = useTranslate();
   const [clipboardStore] = useState(() => new ClipboardStore());
 
