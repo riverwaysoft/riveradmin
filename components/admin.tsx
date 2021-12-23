@@ -18,7 +18,7 @@ export type MenuRoutes = {
     // Usage: ['/users', { query: { createdAt: 'desc' } }] will be transformed to /users?createdAt=desc
     query?: object;
     // A component to render for this route. It is the same as React Router's 'component' prop for a <Route/>
-    component: RouteProps['component'];
+    component?: RouteProps['component'];
     // It is the same as React Router's 'exact' prop for a <Route/>
     exact?: RouteProps['exact'];
   };
