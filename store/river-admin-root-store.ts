@@ -1,7 +1,6 @@
 import { RouterStore, syncHistoryWithStore } from '@superwf/mobx-react-router';
 import { createBrowserHistory } from 'history';
 import { AdminApiClient } from '../api/admin-api-client';
-import { ImpersonateService } from '../jwt/impersonate-service';
 import { QuerySerializer } from '../routing/query-serializer';
 import { AdminAuthStore } from './admin-auth-store';
 import { Notificator } from '../notificator/notificator';
@@ -22,7 +21,6 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   reactIntl = this.reactIntlFactory.create(this.config.locale, this.config.translations);
   translator = new ReactIntlTranslator(this.reactIntl);
   querySerializer = new QuerySerializer();
-  impersonateService?: ImpersonateService;
   listStoreFactory = new ListStoreFactory(
     this.routerStore,
     this.notificator,
@@ -38,23 +36,10 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
       translations?: Translations;
       localStorageKey: string;
       appTitle: string;
-      impersonate?: {
-        host: string;
-        impersonateApiCall: (entityId: string) => Promise<{ token: string }>;
-      };
     }
   ) {
     const history = createBrowserHistory();
     syncHistoryWithStore(history, this.routerStore);
-
-    if (config.impersonate) {
-      this.impersonateService = new ImpersonateService(
-        this.querySerializer,
-        this.tokenStorage,
-        config.impersonate.impersonateApiCall,
-        config.impersonate.host
-      );
-    }
   }
 
   abstract createApiClient(): T;
