@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 import { Form as FinalForm } from 'react-final-form';
-import useDocumentTitle from 'use-document-title';
 import { AdminGrid, Props as AdminGridProps } from './grid/admin-grid';
 import { observer } from 'mobx-react-lite';
 import React, { ReactNode, useEffect } from 'react';
@@ -10,9 +9,10 @@ import { formatDateRange } from './grid/filters/format-date-range';
 import { GridSearch } from './grid/search';
 import { Button } from 'react-bootstrap';
 import { HasId } from '../model/hydra';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import { useTranslate } from '../store/use-translate';
 import { useLocation } from 'react-router';
+import { useDocumentTitle } from '../routing/use-document-title';
 
 type Props<Entity extends HasId> = {
   listStore: ListStore<Entity>;

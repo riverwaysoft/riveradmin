@@ -10,24 +10,19 @@ import { ReactIntlFactory, SupportedLanguage, Translations } from '../factory/re
 import { ReactIntlTranslator } from '../intl/react-intl-translator';
 import { LocalTokenStorage } from '../jwt/local-token-storage';
 import { FormStoreFactory } from '../factory/form-store-factory';
+import { TokenStorage } from '../jwt/token-storage';
+import { Translator } from '../intl/translator';
 
 export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   protected notificator = new Notificator();
-  protected tokenStorage = new LocalTokenStorage(this.config.localStorageKey);
+  protected tokenStorage: TokenStorage;
   apiClient = this.createApiClient();
   routerStore = new RouterStore();
-  authStore = new AdminAuthStore(this.tokenStorage, this.routerStore);
-  reactIntlFactory = new ReactIntlFactory();
-  reactIntl = this.reactIntlFactory.create(this.config.locale, this.config.translations);
-  translator = new ReactIntlTranslator(this.reactIntl);
+  authStore: AdminAuthStore;
+  translator: Translator;
   querySerializer = new QuerySerializer();
-  listStoreFactory = new ListStoreFactory(
-    this.routerStore,
-    this.notificator,
-    this.translator,
-    this.querySerializer
-  );
-  formStoreFactory = new FormStoreFactory(this.notificator, this.routerStore, this.translator);
+  listStoreFactory: ListStoreFactory;
+  formStoreFactory: FormStoreFactory;
 
   constructor(
     public config: {
@@ -40,6 +35,22 @@ export abstract class RiverAdminRootStore<T extends AdminApiClient> {
   ) {
     const history = createBrowserHistory();
     syncHistoryWithStore(history, this.routerStore);
+    this.tokenStorage = new LocalTokenStorage(this.config.localStorageKey);
+    this.authStore = new AdminAuthStore(this.tokenStorage, this.routerStore);
+    this.translator = new ReactIntlTranslator(
+      new ReactIntlFactory().create(this.config.locale, this.config.translations)
+    );
+    this.listStoreFactory = new ListStoreFactory(
+      this.routerStore,
+      this.notificator,
+      this.translator,
+      this.querySerializer
+    );
+    this.formStoreFactory = new FormStoreFactory(
+      this.notificator,
+      this.routerStore,
+      this.translator
+    );
   }
 
   abstract createApiClient(): T;

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import React from 'react';
 import { useTranslate } from '../../store/use-translate';
 

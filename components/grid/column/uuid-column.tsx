@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { ClipboardStore } from './clipboard-store';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { css, cx } from '@emotion/css/macro';
+import { css, cx } from '@emotion/css';
 import { useTranslate } from '../../../store/use-translate';
 
 type Props = {

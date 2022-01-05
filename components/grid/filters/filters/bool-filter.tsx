@@ -1,4 +1,4 @@
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import React from 'react';
 import { Field } from 'react-final-form';
 import { RadioSwitcher } from '../../../ui/radio-switcher/radio-switcher';

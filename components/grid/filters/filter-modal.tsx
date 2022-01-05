@@ -7,7 +7,7 @@ import { BoolFilter } from './filters/bool-filter';
 import { DateRangeFilter } from './filters/date-range-filter';
 import { InputFilter } from './filters/input-filter';
 import { EnumFilter } from './filters/enum-filter';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import { EntityDropdownStaticFilter } from './filters/entity-dropdown-static-filter';
 import { useTranslate } from '../../../store/use-translate';
 import { EntityDropdownAsyncFilter } from './filters/entity-dropdown-async-filter';

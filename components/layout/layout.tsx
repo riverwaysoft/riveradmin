@@ -9,7 +9,7 @@ import { MenuRoutes } from '../admin';
 import { AdminAuthenticatedRoute } from '../auth/admin-authenticated-route';
 import { AdminLogin } from '../auth/admin-login';
 import { AdminLogout } from '../auth/admin-logout';
-import { css, cx } from '@emotion/css/macro';
+import { css, cx } from '@emotion/css';
 import { NavLogout } from './nav-logout';
 
 export const Layout = observer((props: { routes: MenuRoutes }) => {

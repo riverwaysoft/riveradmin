@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 import Select from 'react-select';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import { fromPromise } from 'mobx-utils';
 import axios from 'axios';

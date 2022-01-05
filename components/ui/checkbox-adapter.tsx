@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldRenderProps } from 'react-final-form';
 import { Form } from 'react-bootstrap';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 
 type Props<T> = FieldRenderProps<T, HTMLInputElement>;
 

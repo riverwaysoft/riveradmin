@@ -1,4 +1,4 @@
-import { css, cx } from '@emotion/css/macro';
+import { css, cx } from '@emotion/css';
 import React from 'react';
 import { HasId } from '../../../model/hydra';
 import { useTranslate } from '../../../store/use-translate';

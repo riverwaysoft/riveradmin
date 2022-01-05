@@ -2,7 +2,7 @@ import React from 'react';
 import { Dropdown, Form, InputGroup } from 'react-bootstrap';
 import { AdminCalendar } from '../admin-calendar/admin-calendar';
 import { formatDateRange } from '../format-date-range';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import { useTranslate } from '../../../../store/use-translate';
 
 const CustomToggle = React.forwardRef(({ children, onClick, value }: any, ref) => (

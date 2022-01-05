@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Field } from 'react-final-form';
 import { InputAdapter } from '../ui/input-adapter';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import { useTranslate } from '../../store/use-translate';
 
 export const GridSearch = observer(() => {

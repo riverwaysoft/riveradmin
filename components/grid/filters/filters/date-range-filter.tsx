@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import React from 'react';
 import { Field } from 'react-final-form';
 import { DateRangePicker } from '../date-range-picker/date-range-picker';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 
 type Props = {
   fieldName: string;

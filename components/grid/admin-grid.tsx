@@ -8,7 +8,7 @@ import { Table } from 'react-bootstrap';
 import { ListStore } from '../../store/list-store';
 import { ConfirmModal } from '../ui/confirm-modal';
 import { parsePagination } from './pagination/parse-pagination';
-import { css, cx } from '@emotion/css/macro';
+import { css, cx } from '@emotion/css';
 import { useRiverAdminStore } from '../../store/use-riveradmin-store';
 import { useTranslate } from '../../store/use-translate';
 import { Link } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 
 export const reset = {
   button: css({

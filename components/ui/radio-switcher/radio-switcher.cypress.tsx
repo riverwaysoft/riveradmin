@@ -3,7 +3,7 @@ import React from 'react';
 import { RadioSwitcher } from './radio-switcher';
 import { useToggle } from 'react-use';
 import { mount } from '@cypress/react';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 
 const Default = () => {
   const [isOn, toggleOn] = useToggle(true);

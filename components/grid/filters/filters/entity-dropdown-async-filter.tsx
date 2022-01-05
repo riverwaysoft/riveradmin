@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Field } from 'react-final-form';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import axios from 'axios';
 import { debounce } from 'lodash';
 import AsyncSelect from 'react-select/async';

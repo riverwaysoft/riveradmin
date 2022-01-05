@@ -1,4 +1,4 @@
-import { css, cx } from '@emotion/css/macro';
+import { css, cx } from '@emotion/css';
 import React from 'react';
 
 const config = {

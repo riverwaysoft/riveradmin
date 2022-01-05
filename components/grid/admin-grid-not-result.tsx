@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 import { useTranslate } from '../../store/use-translate';
 
 export const AdminGridNoResults = () => {

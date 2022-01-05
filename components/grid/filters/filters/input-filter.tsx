@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 import { InputAdapter } from '../../../ui/input-adapter';
-import { css } from '@emotion/css/macro';
+import { css } from '@emotion/css';
 
 type Props = {
   fieldName: string;
