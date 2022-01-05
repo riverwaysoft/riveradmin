@@ -30,7 +30,8 @@ export class AdminLoginStore {
     try {
       await this.authStore.authenticate(result.response!.token);
       setTimeout(() => this.routerStore.push('/'), 500);
-    } catch (e: any) {
+    } catch (e) {
+      // @ts-ignore
       return { [FORM_ERROR]: e.message };
     }
   };

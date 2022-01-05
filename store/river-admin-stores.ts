@@ -12,7 +12,7 @@ import { FormStoreFactory } from '../factory/form-store-factory';
 import { TokenStorage } from '../jwt/token-storage';
 import { AdminLoginStore } from '../components/auth/admin-login-store';
 
-export const createRiverAdminStores = (
+export const createRiverAdminStores = <T extends AdminApiClient>(
   config: {
     isRowClickableEnabled?: boolean;
     locale: SupportedLanguage;
@@ -25,7 +25,7 @@ export const createRiverAdminStores = (
       router: RouterStore,
       notificator: Notificator,
       tokenStorage: TokenStorage
-    ) => AdminApiClient;
+    ) => T;
   }
 ) => {
   const notificator = new Notificator();
