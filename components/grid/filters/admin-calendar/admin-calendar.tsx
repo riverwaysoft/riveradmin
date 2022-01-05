@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactCalendar from 'react-calendar';
 import { assert } from 'ts-essentials';
+// @ts-ignore
 import { ReactComponent as NextIcon } from './next.svg';
+// @ts-ignore
 import { ReactComponent as PrevIcon } from './prev.svg';
 import './admin-calendar.css';
 
@@ -21,7 +23,7 @@ export const AdminCalendar = (props: Props) => {
       next2Label={null}
       prevLabel={<PrevIcon />}
       nextLabel={<NextIcon />}
-      onChange={(range) => {
+      onChange={(range: any) => {
         assert(Array.isArray(range));
         assert(range.length === 2);
         onChange(range as [Date, Date]);

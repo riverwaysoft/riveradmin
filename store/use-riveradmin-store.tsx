@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 import { assert } from 'ts-essentials';
-import { RiverAdminRootStore } from './river-admin-root-store';
+import { RiverAdminStores } from './river-admin-stores';
 
-export const StoreContext = createContext<RiverAdminRootStore<any> | null>(null);
+export const StoreContext = createContext<RiverAdminStores | null>(null);
 
 export const useRiverAdminStore = () => {
   const context = useContext(StoreContext);

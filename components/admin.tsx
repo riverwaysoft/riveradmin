@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { RouteProps } from 'react-router-dom';
-import { RiverAdminRootStore } from '../store/river-admin-root-store';
-import { StoreContext as RiverAdminRootStoreContext } from '../store/use-riveradmin-store';
+import { RiverAdminStores } from '../store/river-admin-stores';
+import { StoreContext as RiverAdminStoresContext } from '../store/use-riveradmin-store';
 import { Layout } from './layout/layout';
 
 // This is admin route configuration
@@ -26,15 +26,15 @@ export type MenuRoutes = {
 
 type Props = {
   routes: MenuRoutes;
-  riverAdminRootStore: RiverAdminRootStore<any>;
+  riverAdminStores: RiverAdminStores;
 };
 
 export const Admin = observer((props: Props) => {
-  const { routes, riverAdminRootStore } = props;
+  const { routes, riverAdminStores } = props;
 
   return (
-    <RiverAdminRootStoreContext.Provider value={riverAdminRootStore}>
+    <RiverAdminStoresContext.Provider value={riverAdminStores}>
       <Layout routes={routes} />
-    </RiverAdminRootStoreContext.Provider>
+    </RiverAdminStoresContext.Provider>
   );
 });

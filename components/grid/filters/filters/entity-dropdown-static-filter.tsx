@@ -20,6 +20,7 @@ export const EntityDropdownStaticFilter = observer((props: Props) => {
     ),
   }));
 
+  // @ts-ignore
   const options = (state.response.value ?? []).map((item: any) => ({
     value: `${props.endpoint.replace(/\/$/, '')}/${item.id}`,
     label: item[props.labelKey],

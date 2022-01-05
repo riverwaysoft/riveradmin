@@ -28,9 +28,9 @@ export class AdminLoginStore {
     }
 
     try {
-      await this.authStore.authenticate(result.response.token);
+      await this.authStore.authenticate(result.response!.token);
       setTimeout(() => this.routerStore.push('/'), 500);
-    } catch (e) {
+    } catch (e: any) {
       return { [FORM_ERROR]: e.message };
     }
   };
