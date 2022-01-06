@@ -10,13 +10,16 @@ export const createPrivateRoute = (props: {
   title: string;
   component: ComponentType<{}>;
   exact?: boolean;
+  // Useful if you want to force hide this route from menu. e.g for form pages like '/user/:id' or '/todos/:id'
+  menu?: false;
 }) => {
   const { title, component, callback, exact } = props;
+  const menu = props.menu === false ? false : callback;
 
   return {
     title: title,
     component: onlyConditionHoc(component, callback),
     exact: exact,
-    menu: callback,
+    menu,
   };
 };
