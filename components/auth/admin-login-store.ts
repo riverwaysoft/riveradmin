@@ -28,7 +28,10 @@ export class AdminLoginStore {
     }
 
     try {
-      await this.authStore.authenticate(result.response!.token);
+      if (!result.response?.token) {
+        return { [FORM_ERROR]: 'No token found in API response. Please contact support' };
+      }
+      await this.authStore.authenticate(result.response.token);
       setTimeout(() => this.routerStore.push('/'), 500);
     } catch (e) {
       // @ts-ignore
