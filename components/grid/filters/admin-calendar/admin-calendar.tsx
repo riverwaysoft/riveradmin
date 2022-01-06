@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactCalendar from 'react-calendar';
 import { assert } from 'ts-essentials';
-// @ts-ignore
-import { ReactComponent as NextIcon } from './next.svg';
-// @ts-ignore
-import { ReactComponent as PrevIcon } from './prev.svg';
+import { NextIcon } from './next-icon';
+import { PrevIcon } from './prev-icon';
 import './admin-calendar.css';
 
 type Props = {
