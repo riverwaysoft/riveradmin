@@ -13,6 +13,7 @@ then
   echo "Directory riveradmin exists"
 else
   echo "Directory riveradmin does not exist. Please pull riveradmin from GitLab to your projects folder"
+  exit 1
 fi
 
 mv "$PATCH_NAME" $RIVERADMIN_PATH && echo "Moved patch to riveradmin"
