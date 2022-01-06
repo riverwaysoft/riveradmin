@@ -4,6 +4,7 @@ import { RouteProps } from 'react-router-dom';
 import { RiverAdminStores } from '../store/river-admin-stores';
 import { StoreContext as RiverAdminStoresContext } from '../store/use-riveradmin-store';
 import { Layout } from './layout/layout';
+import { AdminAuthStore } from '../store/admin-auth-store';
 
 // This is admin route configuration
 export type MenuRoutes = {
@@ -12,7 +13,7 @@ export type MenuRoutes = {
     // The title of the route. It will be displayed as tab title in browser + as <h1> header on a page
     title: string;
     // Should this route be added to the menu list?
-    menu?: boolean;
+    menu?: boolean | ((adminAuthStore: AdminAuthStore) => boolean);
     // Pass query params for the route
     // For example you may want to pass default sorting params for a page
     // Usage: ['/users', { query: { createdAt: 'desc' } }] will be transformed to /users?createdAt=desc

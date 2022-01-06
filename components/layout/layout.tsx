@@ -49,7 +49,12 @@ export const Layout = observer((props: { routes: MenuRoutes }) => {
                     <ul className="nav nav-pills flex-column">
                       <li className="nav-item">
                         {Object.entries(routes)
-                          .filter(([_, route]) => !!route.menu)
+                          .filter(([_, route]) => {
+                            if (typeof route.menu === 'function') {
+                              return route.menu(authStore);
+                            }
+                            return !!route.menu;
+                          })
                           .map(([path, { title, query }]) => (
                             <NavLink
                               key={path}
