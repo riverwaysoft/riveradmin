@@ -2,7 +2,7 @@ import { FORM_ERROR } from 'final-form';
 import { makeAutoObservable } from 'mobx';
 import { RouterStore } from '@superwf/mobx-react-router';
 import { handleFormSubmit } from '../../final-form/handle-form-submit';
-import { AdminApiClient } from '../../api/admin-api-client';
+import { DefaultAdminApiClient } from '../../api/default-admin-api-client';
 import { AdminAuthStore } from '../../store/admin-auth-store';
 
 export type AdminLoginForm = {
@@ -14,7 +14,7 @@ export class AdminLoginStore {
   form?: AdminLoginForm;
 
   constructor(
-    private apiClient: AdminApiClient,
+    private apiClient: DefaultAdminApiClient,
     private authStore: AdminAuthStore,
     private routerStore: RouterStore
   ) {

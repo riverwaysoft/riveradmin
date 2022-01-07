@@ -3,9 +3,14 @@ import { RouterStore } from '@superwf/mobx-react-router';
 import { parseJwt } from '../jwt/jwt';
 import { TokenStorage } from '../jwt/token-storage';
 
-export type AdminAuthStoreUser = {id: string, roles: string[]};
-export class AdminAuthStore<AdminUser extends AdminAuthStoreUser> {
-  user?: AdminUser;
+export type AuthUser = {
+  id: string;
+  roles: string[];
+  [key: string]: unknown
+};
+
+export class AdminAuthStore {
+  user?: AuthUser;
   isAppLoaded = false;
 
   constructor(private tokenStorage: TokenStorage, private routerStore: RouterStore) {
@@ -19,7 +24,7 @@ export class AdminAuthStore<AdminUser extends AdminAuthStoreUser> {
       return;
     }
     this.tokenStorage.setToken(parsedJwt);
-    this.user = parseJwt<AdminUser>(parsedJwt);
+    this.user = parseJwt<AuthUser>(parsedJwt);
     this.isAppLoaded = true;
   }
 
