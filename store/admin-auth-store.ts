@@ -2,14 +2,9 @@ import { makeAutoObservable } from 'mobx';
 import { RouterStore } from '@superwf/mobx-react-router';
 import { parseJwt } from '../jwt/jwt';
 import { TokenStorage } from '../jwt/token-storage';
-import { AdminUser } from '../model/admin-user';
 
-type JwtUser = {
-  id: string;
-  roles: string[];
-};
-
-export class AdminAuthStore {
+export type AdminAuthStoreUser = {id: string, roles: string[]};
+export class AdminAuthStore<AdminUser extends AdminAuthStoreUser> {
   user?: AdminUser;
   isAppLoaded = false;
 
@@ -24,8 +19,7 @@ export class AdminAuthStore {
       return;
     }
     this.tokenStorage.setToken(parsedJwt);
-    const jwtUser = parseJwt<JwtUser>(parsedJwt);
-    this.user = { id: jwtUser.id, roles: jwtUser.roles };
+    this.user = parseJwt<AdminUser>(parsedJwt);
     this.isAppLoaded = true;
   }
 
