@@ -18,7 +18,7 @@ fi
 
 mv "$PATCH_NAME" $RIVERADMIN_PATH && echo "Moved patch to riveradmin"
 
-cd $RIVERADMIN_PATH && git apply "$PATCH_NAME" && echo "The patch have been applied"
+cd $RIVERADMIN_PATH && git fetch origin master && git reset --hard origin/master && git apply "$PATCH_NAME" && echo "The patch have been applied"
 
 rm "$PATCH_NAME" && git add . && git commit -m "$COMMIT_NAME" && echo "Commit"
 
