@@ -83,14 +83,6 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
         console.error('Riveradmin: riveradmin_bool filter is incorrect');
       }
     }
-    if (item.property && !item.property.includes('[') && item.property === item.variable) {
-      const isSearchFilter = !!mapping.find((nestedItem) =>
-        (nestedItem.variable || '').startsWith(`${item.property}[`)
-      );
-      if (!isSearchFilter) {
-        gridFilters.push({ type: 'bool', property: item.property });
-      }
-    }
   });
 
   return gridFilters;

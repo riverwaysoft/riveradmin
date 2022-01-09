@@ -38,7 +38,7 @@ describe('filter-parser', () => {
           },
           {
             '@type': 'IriTemplateMapping',
-            property: 'isApproved',
+            property: 'riveradmin_bool[isApproved]',
             required: false,
             variable: 'isApproved',
           },
