@@ -18,7 +18,7 @@ export type Props<Model extends HasId> = {
   columns: {
     label: string | React.ReactNode;
     onClick?: (e: React.MouseEvent<HTMLElement>) => void;
-    render: (item: Model) => React.ReactNode | string | null;
+    render: (item: Model) => JSX.Element | number | string | null | undefined;
     sortableKey?: string;
   }[];
   isRowInactive?: boolean;
