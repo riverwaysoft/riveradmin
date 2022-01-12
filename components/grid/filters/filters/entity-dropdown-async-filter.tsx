@@ -9,9 +9,11 @@ type Props = {
   fieldName: string;
   labelKey: string;
   endpoint: string;
+  iriPrefix?: string;
 };
 
 export const EntityDropdownAsyncFilter = (props: Props) => {
+  const { iriPrefix = '' } = props;
   const [lastLabel, setLastLabel] = useState('');
 
   return (
@@ -31,7 +33,7 @@ export const EntityDropdownAsyncFilter = (props: Props) => {
               input.value
                 ? {
                     label: lastLabel,
-                    value: input.value,
+                    value: iriPrefix + input.value,
                   }
                 : undefined
             }
@@ -46,7 +48,7 @@ export const EntityDropdownAsyncFilter = (props: Props) => {
                   response.data['hydra:member'].map((model: any) => {
                     return {
                       label: model[props.labelKey],
-                      value: model.id,
+                      value: iriPrefix + model.id,
                     };
                   })
                 );
