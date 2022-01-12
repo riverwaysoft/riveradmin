@@ -1,3 +1,4 @@
+import React from 'react';
 import { AdminGrid } from './admin-grid';
 
 type TestUser = {
