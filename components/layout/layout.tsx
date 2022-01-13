@@ -12,9 +12,9 @@ import { AdminLogout } from '../auth/admin-logout';
 import { css, cx } from '@emotion/css';
 import { NavLogout } from './nav-logout';
 
-export const Layout = observer((props: { routes: MenuRoutes }) => {
+export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Element }) => {
   const { routerStore, authStore, reactIntl, config, querySerializer } = useRiverAdminStore();
-  const { routes } = props;
+  const { routes, navSlot } = props;
   assert(Object.keys(routes).length > 0, 'No routes specified');
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export const Layout = observer((props: { routes: MenuRoutes }) => {
                   )}
                 >
                   <span className="navbar-brand">{config.appTitle}</span>
+                  {navSlot}
                   <NavLogout />
                 </nav>
                 <div className={css({ display: 'flex', padding: 8, gap: 16 })}>

@@ -28,14 +28,15 @@ export type MenuRoutes = {
 type Props = {
   routes: MenuRoutes;
   riverAdminStores: RiverAdminStores;
+  navSlot?: JSX.Element;
 };
 
 export const Admin = observer((props: Props) => {
-  const { routes, riverAdminStores } = props;
+  const { routes, riverAdminStores, navSlot } = props;
 
   return (
     <RiverAdminStoresContext.Provider value={riverAdminStores}>
-      <Layout routes={routes} />
+      <Layout routes={routes} navSlot={navSlot} />
     </RiverAdminStoresContext.Provider>
   );
 });
