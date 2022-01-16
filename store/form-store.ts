@@ -2,9 +2,9 @@ import { Notificator } from '../notificator/notificator';
 import { action, makeAutoObservable } from 'mobx';
 import { handleFormSubmit } from '../final-form/handle-form-submit';
 import { v4 } from 'uuid';
-import { RouterStore } from '@superwf/mobx-react-router';
 import { assert } from 'ts-essentials';
 import { Translator } from '../intl/translator';
+import { History } from 'history';
 
 type HasId = { id: string };
 
@@ -21,7 +21,7 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
   constructor(
     private crudApi: CrudApi<Model>,
     private notificator: Notificator,
-    private routerStore: RouterStore,
+    private history: History,
     private translator: Translator
   ) {
     makeAutoObservable(this);
@@ -61,10 +61,10 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
         return result.errors;
       }
       const pathWithoutModelIdRegex = /\/([^/]+)\//;
-      const regexResult = pathWithoutModelIdRegex.exec(this.routerStore.location.pathname);
+      const regexResult = pathWithoutModelIdRegex.exec(this.history.location.pathname);
       assert(regexResult);
       const pathWithoutModelId = regexResult[1];
-      this.routerStore.push(`/${pathWithoutModelId}/${modelCreateInput.id}`);
+      this.history.push(`/${pathWithoutModelId}/${modelCreateInput.id}`);
       this.notificator.success(this.translator.translate('riveradmin.data-saved'));
     }
   };

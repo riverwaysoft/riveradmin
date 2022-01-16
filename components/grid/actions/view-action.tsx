@@ -1,9 +1,8 @@
-import { cx } from '@emotion/css';
+import { css, cx } from '@emotion/css';
 import React from 'react';
 import { HasId } from '../../../model/hydra';
 import { AdminTooltip } from '../../ui/tooltip';
 import { ActionProps } from '../column/actions-column';
-import { css } from '@emotion/css';
 import { useTranslate } from '../../../store/use-translate';
 
 export const ViewAction = <Model extends HasId>(props: ActionProps<Model>) => {

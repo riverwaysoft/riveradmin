@@ -1,9 +1,9 @@
 import { FORM_ERROR } from 'final-form';
 import { makeAutoObservable } from 'mobx';
-import { RouterStore } from '@superwf/mobx-react-router';
 import { handleFormSubmit } from '../../final-form/handle-form-submit';
 import { DefaultAdminApiClient } from '../../api/default-admin-api-client';
 import { AdminAuthStore } from '../../store/admin-auth-store';
+import { History } from 'history';
 
 export type AdminLoginForm = {
   telephone: string;
@@ -16,7 +16,7 @@ export class AdminLoginStore {
   constructor(
     private apiClient: DefaultAdminApiClient,
     private authStore: AdminAuthStore,
-    private routerStore: RouterStore
+    private history: History
   ) {
     makeAutoObservable(this);
   }
@@ -32,7 +32,7 @@ export class AdminLoginStore {
         return { [FORM_ERROR]: 'No token found in API response. Please contact support' };
       }
       await this.authStore.authenticate(result.response.token);
-      setTimeout(() => this.routerStore.push('/'), 500);
+      setTimeout(() => this.history.push('/'), 500);
     } catch (e) {
       // @ts-ignore
       return { [FORM_ERROR]: e.message };

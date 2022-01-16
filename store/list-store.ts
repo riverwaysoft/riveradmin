@@ -1,5 +1,4 @@
 import { action, makeAutoObservable } from 'mobx';
-import { RouterStore } from '@superwf/mobx-react-router';
 import { CollectionResponse, HasId } from '../model/hydra';
 import { DataProvider } from '../data-provider/data-provider';
 import { assert } from 'ts-essentials';
@@ -13,6 +12,7 @@ import {
 } from '../components/grid/filters/filter-parser';
 import { QuerySerializer } from '../routing/query-serializer';
 import { omit } from 'lodash';
+import { History } from 'history';
 
 type Filters = {
   fullText?: string;
@@ -38,7 +38,7 @@ export class ListStore<Entity extends HasId> {
 
   constructor(
     private dataProvider: DataProvider<Entity>,
-    private routerStore: RouterStore,
+    private history: History,
     private notificator: Notificator,
     private translator: Translator,
     private querySerializer: QuerySerializer
@@ -78,7 +78,7 @@ export class ListStore<Entity extends HasId> {
   }
 
   listenHistory() {
-    return this.routerStore.history.listen(() => this.loadList());
+    return this.history.listen(() => this.loadList());
   }
 
   get searchFormInitialValues() {
@@ -88,7 +88,7 @@ export class ListStore<Entity extends HasId> {
   }
 
   onPageChange(page: number) {
-    this.routerStore.push({
+    this.history.push({
       search: this.querySerializer.stringifyParams({
         ...this.filters,
         page: page,
@@ -98,16 +98,16 @@ export class ListStore<Entity extends HasId> {
 
   goToModelPage(model: Entity) {
     const editUrl = this.getModelPageUrl(model);
-    this.routerStore.push(editUrl);
+    this.history.push(editUrl);
   }
 
   getModelPageUrl(model: Entity) {
-    return `${this.routerStore.location.pathname}/${model.id}`;
+    return `${this.history.location.pathname}/${model.id}`;
   }
 
   goToNewModelPage() {
-    const createUrl = `${this.routerStore.location.pathname}/new`;
-    this.routerStore.push(createUrl);
+    const createUrl = `${this.history.location.pathname}/new`;
+    this.history.push(createUrl);
   }
 
   submitSearchForm = (values: Filters) => {
@@ -117,7 +117,7 @@ export class ListStore<Entity extends HasId> {
       return { ...acc, [unwrapNestedNotation(key)]: value };
     }, {});
 
-    this.routerStore.push({
+    this.history.push({
       search: this.querySerializer.stringifyParams(paramsWithDotNotation),
     });
   };

@@ -1,5 +1,4 @@
-import { RouterStore, syncHistoryWithStore } from '@superwf/mobx-react-router';
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory, History } from 'history';
 import { DefaultAdminApiClient } from '../api/default-admin-api-client';
 import { QuerySerializer } from '../routing/query-serializer';
 import { AdminAuthStore } from './admin-auth-store';
@@ -12,9 +11,7 @@ import { FormStoreFactory } from '../factory/form-store-factory';
 import { TokenStorage } from '../jwt/token-storage';
 import { AdminLoginStore } from '../components/auth/admin-login-store';
 
-export const createRiverAdminStores = <
-  AdminApiClient extends DefaultAdminApiClient
->(
+export const createRiverAdminStores = <AdminApiClient extends DefaultAdminApiClient>(
   config: {
     isRowClickableEnabled?: boolean;
     locale: SupportedLanguage;
@@ -24,7 +21,7 @@ export const createRiverAdminStores = <
   },
   props: {
     createApiClient: (
-      router: RouterStore,
+      router: History,
       notificator: Notificator,
       tokenStorage: TokenStorage
     ) => AdminApiClient;
@@ -32,22 +29,15 @@ export const createRiverAdminStores = <
 ) => {
   const notificator = new Notificator();
   const tokenStorage = new LocalTokenStorage(config.localStorageKey);
-  const routerStore = new RouterStore();
   const history = createBrowserHistory();
-  syncHistoryWithStore(history, routerStore);
-  const apiClient = props.createApiClient(routerStore, notificator, tokenStorage);
-  const authStore = new AdminAuthStore(tokenStorage, routerStore);
+  const apiClient = props.createApiClient(history, notificator, tokenStorage);
+  const authStore = new AdminAuthStore(tokenStorage, history);
   const reactIntl = new ReactIntlFactory().create(config.locale, config.translations);
   const translator = new ReactIntlTranslator(reactIntl);
   const querySerializer = new QuerySerializer();
-  const createAdminLoginStore = () => new AdminLoginStore(apiClient, authStore, routerStore);
-  const listStoreFactory = new ListStoreFactory(
-    routerStore,
-    notificator,
-    translator,
-    querySerializer
-  );
-  const formStoreFactory = new FormStoreFactory(notificator, routerStore, translator);
+  const createAdminLoginStore = () => new AdminLoginStore(apiClient, authStore, history);
+  const listStoreFactory = new ListStoreFactory(history, notificator, translator, querySerializer);
+  const formStoreFactory = new FormStoreFactory(notificator, history, translator);
 
   return {
     config,
@@ -55,7 +45,7 @@ export const createRiverAdminStores = <
     tokenStorage,
     reactIntl,
     apiClient,
-    routerStore,
+    history,
     authStore,
     translator,
     querySerializer,

@@ -13,7 +13,7 @@ import { css, cx } from '@emotion/css';
 import { NavLogout } from './nav-logout';
 
 export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Element }) => {
-  const { routerStore, authStore, reactIntl, config, querySerializer } = useRiverAdminStore();
+  const { history, authStore, reactIntl, config, querySerializer } = useRiverAdminStore();
   const { routes, navSlot } = props;
   assert(Object.keys(routes).length > 0, 'No routes specified');
 
@@ -27,7 +27,7 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
 
   return (
     <RawIntlProvider value={reactIntl}>
-      <Router history={routerStore.history}>
+      <Router history={history}>
         <Switch>
           <Route path={'/login'} component={AdminLogin} />
           <Route path={'/logout'} component={AdminLogout} />

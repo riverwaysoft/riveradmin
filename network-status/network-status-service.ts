@@ -1,4 +1,4 @@
-import { NotificationId, NetworkStatusNotificator } from './network-status-notificator';
+import { NetworkStatusNotificator, NotificationId } from './network-status-notificator';
 
 export class NetworkStatusService {
   warningId?: NotificationId;

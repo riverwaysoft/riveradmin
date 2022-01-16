@@ -1,19 +1,19 @@
 import { makeAutoObservable } from 'mobx';
-import { RouterStore } from '@superwf/mobx-react-router';
 import { parseJwt } from '../jwt/jwt';
 import { TokenStorage } from '../jwt/token-storage';
+import { History } from 'history';
 
 export type AuthUser = {
   id: string;
   roles: string[];
-  [key: string]: unknown
+  [key: string]: unknown;
 };
 
 export class AdminAuthStore {
   user?: AuthUser;
   isAppLoaded = false;
 
-  constructor(private tokenStorage: TokenStorage, private routerStore: RouterStore) {
+  constructor(private tokenStorage: TokenStorage, private history: History) {
     makeAutoObservable(this);
   }
 
@@ -35,6 +35,6 @@ export class AdminAuthStore {
   logout() {
     this.user = undefined;
     this.tokenStorage.removeToken();
-    this.routerStore.push('/');
+    this.history.push('/');
   }
 }
