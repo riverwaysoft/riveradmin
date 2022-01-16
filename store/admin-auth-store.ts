@@ -24,7 +24,12 @@ export class AdminAuthStore {
       return;
     }
     this.tokenStorage.setToken(parsedJwt);
-    this.user = parseJwt<AuthUser>(parsedJwt);
+    try {
+      this.user = parseJwt<AuthUser>(parsedJwt);
+    } catch (e) {
+      console.error(e);
+      this.logout();
+    }
     this.isAppLoaded = true;
   }
 
