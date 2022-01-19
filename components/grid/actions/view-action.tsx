@@ -4,8 +4,12 @@ import { HasId } from '../../../model/hydra';
 import { AdminTooltip } from '../../ui/tooltip';
 import { ActionProps } from '../column/actions-column';
 import { useTranslate } from '../../../store/use-translate';
+import { ListStore } from '../../../store/list-store';
 
-export const ViewAction = <Model extends HasId>(props: ActionProps<Model>) => {
+export const ViewAction = <Model extends HasId>(props: {
+  model: HasId;
+  store: ListStore<Model>;
+}) => {
   const t = useTranslate();
 
   return (

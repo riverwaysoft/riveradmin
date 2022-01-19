@@ -96,12 +96,12 @@ export class ListStore<Entity extends HasId> {
     });
   }
 
-  goToModelPage(model: Entity) {
+  goToModelPage(model: HasId) {
     const editUrl = this.getModelPageUrl(model);
     this.history.push(editUrl);
   }
 
-  getModelPageUrl(model: Entity) {
+  getModelPageUrl(model: HasId) {
     return `${this.history.location.pathname}/${model.id}`;
   }
 
