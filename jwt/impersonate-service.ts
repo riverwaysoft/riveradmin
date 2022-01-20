@@ -1,5 +1,4 @@
 import { assert } from 'ts-essentials';
-import { HasId } from '../model/hydra';
 import { QuerySerializer } from '../routing/query-serializer';
 import { TokenStorage } from './token-storage';
 
