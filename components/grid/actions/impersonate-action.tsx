@@ -1,17 +1,14 @@
 import React from 'react';
-import { HasId } from '../../../model/hydra';
-import { ImpersonateService } from '../../../jwt/impersonate-service';
 import { AdminTooltip } from '../../ui/tooltip';
 import { css, cx } from '@emotion/css';
 import { useTranslate } from '../../../store/use-translate';
 
 type Props = {
-  model: HasId;
-  impersonateService: ImpersonateService;
+  impersonate: () => Promise<unknown>;
 };
 
 export const ImpersonateAction = (props: Props) => {
-  const { model, impersonateService } = props;
+  const { impersonate } = props;
   const t = useTranslate();
 
   return (
@@ -21,7 +18,7 @@ export const ImpersonateAction = (props: Props) => {
         onClick={async (event) => {
           event.stopPropagation();
           event.preventDefault();
-          await impersonateService.openImpersonatePage(model);
+          await impersonate();
         }}
       />
     </AdminTooltip>
