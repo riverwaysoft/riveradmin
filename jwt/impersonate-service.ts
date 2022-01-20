@@ -19,4 +19,3 @@ export const impersonate = (querySerializer: QuerySerializer, tokenStorage: Toke
   tokenStorage.setToken(params['jwt']);
   window.location.pathname = '/';
 };
-
