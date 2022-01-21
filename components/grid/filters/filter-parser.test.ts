@@ -1,4 +1,5 @@
 import { parseHydraFilters } from './filter-parser';
+import { expect } from '@jest/globals';
 
 describe('filter-parser', () => {
   it('parses createdAt & fullText', () => {

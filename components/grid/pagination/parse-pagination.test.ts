@@ -1,5 +1,6 @@
 import { parsePagination } from './parse-pagination';
 import { assert } from 'ts-essentials';
+import { expect } from '@jest/globals';
 
 const response = {
   '@id': '/api/chats/82a8e45e-6b2b-4860-96a3-fbda5cb22755/messages',

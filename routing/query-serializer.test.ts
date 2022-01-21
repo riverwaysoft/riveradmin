@@ -1,4 +1,5 @@
 import { QuerySerializer } from './query-serializer';
+import { expect } from '@jest/globals';
 
 describe('QuerySerializer', () => {
   const querySerializer = new QuerySerializer();
