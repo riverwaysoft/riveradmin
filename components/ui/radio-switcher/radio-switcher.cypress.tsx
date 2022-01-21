@@ -1,9 +1,13 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useState } from 'react';
 import { RadioSwitcher } from './radio-switcher';
-import { useToggle } from 'react-use';
 import { mount } from '@cypress/react';
 import { css } from '@emotion/css';
+
+const useToggle = (initial: boolean) => {
+  const [isOn, setIsOn] = useState(initial);
+  return [isOn, () => setIsOn(!isOn)];
+};
 
 const Default = () => {
   const [isOn, toggleOn] = useToggle(true);
