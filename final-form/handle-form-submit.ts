@@ -67,9 +67,9 @@ function errorProcess(responseData) {
 }
 
 export const hasError = (field: any, skipTouched = false) => {
-  return (field.meta.touched || skipTouched) && (field.meta.error || field.meta.submitError);
+  return (field.meta?.touched || skipTouched) && (field.meta?.error || field.meta?.submitError);
 };
 
 export const showError = (field: any) => {
-  return field.meta.error || field.meta.submitError;
+  return field.meta?.error || field.meta?.submitError;
 };
