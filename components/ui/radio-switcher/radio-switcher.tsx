@@ -22,6 +22,9 @@ export const RadioSwitcher = (props: Props) => {
 
   return (
     <label
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
       className={cx(
         css({
           display: 'inline-flex',
