@@ -21,11 +21,13 @@ type Props<Entity extends HasId> = {
   columns: AdminGridProps<Entity>['columns'];
   isRowInactive?: AdminGridProps<Entity>['isRowInactive'];
   slotTop?: ReactNode;
+  skipDocumentTitle?: boolean;
 };
 
 export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) => {
   const { listStore, columns, title, create, isRowInactive } = props;
-  useDocumentTitle(title);
+  const skipDocumentTitle = props.skipDocumentTitle === true;
+  useDocumentTitle(title, skipDocumentTitle);
   const t = useTranslate();
   const location = useLocation();
 
