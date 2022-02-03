@@ -74,14 +74,22 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
                   </div>
                   <div className={css({ width: '100%' })}>
                     <Switch>
-                      {Object.entries(routes).map(([path, { component, exact }]) => (
-                        <AdminAuthenticatedRoute
-                          exact={exact}
-                          key={path}
-                          path={path}
-                          component={component}
-                        />
-                      ))}
+                      {Object.entries(routes).map(([path, { component, exact, isPublic }]) => {
+                        if (isPublic) {
+                          return (
+                            <Route exact={exact} key={path} path={path} component={component} />
+                          );
+                        }
+
+                        return (
+                          <AdminAuthenticatedRoute
+                            exact={exact}
+                            key={path}
+                            path={path}
+                            component={component}
+                          />
+                        );
+                      })}
                       <Route
                         path={'*'}
                         component={() => <Redirect to={Object.keys(routes)[0]} />}

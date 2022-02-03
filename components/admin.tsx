@@ -19,6 +19,8 @@ export type MenuRoute = {
   component?: RouteProps['component'];
   // It is the same as React Router's 'exact' prop for a <Route/>
   exact?: RouteProps['exact'];
+  // If this route available without authentication? Useful for public pages, impersonation
+  isPublic?: boolean;
 };
 
 // This is admin route configuration
