@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { IPromiseBasedObservable } from 'mobx-utils/lib/from-promise';
 import { Table } from 'react-bootstrap';
-import { Loader } from '../../../admin/pages/shared/loader/loader';
+import { Loader } from './loader';
 import { css } from '@emotion/css';
 
 export const TableSimple = observer(
