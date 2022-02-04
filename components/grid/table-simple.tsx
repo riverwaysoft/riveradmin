@@ -8,6 +8,7 @@ import { css } from '@emotion/css';
 export const TableSimple = observer(
   <T extends any>(props: {
     models?: IPromiseBasedObservable<T[]> | T[];
+    isLoading?: boolean;
     columns: {
       label: string | React.ReactNode;
       onClick?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -15,10 +16,14 @@ export const TableSimple = observer(
     }[];
     onRowClick?: (model: T) => void;
   }) => {
-    const { models, columns } = props;
+    const { models, columns, isLoading } = props;
 
     if (!models) {
       return null;
+    }
+
+    if (isLoading) {
+      return <Loader />;
     }
 
     if (!Array.isArray(models) && models.state === 'pending') {
