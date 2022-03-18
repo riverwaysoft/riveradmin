@@ -75,20 +75,8 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
                   <div className={css({ width: '100%' })}>
                     <Switch>
                       {Object.entries(routes).map(([path, { component, exact, isPublic }]) => {
-                        if (isPublic) {
-                          return (
-                            <Route exact={exact} key={path} path={path} component={component} />
-                          );
-                        }
-
-                        return (
-                          <AdminAuthenticatedRoute
-                            exact={exact}
-                            key={path}
-                            path={path}
-                            component={component}
-                          />
-                        );
+                        const Tag = isPublic ? Route : AdminAuthenticatedRoute;
+                        return <Tag exact={exact} key={path} path={path} component={component} />;
                       })}
                       <Route
                         path={'*'}
