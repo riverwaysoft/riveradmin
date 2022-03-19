@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { Form as FinalForm } from 'react-final-form';
-import { AdminGrid, Props as AdminGridProps } from './grid/admin-grid';
+import { AdminGrid, AdminGridProps as AdminGridProps } from './grid/admin-grid';
 import { observer } from 'mobx-react-lite';
 import React, { ReactNode, useEffect } from 'react';
 import { ListStore } from '../store/list-store';

@@ -14,7 +14,7 @@ import { useTranslate } from '../../store/use-translate';
 import { Link } from 'react-router-dom';
 import { reset } from '../../css/reset';
 
-export type Props<Model extends HasId> = {
+export type AdminGridProps<Model extends HasId> = {
   columns: {
     label: string | React.ReactNode;
     onClick?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -25,7 +25,7 @@ export type Props<Model extends HasId> = {
   listStore: ListStore<Model>;
 };
 
-export const AdminGrid = observer(<Model extends HasId>(props: Props<Model>) => {
+export const AdminGrid = observer(<Model extends HasId>(props: AdminGridProps<Model>) => {
   const { columns, listStore } = props;
   const t = useTranslate();
   const { config } = useRiverAdminStore();
