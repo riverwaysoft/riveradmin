@@ -12,7 +12,7 @@ export const createPrivateRoute = (props: {
   component: ComponentType<{}>;
   exact?: MenuRoute['exact'];
   query?: MenuRoute['query'];
-  // Useful if you want to force hide this route from menu. e.g for form pages like '/user/:id' or '/todos/:id'
+  // Useful if you want to force hide this route from menu. e.g. for form pages like '/user/:id' or '/product/:id'
   menu?: false;
 }): MenuRoute => {
   const { title, component, callback, exact, query } = props;
