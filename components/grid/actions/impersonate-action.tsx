@@ -5,6 +5,7 @@ import { useTranslate } from '../../../store/use-translate';
 
 type Props = {
   impersonate: () => Promise<unknown>;
+  tooltip?: string;
 };
 
 export const ImpersonateAction = (props: Props) => {
@@ -12,7 +13,7 @@ export const ImpersonateAction = (props: Props) => {
   const t = useTranslate();
 
   return (
-    <AdminTooltip title={t('riveradmin.impersonate-user')}>
+    <AdminTooltip title={props.tooltip ?? t('riveradmin.impersonate-user')}>
       <i
         className={cx('mdi mdi-account-key text-success', css({ cursor: 'pointer' }))}
         onClick={async (event) => {
