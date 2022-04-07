@@ -33,9 +33,9 @@ function errorProcess(responseData) {
   if (responseData.code && responseData.code === 401) {
     return { [FORM_ERROR]: responseData.message };
   }
-  let res = {};
+  const res = {};
   if (responseData && responseData.violations) {
-    for (let list of responseData.violations) {
+    for (const list of responseData.violations) {
       if (list.propertyPath) {
         const match = matchStringifiedArrayOfEntities(list.propertyPath);
         if (match) {
