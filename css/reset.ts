@@ -28,4 +28,7 @@ export const reset = {
   label: css({
     marginBottom: 0,
   }),
+  p: css({
+    margin: 0
+  })
 };

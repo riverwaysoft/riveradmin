@@ -63,7 +63,7 @@ export class ListStore<Entity extends HasId> {
       return { ...acc, [unwrapNestedNotation(key)]: value };
     }, {});
 
-    this.dataProvider
+    return this.dataProvider
       .fetchList(send)
       .then(
         action((data) => {
