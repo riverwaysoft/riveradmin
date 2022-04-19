@@ -46,7 +46,6 @@ export class ListStore<Entity extends HasId> {
     makeAutoObservable(this, {
       onPageChange: false,
       submitSearchForm: false,
-      listenHistory: false,
       getModelPageUrl: false,
     });
   }
@@ -75,10 +74,6 @@ export class ListStore<Entity extends HasId> {
         throw e;
       })
       .finally(action(() => (this.isListLoading = false)));
-  }
-
-  listenHistory() {
-    return this.history.listen(() => this.loadList());
   }
 
   get searchFormInitialValues() {
