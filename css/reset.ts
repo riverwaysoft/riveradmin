@@ -29,6 +29,6 @@ export const reset = {
     marginBottom: 0,
   }),
   p: css({
-    margin: 0
-  })
+    margin: 0,
+  }),
 };

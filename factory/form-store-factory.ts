@@ -1,6 +1,6 @@
 import { Notificator } from '../notificator/notificator';
 import { Translator } from '../intl/translator';
-import { CrudApi, FormStore } from '../store/form-store';
+import { CrudApi, FormStore, FormStoreOptions } from '../store/form-store';
 import { HasId } from '../model/hydra';
 import { History } from 'history';
 
@@ -11,7 +11,16 @@ export class FormStoreFactory {
     private translator: Translator
   ) {}
 
-  create<Model extends HasId, Form extends object = {}>(crudApi: CrudApi<Model>) {
-    return new FormStore<Model, Form>(crudApi, this.notificator, this.history, this.translator);
+  create<Model extends HasId, Form extends object = {}>(
+    crudApi: CrudApi<Model>,
+    formStoreOptions?: FormStoreOptions
+  ) {
+    return new FormStore<Model, Form>(
+      crudApi,
+      this.notificator,
+      this.history,
+      this.translator,
+      formStoreOptions
+    );
   }
 }

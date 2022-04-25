@@ -14,6 +14,8 @@ export type CrudApi<Model> = {
   update: (modelId: string, body: object) => Promise<Model>;
 };
 
+export type FormStoreOptions = { fetchAfterSubmit: boolean };
+
 export class FormStore<Model extends HasId, Form extends object = {}> {
   model?: Model;
   isModelLoading = false;
@@ -22,7 +24,8 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
     private crudApi: CrudApi<Model>,
     private notificator: Notificator,
     private history: History,
-    private translator: Translator
+    private translator: Translator,
+    private options: FormStoreOptions = { fetchAfterSubmit: false }
   ) {
     makeAutoObservable(this);
   }
@@ -49,6 +52,9 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
         return result.errors;
       }
       this.notificator.success(this.translator.translate('riveradmin.data-saved'));
+      if (this.options.fetchAfterSubmit) {
+        this.loadModel(this.model.id);
+      }
     } else {
       if (!this.crudApi.create) {
         throw new Error(
