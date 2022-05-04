@@ -30,11 +30,11 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
     makeAutoObservable(this);
   }
 
-  loadModel(id: string) {
+  async loadModel(id: string) {
     if (id === 'new') {
     } else {
       this.isModelLoading = true;
-      this.crudApi
+      return this.crudApi
         .fetchOne(id)
         .then(
           action((model) => {
