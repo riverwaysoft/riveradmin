@@ -6,6 +6,7 @@ import { History } from 'history';
 export type AuthUser = {
   id: string;
   roles: string[];
+  username?: string;
   [key: string]: unknown;
 };
 
