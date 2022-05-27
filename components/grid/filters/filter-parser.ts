@@ -12,6 +12,7 @@ export type GridFilter =
       property: string;
       labelKey: string;
       endpoint: string;
+      removeIri: boolean;
       async: boolean;
     }
   | { type: 'range'; property?: string };
@@ -70,6 +71,7 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
         type: 'entity_dropdown',
         labelKey: dropdownConfigParsed.labelKey,
         endpoint: dropdownConfigParsed.endpoint,
+        removeIri: dropdownConfigParsed.removeIri,
         async: !!dropdownConfigParsed.async,
         property: wrapNestedNotation(item.variable),
       });

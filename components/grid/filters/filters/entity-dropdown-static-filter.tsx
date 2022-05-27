@@ -11,6 +11,7 @@ type Props = {
   fieldName: string;
   labelKey: string;
   endpoint: string;
+  removeIri: boolean;
 };
 
 export const EntityDropdownStaticFilter = observer((props: Props) => {
@@ -21,10 +22,14 @@ export const EntityDropdownStaticFilter = observer((props: Props) => {
   }));
 
   // @ts-ignore
-  const options = (state.response.value ?? []).map((item: any) => ({
-    value: `${props.endpoint.replace(/\/$/, '')}/${item.id}`,
-    label: item[props.labelKey],
-  }));
+  const options = (state.response.value ?? []).map((item: any) => {
+    const value = props.removeIri ? item.id : `${props.endpoint.replace(/\/$/, '')}/${item.id}`;
+
+    return {
+      value: value,
+      label: item[props.labelKey],
+    };
+  });
 
   return (
     <Field name={props.fieldName} groupClassName={css({ marginBottom: 0 })}>

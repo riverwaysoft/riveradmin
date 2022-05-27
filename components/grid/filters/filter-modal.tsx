@@ -134,6 +134,7 @@ export const FilterModal = observer(<Entity extends HasId>(props: Props<Entity>)
                       fieldName={gridFilter.property}
                       labelKey={gridFilter.labelKey}
                       endpoint={gridFilter.endpoint}
+                      removeIri={gridFilter.removeIri}
                     />
                   </label>
                 );
