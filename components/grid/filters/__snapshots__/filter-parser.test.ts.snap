@@ -43,9 +43,9 @@ Array [
   Object {
     "async": false,
     "endpoint": "/api/trainers",
+    "iriPrefix": "/api/trainers",
     "labelKey": "username",
     "property": "progress__trainer",
-    "removeIri": undefined,
     "type": "entity_dropdown",
   },
   Object {

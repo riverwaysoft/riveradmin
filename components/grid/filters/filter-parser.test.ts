@@ -162,7 +162,7 @@ describe('filter-parser', () => {
           {
             '@type': 'IriTemplateMapping',
             property:
-              'riveradmin_entity_dropdown:{"endpoint":"\\/api\\/trainers","labelKey":"username"}',
+              'riveradmin_entity_dropdown:{"endpoint":"\\/api\\/trainers","labelKey":"username","iriPrefix":"\\/api\\/trainers"}',
             required: false,
             variable: 'progress.trainer',
           },
