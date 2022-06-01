@@ -12,7 +12,7 @@ export type GridFilter =
       property: string;
       labelKey: string;
       endpoint: string;
-      removeIri: boolean;
+      iriPrefix: string;
       async: boolean;
     }
   | { type: 'range'; property?: string };
@@ -65,13 +65,15 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
     if (item.property?.startsWith('riveradmin_entity_dropdown')) {
       const dropdownConfigJson = item.property.replace('riveradmin_entity_dropdown:', '');
       const dropdownConfigParsed = JSON.parse(dropdownConfigJson);
-      assert(dropdownConfigParsed.labelKey);
-      assert(dropdownConfigParsed.endpoint);
+      assert(dropdownConfigParsed.labelKey, 'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property labelKey is missed');
+      assert(dropdownConfigParsed.endpoint, 'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property endPoint is missed');
+      assert(dropdownConfigParsed.iriPrefix, 'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property isPrefix is missed');
+
       gridFilters.push({
         type: 'entity_dropdown',
         labelKey: dropdownConfigParsed.labelKey,
         endpoint: dropdownConfigParsed.endpoint,
-        removeIri: dropdownConfigParsed.removeIri,
+        iriPrefix: dropdownConfigParsed.iriPrefix,
         async: !!dropdownConfigParsed.async,
         property: wrapNestedNotation(item.variable),
       });
