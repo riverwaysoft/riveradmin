@@ -27,12 +27,12 @@ export const EntityDropdownStaticFilter = observer((props: Props) => {
       axios.get(props.endpoint).then((response) => response.data['hydra:member'])
     ),
   }));
-  const iriPrefix = trimRight(props.iriPrefix, '/');
+  const iriPrefix = props.iriPrefix ? `${trimRight(props.iriPrefix, '/')}/` : '';
 
   // @ts-ignore
   const options = (state.response.value ?? []).map((item: any) => {
     return {
-      value: `${iriPrefix}/${item.id}`,
+      value: `${iriPrefix}${item.id}`,
       label: item[props.labelKey],
     };
   });
