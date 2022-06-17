@@ -65,9 +65,18 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
     if (item.property?.startsWith('riveradmin_entity_dropdown')) {
       const dropdownConfigJson = item.property.replace('riveradmin_entity_dropdown:', '');
       const dropdownConfigParsed = JSON.parse(dropdownConfigJson);
-      assert(dropdownConfigParsed.labelKey, 'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property labelKey is missed');
-      assert(dropdownConfigParsed.endpoint, 'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property endPoint is missed');
-      assert(dropdownConfigParsed.iriPrefix, 'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property isPrefix is missed');
+      assert(
+        dropdownConfigParsed.labelKey,
+        'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property labelKey is missed'
+      );
+      assert(
+        dropdownConfigParsed.endpoint,
+        'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property endPoint is missed'
+      );
+      assert(
+        dropdownConfigParsed.iriPrefix,
+        'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property isPrefix is missed'
+      );
 
       gridFilters.push({
         type: 'entity_dropdown',

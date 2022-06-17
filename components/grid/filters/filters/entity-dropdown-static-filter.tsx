@@ -6,7 +6,7 @@ import { observer, useLocalObservable } from 'mobx-react-lite';
 import { fromPromise } from 'mobx-utils';
 import axios from 'axios';
 import { CollectionResponse } from '../../../../model/hydra';
-import {trimRight} from "./trim-right";
+import { trimRight } from './trim-right';
 
 type Props = {
   // Final Form's field name
