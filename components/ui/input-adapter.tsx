@@ -18,6 +18,7 @@ export const InputAdapter = <T extends string | number>(props: Props<T>) => {
         placeholder={props.placeholder}
         className={props.className}
         id={props.id}
+        readOnly={props.readOnly}
         style={props.style}
         autoComplete={props.autoComplete}
         rows={props.rows}
