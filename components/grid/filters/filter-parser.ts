@@ -73,10 +73,6 @@ export const parseHydraFilters = (response: CollectionResponse<any>): GridFilter
         dropdownConfigParsed.endpoint,
         'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property endPoint is missed'
       );
-      assert(
-        dropdownConfigParsed.iriPrefix,
-        'Riveradmin: riveradmin_entity_dropdown filter is incorrect. Property isPrefix is missed'
-      );
 
       gridFilters.push({
         type: 'entity_dropdown',
