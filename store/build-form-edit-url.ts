@@ -1,5 +1,6 @@
 import { History } from 'history';
 import { assert } from 'ts-essentials';
+import { HasId } from '../model/hydra';
 
 export const buildFormEditUrl = (history: History, model: HasId) => {
   const pathWithoutModelIdRegex = /\/([^/]+)\//;
