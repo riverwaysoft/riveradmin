@@ -5,6 +5,7 @@ import { v4 } from 'uuid';
 import { assert } from 'ts-essentials';
 import { Translator } from '../intl/translator';
 import { History } from 'history';
+import { buildFormEditUrl } from './build-form-edit-url';
 
 type HasId = { id: string };
 
@@ -66,11 +67,8 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
       if (result.errors) {
         return result.errors;
       }
-      const pathWithoutModelIdRegex = /\/([^/]+)\//;
-      const regexResult = pathWithoutModelIdRegex.exec(this.history.location.pathname);
-      assert(regexResult);
-      const pathWithoutModelId = regexResult[1];
-      this.history.push(`/${pathWithoutModelId}/${modelCreateInput.id}`);
+
+      this.history.push(buildFormEditUrl(this.history, modelCreateInput));
       this.notificator.success(this.translator.translate('riveradmin.data-saved'));
     }
   };
