@@ -13,6 +13,7 @@ type Props = {
   endpoint: string;
   // A human-readable value to display in dropdown (object property from the dropdown list)
   labelKey: string;
+  labelKeyComputed?: (model: any) => string;
   // An entity prefix (Iri) that API platform requires to send when using SearchFilter
   // Usually the Iri prefix is not different from the endpoint property.
   // But if the endpoint is custom (for example /api/visible_users), then iri prefix should still point to an entity (for example /api/users/)
@@ -20,7 +21,7 @@ type Props = {
 };
 
 export const EntityDropdownAsyncFilter = (props: Props) => {
-  const { fieldName, labelKey } = props;
+  const { fieldName, labelKey, labelKeyComputed } = props;
   const iriPrefix = trimRight(props.iriPrefix, '/');
   const endpoint = trimRight(props.endpoint, '/');
   const [lastLabel, setLastLabel] = useState('');
@@ -56,7 +57,7 @@ export const EntityDropdownAsyncFilter = (props: Props) => {
                 .then((response) =>
                   response.data['hydra:member'].map((model: any) => {
                     return {
-                      label: model[labelKey],
+                      label: labelKeyComputed ? labelKeyComputed(model) : model[labelKey],
                       value: `${iriPrefix}/${model.id}`,
                     };
                   })

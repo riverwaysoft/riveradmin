@@ -46,6 +46,11 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
     }
   }
 
+  reload() {
+    assert(this.model);
+    return this.loadModel(this.model.id);
+  }
+
   submitForm = async (form: Partial<Form>) => {
     if (this.model) {
       const result = await handleFormSubmit(this.crudApi.update(this.model.id, form));
@@ -54,7 +59,7 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
       }
       this.notificator.success(this.translator.translate('riveradmin.data-saved'));
       if (this.options.fetchAfterSubmit) {
-        this.loadModel(this.model.id);
+        this.reload();
       }
     } else {
       if (!this.crudApi.create) {
