@@ -2,7 +2,7 @@ import { assert, IsExact } from 'conditional-type-checks';
 import { isValidEnumValue } from './is-valid-enum';
 
 enum Currency {
-  TRY = 'TRY'
+  TRY = 'TRY',
 }
 
 test('check valid enum value with type inference', () => {
