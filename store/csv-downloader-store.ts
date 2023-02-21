@@ -31,7 +31,7 @@ export class CsvDownloaderStore {
   private downloadBlob = (response: AxiosResponse) => {
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(response.data);
-    const extension = response.headers['content-type'] === 'text/csv' ? 'csv' : 'xlsx';
+    const extension = response.headers['content-type'].includes('text/csv') ? 'csv' : 'xlsx';
     link.download = `report_${new Date().getTime()}.${extension}`;
     link.click();
   };
