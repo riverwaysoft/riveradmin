@@ -43,11 +43,15 @@ export class ListStore<Entity extends HasId> {
     private translator: Translator,
     private querySerializer: QuerySerializer
   ) {
-    makeAutoObservable(this, {
-      onPageChange: false,
-      submitSearchForm: false,
-      getModelPageUrl: false,
-    });
+    makeAutoObservable(
+      this,
+      {
+        onPageChange: false,
+        submitSearchForm: false,
+        getModelPageUrl: false,
+      },
+      { autoBind: true }
+    );
   }
 
   loadList() {
