@@ -17,7 +17,7 @@ import { useDocumentTitle } from '../routing/use-document-title';
 type Props<Entity extends HasId> = {
   listStore: ListStore<Entity>;
   title: string;
-  create?: boolean;
+  create?: boolean | ReactNode;
   columns: AdminGridProps<Entity>['columns'];
   isRowInactive?: AdminGridProps<Entity>['isRowInactive'];
   slotTop?: ReactNode;
@@ -173,15 +173,22 @@ export const AdminList = observer(<Entity extends HasId>(props: Props<Entity>) =
               )}
             </FinalForm>
           )}
-          {create && (
-            <Button
-              onClick={() => {
-                listStore.goToNewModelPage();
-              }}
-            >
-              {t('riveradmin.create')}
-            </Button>
-          )}
+          {create
+            ? (() => {
+                if (typeof create === 'boolean') {
+                  return (
+                    <Button
+                      onClick={() => {
+                        listStore.goToNewModelPage();
+                      }}
+                    >
+                      {t('riveradmin.create')}
+                    </Button>
+                  );
+                }
+                return create;
+              })()
+            : null}
         </div>
       </div>
       <AdminGrid columns={columns} listStore={listStore} isRowInactive={isRowInactive} />
