@@ -25,6 +25,16 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
     return null;
   }
 
+  const allowedMenuRoutes = Object.entries(routes).filter(([_, route]) => {
+    if (typeof route.menu === 'function') {
+      return route.menu(authStore);
+    }
+    return !!route.menu;
+  });
+
+  const redirectTo =
+    allowedMenuRoutes.length && authStore.isAuthenticated ? allowedMenuRoutes[0][0] : '/login';
+
   return (
     <RawIntlProvider value={reactIntl}>
       <Router history={history}>
@@ -33,30 +43,24 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
           <Route path={'/logout'} component={AdminLogout} />
           <Route
             path={'/'}
-            render={() => (
-              <div className={css({ display: 'flex', flexDirection: 'column' })}>
-                <nav
-                  className={cx(
-                    'navbar navbar-light',
-                    css({ backgroundColor: 'var(--light)', marginBottom: 24 })
-                  )}
-                >
-                  <span className="navbar-brand">{config.appTitle}</span>
-                  {navSlot}
-                  <NavLogout />
-                </nav>
-                <div className={css({ display: 'flex', padding: 8, gap: 16 })}>
-                  <div className={css({ width: '15%' })}>
-                    <ul className="nav nav-pills flex-column">
-                      <li className="nav-item">
-                        {Object.entries(routes)
-                          .filter(([_, route]) => {
-                            if (typeof route.menu === 'function') {
-                              return route.menu(authStore);
-                            }
-                            return !!route.menu;
-                          })
-                          .map(([path, { title, query }]) => (
+            render={() => {
+              return (
+                <div className={css({ display: 'flex', flexDirection: 'column' })}>
+                  <nav
+                    className={cx(
+                      'navbar navbar-light',
+                      css({ backgroundColor: 'var(--light)', marginBottom: 24 })
+                    )}
+                  >
+                    <span className="navbar-brand">{config.appTitle}</span>
+                    {navSlot}
+                    <NavLogout />
+                  </nav>
+                  <div className={css({ display: 'flex', padding: 8, gap: 16 })}>
+                    <div className={css({ width: '15%' })}>
+                      <ul className="nav nav-pills flex-column">
+                        <li className="nav-item">
+                          {allowedMenuRoutes.map(([path, { title, query }]) => (
                             <NavLink
                               key={path}
                               className={'nav-link'}
@@ -69,26 +73,26 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
                               {title}
                             </NavLink>
                           ))}
-                      </li>
-                    </ul>
-                  </div>
-                  <div className={css({ width: '100%' })}>
-                    <Switch>
-                      {Object.entries(routes).map(([path, { component, exact, isPublic }]) => {
-                        const Tag = isPublic ? Route : AdminAuthenticatedRoute;
-                        return <Tag exact={exact} key={path} path={path} component={component} />;
-                      })}
-                      <Route
-                        path={'*'}
-                        component={() => <Redirect to={Object.keys(routes)[0]} />}
-                      />
-                    </Switch>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className={css({ width: '100%' })}>
+                      <Switch>
+                        {Object.entries(routes).map(([path, { component, exact, isPublic }]) => {
+                          const Tag = isPublic ? Route : AdminAuthenticatedRoute;
+                          return <Tag exact={exact} key={path} path={path} component={component} />;
+                        })}
+                        {redirectTo && (
+                          <Route path={'*'} component={() => <Redirect to={redirectTo} />} />
+                        )}
+                      </Switch>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              );
+            }}
           />
-          <Route path={'*'} component={() => <Redirect to={Object.keys(routes)[0]} />} />
+          {redirectTo && <Route path={'*'} component={() => <Redirect to={redirectTo} />} />}
         </Switch>
         <ToastContainer />
       </Router>

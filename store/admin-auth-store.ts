@@ -43,4 +43,8 @@ export class AdminAuthStore {
     this.tokenStorage.removeToken();
     this.history.push('/');
   }
+
+  hasRole(role: string) {
+    return !!this.user?.roles.includes(role);
+  }
 }
