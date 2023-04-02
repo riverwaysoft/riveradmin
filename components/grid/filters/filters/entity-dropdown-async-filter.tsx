@@ -20,13 +20,14 @@ type Props<T> = {
   iriPrefix: string;
   isDisabled?: boolean;
   filter?: (model: T) => boolean;
+  defaultLabel?: string;
 };
 
 export const EntityDropdownAsyncFilter = <T extends any>(props: Props<T>) => {
   const { fieldName, labelKey, labelKeyComputed, isDisabled, filter } = props;
   const iriPrefix = trimRight(props.iriPrefix, '/');
   const endpoint = trimRight(props.endpoint, '/');
-  const [lastLabel, setLastLabel] = useState('');
+  const [lastLabel, setLastLabel] = useState(() => props.defaultLabel || '');
 
   return (
     <Field name={fieldName} groupClassName={css({ marginBottom: 0 })}>

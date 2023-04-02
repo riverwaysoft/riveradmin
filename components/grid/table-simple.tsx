@@ -4,6 +4,7 @@ import { IPromiseBasedObservable } from 'mobx-utils/lib/from-promise';
 import { Table } from 'react-bootstrap';
 import { Loader } from './loader';
 import { css } from '@emotion/css';
+import { useTranslate } from '../../store/use-translate';
 
 export const TableSimple = observer(
   <T extends any>(props: {
@@ -17,6 +18,7 @@ export const TableSimple = observer(
     onRowClick?: (model: T) => void;
   }) => {
     const { models, columns, isLoading } = props;
+    const t = useTranslate();
 
     if (!models) {
       return null;
@@ -49,7 +51,7 @@ export const TableSimple = observer(
           {value.length === 0 && (
             <tr>
               <td className={css({ width: '100%', textAlign: 'center' })} colSpan={columns.length}>
-                The list is empty
+                <p>{t('No items matched your search')}</p>
               </td>
             </tr>
           )}
