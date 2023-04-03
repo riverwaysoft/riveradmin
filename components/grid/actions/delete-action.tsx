@@ -3,11 +3,10 @@ import React from 'react';
 import { HasId } from '../../../model/hydra';
 import { useTranslate } from '../../../store/use-translate';
 import { AdminTooltip } from '../../ui/tooltip';
-import { ListStore } from '../../../store/list-store';
 
 export const DeleteAction = <Model extends HasId>(props: {
   model: Model;
-  store: ListStore<Model>;
+  store: { askRemove: (model: Model) => void };
 }) => {
   const t = useTranslate();
 
