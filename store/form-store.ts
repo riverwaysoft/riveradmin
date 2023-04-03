@@ -15,7 +15,10 @@ export type CrudApi<Model> = {
   update: (modelId: string, body: object) => Promise<Model>;
 };
 
-export type FormStoreOptions = { fetchAfterSubmit: boolean };
+export type FormStoreOptions = {
+  fetchAfterSubmit?: boolean;
+  redirectAfterCreate?: boolean;
+};
 
 export class FormStore<Model extends HasId, Form extends object = {}> {
   model?: Model;
@@ -73,7 +76,10 @@ export class FormStore<Model extends HasId, Form extends object = {}> {
         return result.errors;
       }
 
-      this.history.push(buildFormEditUrl(this.history, modelCreateInput));
+      if (this.options.redirectAfterCreate !== false) {
+        this.history.push(buildFormEditUrl(this.history, modelCreateInput));
+      }
+
       this.notificator.success(this.translator.translate('riveradmin.data-saved'));
     }
   };
