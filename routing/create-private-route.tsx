@@ -7,6 +7,7 @@ import { MenuRoute } from '../components/admin';
 // - It redirects to "Not allowed" page if callback returns false
 // - It hides menu option automatically if callback returns false
 export const createPrivateRoute = (props: {
+  url: MenuRoute['url'];
   callback: (adminAuthStore: AdminAuthStore) => boolean;
   title: MenuRoute['title'];
   component: ComponentType<{}>;
@@ -15,10 +16,11 @@ export const createPrivateRoute = (props: {
   // Useful if you want to force hide this route from menu. e.g. for form pages like '/user/:id' or '/product/:id'
   menu?: false;
 }): MenuRoute => {
-  const { title, component, callback, exact, query } = props;
+  const { title, component, callback, exact, query, url } = props;
   const menu = props.menu === false ? false : callback;
 
   return {
+    url,
     title,
     component: onlyConditionHoc(component, callback),
     exact,

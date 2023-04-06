@@ -15,7 +15,7 @@ import { NavLogout } from './nav-logout';
 export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Element }) => {
   const { history, authStore, reactIntl, config, querySerializer } = useRiverAdminStore();
   const { routes, navSlot } = props;
-  assert(Object.keys(routes).length > 0, 'No routes specified');
+  assert(routes.length > 0, 'No routes specified');
 
   useEffect(() => {
     authStore.authenticate();
@@ -25,7 +25,7 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
     return null;
   }
 
-  const allowedMenuRoutes = Object.entries(routes).filter(([_, route]) => {
+  const allowedMenuRoutes = (routes).filter((route) => {
     if (typeof route.menu === 'function') {
       return route.menu(authStore);
     }
@@ -33,7 +33,7 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
   });
 
   const redirectTo =
-    allowedMenuRoutes.length && authStore.isAuthenticated ? allowedMenuRoutes[0][0] : '/login';
+    allowedMenuRoutes.length && authStore.isAuthenticated ? allowedMenuRoutes[0].url : '/login';
 
   return (
     <RawIntlProvider value={reactIntl}>
@@ -60,12 +60,12 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
                     <div className={css({ width: '15%' })}>
                       <ul className="nav nav-pills flex-column">
                         <li className="nav-item">
-                          {allowedMenuRoutes.map(([path, { title, query }]) => (
+                          {allowedMenuRoutes.map(({ title, query, url }) => (
                             <NavLink
-                              key={path}
+                              key={url}
                               className={'nav-link'}
                               to={{
-                                pathname: path,
+                                pathname: url,
                                 search: query ? querySerializer.stringifyParams(query) : undefined,
                               }}
                               activeClassName="active"
@@ -78,9 +78,9 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
                     </div>
                     <div className={css({ width: '100%' })}>
                       <Switch>
-                        {Object.entries(routes).map(([path, { component, exact, isPublic }]) => {
+                        {(routes).map(({ component, exact, isPublic, url }) => {
                           const Tag = isPublic ? Route : AdminAuthenticatedRoute;
-                          return <Tag exact={exact} key={path} path={path} component={component} />;
+                          return <Tag exact={exact} key={url} path={url} component={component} />;
                         })}
                         {redirectTo && (
                           <Route path={'*'} component={() => <Redirect to={redirectTo} />} />

@@ -7,6 +7,7 @@ import { Layout } from './layout/layout';
 import { AdminAuthStore } from '../store/admin-auth-store';
 
 export type MenuRoute = {
+  url: string;
   // The title of the route. It will be displayed as tab title in browser + as <h1> header on a page
   title: string;
   // Should this route be added to the menu list?
@@ -24,10 +25,7 @@ export type MenuRoute = {
 };
 
 // This is admin route configuration
-export type MenuRoutes = {
-  // The path of the route
-  [key in string]: MenuRoute;
-};
+export type MenuRoutes = MenuRoute[];
 
 type Props = {
   routes: MenuRoutes;
