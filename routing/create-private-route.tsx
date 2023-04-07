@@ -1,7 +1,8 @@
 import { AdminAuthStore } from '../store/admin-auth-store';
 import { ComponentType } from 'react';
 import { onlyConditionHoc } from './only-condition-hoc';
-import { MenuRoute } from '../components/admin';
+
+import { MenuRoute } from '../components/layout/types';
 
 // Private route does the following things:
 // - It redirects to "Not allowed" page if callback returns false
