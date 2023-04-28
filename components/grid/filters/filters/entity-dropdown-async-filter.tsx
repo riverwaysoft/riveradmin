@@ -21,10 +21,11 @@ type Props<T> = {
   isDisabled?: boolean;
   filter?: (model: T) => boolean;
   defaultLabel?: string;
+  isClearable?: boolean;
 };
 
 export const EntityDropdownAsyncFilter = <T extends any>(props: Props<T>) => {
-  const { fieldName, labelKey, labelKeyComputed, isDisabled, filter } = props;
+  const { fieldName, labelKey, labelKeyComputed, isDisabled, filter, isClearable } = props;
   const iriPrefix = trimRight(props.iriPrefix, '/');
   const endpoint = trimRight(props.endpoint, '/');
   const [lastLabel, setLastLabel] = useState(() => props.defaultLabel || '');
@@ -38,10 +39,15 @@ export const EntityDropdownAsyncFilter = <T extends any>(props: Props<T>) => {
             cacheOptions
             defaultOptions={filter ? undefined : true}
             isDisabled={isDisabled}
+            isClearable={isClearable}
             onChange={debounce((e: any) => {
-              input.onChange(e.value);
-              // Fix stupid react-select issue: https://github.com/JedWatson/react-select/issues/3761
-              setLastLabel(e.label);
+              if (e) {
+                input.onChange(e.value);
+                // Fix stupid react-select issue: https://github.com/JedWatson/react-select/issues/3761
+                setLastLabel(e.label);
+              } else {
+                input.onChange(null);
+              }
             }, 300)}
             value={
               input.value

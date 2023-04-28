@@ -1,5 +1,5 @@
 import { Observer, observer } from 'mobx-react-lite';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -78,7 +78,7 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
                               const isExpanded = sidebarStore.expandedMenuItems.includes(i);
                               if (isNestedMenuRoute(route)) {
                                 return (
-                                  <>
+                                  <Fragment key={i}>
                                     <li
                                       className={cx(
                                         'nav-item nav-link',
@@ -100,21 +100,21 @@ export const Layout = observer((props: { routes: MenuRoutes; navSlot?: JSX.Eleme
                                       <ul className={cx(reset.ul)}>
                                         {route.children
                                           .filter(onlyAllowedMenuRoutesFilter(authStore))
-                                          .map((child) => {
+                                          .map((child, j) => {
                                             return (
-                                              <li className="nav-item pl-3">
+                                              <li className="nav-item pl-3" key={j}>
                                                 <MenuRouteView menuRoute={child} />
                                               </li>
                                             );
                                           })}
                                       </ul>
                                     </Accordion>
-                                  </>
+                                  </Fragment>
                                 );
                               }
 
                               return (
-                                <li className="nav-item">
+                                <li className="nav-item" key={i}>
                                   <MenuRouteView menuRoute={route} />
                                 </li>
                               );
