@@ -27,6 +27,7 @@ export const ChevronIcon = (props: Props) => {
       xmlns="http://www.w3.org/2000/svg"
       whileTap={{ scale: 0.9 }}
       animate={{ rotate: getRotation(direction) }}
+      initial={false}
       {...restProps}
     >
       <path
