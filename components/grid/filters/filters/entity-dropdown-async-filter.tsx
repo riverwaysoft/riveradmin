@@ -5,26 +5,33 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import AsyncSelect from 'react-select/async';
 import { trimRight } from './trim-right';
+import { HasId } from '../../../../model/hydra';
 
-type Props<T> = {
+type DefaultOption = { label: string; value: string };
+
+type Props<Model extends HasId, Option extends DefaultOption> = {
   // Final Form's field name
   fieldName: string;
   // API endpoint where to fetch data list for the dropdown
   endpoint: string;
   // A human-readable value to display in dropdown (object property from the dropdown list)
-  labelKey: string;
-  labelKeyComputed?: (model: T) => string;
+  labelKey: keyof Model | string;
+  labelKeyComputed?: (model: Model) => string;
   // An entity prefix (Iri) that API platform requires to send when using SearchFilter
   // Usually the Iri prefix is not different from the endpoint property.
   // But if the endpoint is custom (for example /api/visible_users), then iri prefix should still point to an entity (for example /api/users/)
   iriPrefix: string;
   isDisabled?: boolean;
-  filter?: (model: T) => boolean;
+  filter?: (model: Model) => boolean;
   defaultLabel?: string;
+  onSelected?: (option: Option) => void;
+  mapper?: (model: Model) => Option;
   isClearable?: boolean;
 };
 
-export const EntityDropdownAsyncFilter = <T extends any>(props: Props<T>) => {
+export const EntityDropdownAsyncFilter = <Model extends HasId, Option extends DefaultOption = DefaultOption>(
+  props: Props<Model, Option>
+) => {
   const { fieldName, labelKey, labelKeyComputed, isDisabled, filter, isClearable } = props;
   const iriPrefix = trimRight(props.iriPrefix, '/');
   const endpoint = trimRight(props.endpoint, '/');
@@ -48,6 +55,7 @@ export const EntityDropdownAsyncFilter = <T extends any>(props: Props<T>) => {
               } else {
                 input.onChange(null);
               }
+              props.onSelected?.(e);
             }, 300)}
             value={
               input.value
@@ -67,12 +75,16 @@ export const EntityDropdownAsyncFilter = <T extends any>(props: Props<T>) => {
                 .then((response) => {
                   const data = response.data['hydra:member'];
                   const filteredData = filter ? data.filter(filter) : data;
-                  return filteredData.map((model: any) => {
-                    return {
-                      label: labelKeyComputed ? labelKeyComputed(model) : model[labelKey],
-                      value: `${iriPrefix}/${model.id}`,
-                    };
-                  });
+                  const mapper =
+                    props.mapper ??
+                    ((model) => {
+                      return {
+                        label: labelKeyComputed ? labelKeyComputed(model) : (model as any)[labelKey],
+                        value: `${iriPrefix}/${model.id}`,
+                      };
+                    });
+
+                  return filteredData.map(mapper);
                 });
             }}
           />
