@@ -4,12 +4,10 @@ import { expect } from '@jest/globals';
 
 const response = {
   '@id': '/api/chats/82a8e45e-6b2b-4860-96a3-fbda5cb22755/messages',
-  '@type': 'hydra:Collection',
   'hydra:member': [],
   'hydra:totalItems': 316,
   'hydra:view': {
     '@id': '/api/chats/82a8e45e-6b2b-4860-96a3-fbda5cb22755/messages?page=1',
-    '@type': 'hydra:PartialCollectionView',
     'hydra:first': '/api/chats/82a8e45e-6b2b-4860-96a3-fbda5cb22755/messages?page=1',
     'hydra:last': '/api/chats/82a8e45e-6b2b-4860-96a3-fbda5cb22755/messages?page=11',
     'hydra:next': '/api/chats/82a8e45e-6b2b-4860-96a3-fbda5cb22755/messages?page=2',
